@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8" />
+    <title>Pet Care Clinic | About us</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="root.css" />
+    <link rel="stylesheet" href="aboutUs.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+        <a href="/"> 
+            <div class="logo-wrap">
+                <div class="logo-icon"><img style="width:120%" src="assets/logo.png" alt=""></div>
+                <span class="logo-text">Pet Care Clinic</span>
+            </div>
+        </a>    
+        <nav class="nav">
+            <a href="./index.html" class="nav-link">Нүүр</a>
+            <a href="./aboutUs.html" class="nav-link active">Бидний тухай</a>
+            <a href="./service.html" class="nav-link">Үйлчилгээ</a>
+            <a href="./booking.html" class="nav-link">Цаг захиалах</a>
+            <a href="./contact.html" class="nav-link">Холбоо барих</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn ghost">Нэвтрэх</button>
+            <button class="btn primary">Бүртгүүлэх</button>
+        </div>
+        </div>
+    </header>
+
+    <main>
+    <!-- HERO / ABOUT -->
+    <section id="about" class="section hero">
+        <div class="container hero-inner">
+            <div class="hero-left">
+                <h1>Бидний тухай</h1>
+                <p class="hero-text">
+                Жижиг амьтны эмнэлгийг 2012 онд байгуулснаас хойш, Монголын анхны
+                мэргэжлийн тоног төхөөрөмжтэй малын эмнэлэг болж үйл ажиллагаагаа
+                явуулж байна. Манай багт их эмч, бага эмч, лабораторийн шинжээч,
+                сувилагч зэрэг олон жилийн туршлагатай мэргэжилтнүүд ажилладаг.
+                </p>
+
+                <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-value">14+</div>
+                    <div class="stat-label">Жилийн туршлага</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5,000+</div>
+                    <div class="stat-label">Үйлчлүүлэгч&nbsp;амьтад</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">Сэтгэл ханамж</div>
+                </div>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <!-- Энэ зургийг өөрийнхөөр солино -->
+                <img src="assets/clinic.png" alt="Clinic" class="hero-image" />
+            </div>
+        </div>
+    </section>
+
+    <!-- DOCTORS -->
+    <section id="doctors" class="section doctors">
+        <div class="container">
+        <h2 class="section-title">Манай эмч нар</h2>
+        <p class="section-subtitle">
+            Мэргэшсэн, туршлагатай эмч нар таны амьтдыг эмчилнэ.
+        </p>
+
+        <!-- ДЭЭД 3 КАРТ -->
+        <div class="doctor-cards">
+            <article class="doctor-card small selected">
+            <div class="doctor-head">
+                <img src="./assets/doctor-1.png" alt="Б. Очирням" class="doc-avatar" />
+                <div>
+                <h3 class="doc-name">Б. Очирням</h3>
+                <p class="doc-role">Ерөнхий малын эмч</p>
+                </div>
+            </div>
+            <div class="doc-meta-row">
+                <div class="rating">
+                <span class="stars">★★★★★</span>
+                <span class="score">4.9</span>
+                </div>
+                <span class="badge">124 үнэлгээ</span>
+            </div>
+            <div class="doc-footer">
+                <span class="doc-pill active">Онцлох эмч</span>
+                <span class="doc-pill">3+ жил</span>
+            </div>
+            </article>
+
+            <article class="doctor-card small">
+            <div class="doctor-head">
+                <img src="./assets/doctor-2.png" alt="Т. Батбаяр" class="doc-avatar" />
+                <div>
+                <h3 class="doc-name">Т. Батбаяр</h3>
+                <p class="doc-role">Мэс заслын эмч</p>
+                </div>
+            </div>
+            <div class="doc-meta-row">
+                <div class="rating">
+                <span class="stars">★★★★☆</span>
+                <span class="score">4.6</span>
+                </div>
+                <span class="badge">86 үнэлгээ</span>
+            </div>
+            <div class="doc-footer">
+                <span class="doc-pill">5+ жил</span>
+            </div>
+            </article>
+
+            <article class="doctor-card small">
+            <div class="doctor-head">
+                <img src="./assets/doctor-3.png" alt="Л. Ганхүслэн" class="doc-avatar" />
+                <div>
+                <h3 class="doc-name">Л. Ганхүслэн</h3>
+                <p class="doc-role">Дотоод өвчин</p>
+                </div>
+            </div>
+            <div class="doc-meta-row">
+                <div class="rating">
+                <span class="stars">★★★★☆</span>
+                <span class="score">4.7</span>
+                </div>
+                <span class="badge">47 үнэлгээ</span>
+            </div>
+            <div class="doc-footer">
+                <span class="doc-pill">2+ жил</span>
+            </div>
+            </article>
+        </div>
+
+        <!-- Emch card -->
+        <div class="doctor-card large">
+            <div class="large-header">
+            <div class="large-left">
+                <img src="./assets/doctor-1.png" alt="Б. Очирням" class="large-avatar" />
+                <div>
+                <h3 class="doc-name large-name">Б. Очирням</h3>
+                <p class="doc-role large-role">Ерөнхий малын эмч</p>
+                <div class="rating large-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="score">4.9</span>
+                    <span class="badge">124 үнэлгээ</span>
+                </div>
+                </div>
+            </div>
+            <div class="large-right">
+                <button class="btn outline">Дэлгэрэнгүй</button>
+                <button class="btn primary small">Видеочат</button>
+            </div>
+            </div>
+
+            <p class="doctor-bio">
+            МУИС‑ийн Мал эмнэлгийн сургуулийг 2014 онд төгссөн, их эмч. Нохой, муурны
+            дотоод өвчин, мэс заслын чиглэлээр мэргэшсэн. Эзэдтэй нь ойлголцож,
+            зөвлөгөө өгөхөд онцгой анхаардаг.
+            </p>
+
+            <!-- СЭТГЭГДЭЛ -->
+            <div class="reviews-header">
+            <h4>Үйлчлүүлэгчдийн сэтгэгдэл</h4>
+            <span class="reviews-count">3 сэтгэгдэл</span>
+            </div>
+
+            <ul class="reviews">
+            <li class="review">
+                <div class="review-top">
+                <div>
+                    <span class="review-author">В. Сүрэн</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+                <span class="review-date">2024‑01‑25</span>
+                </div>
+                <p class="review-text">
+                Маш сайхан харьцаатай, мэргэжлийн эмч байлаа. Манай нохой хурдан эдгэрсэн.
+                </p>
+            </li>
+            <li class="review">
+                <div class="review-top">
+                <div>
+                    <span class="review-author">Д. Болд</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+                <span class="review-date">2024‑01‑18</span>
+                </div>
+                <p class="review-text">
+                Тайлбар сайтай, эмчилгээний үе шатыг ойлгомжтой хэлж өгсөн.
+                </p>
+            </li>
+            <li class="review">
+                <div class="review-top">
+                <div>
+                    <span class="review-author">Г. Наран</span>
+                    <span class="stars">★★★★☆</span>
+                </div>
+                <span class="review-date">2024‑01‑10</span>
+                </div>
+                <p class="review-text">
+                Бүх зүйл дажгүй байсан, дахин үйлчлүүлэх болно.
+                </p>
+            </li>
+            </ul>
+
+            <!-- REVIEW FORM -->
+            <form class="review-form">
+            <label for="review" class="review-label">Сэтгэгдэл үлдээх</label>
+            <textarea id="review" rows="3" placeholder="Сэтгэгдлээ бичнэ үү..."></textarea>
+            <div class="review-actions">
+                <button type="button" class="btn ghost small">Цуцлах</button>
+                <button type="submit" class="btn primary small">Илгээх</button>
+            </div>
+            </form>
+
+            <div class="center">
+            <button class="btn primary big">Энэ эмчид цаг авах</button>
+            </div>
+        </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-inner">
+        <div class="footer-col">
+            <div class="logo-wrap footer-logo">
+            <div class="logo-icon small">P</div>
+            <span class="logo-text">Pet Care Clinic</span>
+            </div>
+            <p class="footer-text">
+            Таны тэжээвэр амьтны эрүүл мэнд, аз жаргалын төлөө бид өдөр бүр ажиллаж байна.
+            </p>
+        </div>
+        <div class="footer-col">
+            <h5 class="footer-title">Хаяг &amp; холбоо барих</h5>
+            <p>Улаанбаатар хот, Сүхбаатар ��үүрэг, 1‑р хороо</p>
+            <p>Утас: +976 7700‑2233</p>
+            <p>И‑мэйл: info@petclinic.mn</p>
+        </div>
+        <div class="footer-col">
+            <h5 class="footer-title">Ажлын цаг</h5>
+            <p>Даваа–Баасан: 09:00–19:00</p>
+            <p>Бямба: 10:00–16:00</p>
+            <p>Ням: Амарна</p>
+        </div>
+        </div>
+        <div class="footer-bottom">
+        © 2026 Pet Care Clinic. Бүх эрх хуулиар хамгаалагдсан.
+        </div>
+    </footer>
+</body>
+</html>
