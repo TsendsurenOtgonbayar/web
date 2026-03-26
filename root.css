@@ -1,3 +1,93 @@
-:root{
-    --main-color: 
+:root {
+  /* Global colors */
+  --background: rgb(248, 246, 240);              /* App background, main page background */
+  --foreground: rgb(36, 48, 53);                 /* Default text color on background */
+
+  --card: rgb(255, 255, 255);                    /* Card component background (panels, boxes) */
+  --card-foreground: rgb(36, 48, 53);            /* Text color inside cards */
+
+  --popover: rgb(255, 255, 255);                 /* Popover, dropdown, tooltip background */
+  --popover-foreground: rgb(36, 48, 53);         /* Text/icon color inside popovers */
+
+  --primary: rgb(53, 194, 144);                  /* Main brand color – primary buttons, links, highlights */
+  --primary-foreground: rgb(255, 255, 255);      /* Text/icon color on primary background (e.g. on primary button) */
+
+  --secondary: rgb(247, 243, 235);               /* Secondary surfaces: subtle sections, secondary buttons */
+  --secondary-foreground: rgb(36, 48, 53);       /* Text/icon on secondary background */
+
+  --muted: rgb(242, 238, 230);                   /* Muted backgrounds – tags, subtle blocks, placeholders */
+  --muted-foreground: rgb(117, 128, 133);        /* Muted text – helper text, placeholders, disabled labels */
+
+  --accent: rgb(247, 133, 63);                   /* Accent color – special CTAs, highlights, badges */
+  --accent-foreground: rgb(255, 255, 255);       /* Text/icon on accent background */
+
+  --destructive: rgb(239, 68, 68);               /* Error/danger – delete buttons, error states */
+  --destructive-foreground: rgb(255, 255, 255);  /* Text/icon on destructive background */
+
+  --border: rgb(222, 226, 229);                  /* Default border color – cards, inputs, dividers */
+  --input: rgb(222, 226, 229);                   /* Input borders, input outlines */
+  --ring: rgb(53, 194, 144);                     /* Focus ring / outline color (focus-visible) */
+
+  --logo-border-radius: .30rem;                  /* Logo box border radius */
+  --radius: .75rem;                              /* Border radius for cards, buttons, inputs */
+
+  --sidebar-background: rgb(250, 250, 250);      /* Sidebar background (navigation panel) */
+  --sidebar-foreground: rgb(54, 55, 59);         /* Text color in sidebar */
+  --sidebar-primary: rgb(53, 194, 144);          /* Primary sidebar items – active nav item, logo highlight */
+  --sidebar-primary-foreground: rgb(250, 250, 250); /* Text/icon on primary sidebar items */
+
+  --sidebar-accent: rgb(244, 244, 245);          /* Hover/selected background in sidebar, subtle accents */
+  --sidebar-accent-foreground: rgb(15, 15, 16);  /* Text/icon color on sidebar accent background */
+
+  --sidebar-border: rgb(229, 231, 235);          /* Border between sidebar and main content, sidebar dividers */
+  --sidebar-ring: rgb(53, 194, 144);             /* Focus ring / active outline for sidebar items */
+
+  --font-family: Arial, Helvetica, sans-serif;   /* Global font stack */
+}
+body {
+  background-color: white;
+  color: var(--foreground);
+  font-family: var(--font-family);
+  margin: 0;
+}
+header {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 2px solid var(--foreground);
+  height: 6vh;
+}
+header * {
+  align-content: center;
+}
+/* #logo a{
+    text-underline-offset: ;
+} */
+#logo-box {
+  width: 30px;
+  height: 30px;
+  background-color: var(--primary);
+  border-radius: var(--logo-border-radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#logo-box > svg {
+  color: var(--accent-foreground);
+}
+#logo span {
+    font-family: var(--font-family);
+    font-size: 21px;
+    font-weight: bold;
+    font-style: normal;
+    color: var(--foreground);  
+}
+a{
+    text-decoration: none;
+}
+header nav a{
+    padding: 16px;
+    padding-top: 48px;
+    color: var(--foreground);
 }
