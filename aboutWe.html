@@ -3,10 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="root.css">
     <title>Document</title>
+    <style>
+    header nav a:nth-child(2){
+      color: var(--primary);
+      background-color: var(--button-bg-color);
+      border-radius: var(--button-border-radius);
+    }
+    </style>
 </head>
 <body>
+    <header>
+        <div id="logo">
+            <a href="index.html">
+                <div id="logo-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart w-5 h-5 text-primary-foreground"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                </div>
+                <span>Pet Care Clinic</span>
+            </a>
+        </div>
+        <nav>
+                <a href="index.html">Нүүр</a>
+                <a href="aboutWe.html">Бидний тухай</a>
+                <a href="service.html">Үйлчилгээ</a>
+                <a href="booking.html">Цаг захиалах</a>
+                <a href="contact.html">Холбоо барих</a>
+        </nav>
+        <div id="log-in">
+            <a href="logIn.html"><button id="ehni-button">Нэвтрэх</button></a>
+            <a href="logIn.html"><button id="udaah-button">Бүртгүүлэх</button></a>
+        </div>
+    </header>
     <h1>About Us</h1>
     <p>We are a team of passionate developers dedicated to creating amazing web applications.       </p>
+    <Footer>
+        <div>
+            <div id="logo-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart w-5 h-5 text-primary-foreground"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+            </div>
+            <span>Pet Care Clinic</span>
+            <p>Таны тэжээвэр амьтны эрүүл мэнд, аз жаргалыг хамгийн түрүүнд тавьдаг мэргэжлийн эмнэлэг.</p>
+        </div>
+        <div> 
+            <h3>Холбоо барих</h3>
+            <ul>
+                <li>УБ, Сүхбаатар дүүрэг,1-р хороо</li>
+                <li>+976 9999999</li>
+                <li>info@vetclinic.mn</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Ажлын цаг</h3>
+            <ul>
+                <li>Даваа–Баасан: 09:00–18:00</li>
+                <li>Бямба: 10:00–15:00</li>
+                <li>Ням: Амарна</li>
+            </ul>
+        </div>
+        <p>&copy; 2026 Petcare clinic. Бүх эрх хуулиар хамгаалагдсан.</p>
+    </Footer>
 </body>
 </html>
