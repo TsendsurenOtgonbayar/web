@@ -126,13 +126,6 @@ header nav a:hover{
   border-color: var(--sidebar-primary);
 }
 /* FOOTER hesegiin bichleg */
-footer{
-  color: var(--footer-text-color);
-  background-color: var(--footer-foreground);
-  display: grid;
-  grid-template-columns: 30% 30% 30%;
-  justify-content: center;
-}
 footer h3{
   color: white;
 }
@@ -142,18 +135,65 @@ footer #logo-box{
 footer #logo-box+span{
   color: white;
 }
-footer div{
+.hol-list{
   padding: 48px;
   padding-left:16px;
   padding-right: 16px;
 }
-/* footer p{
-  
-} */
+.hol-list:nth-child(1){
+  grid-area: hol1;
+  border-width: 1;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: rgba(252, 250, 248, 0.1);
+  padding-bottom: 38px;
+}
+.hol-list:nth-child(2){
+  grid-area: hol2;
+  border-width: 1;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: rgba(252, 250, 248, 0.1);
+  padding-bottom: 38px;
+}
+.hol-list:nth-child(3){
+  grid-area: hol3;
+  border-width: 1;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: rgba(252, 250, 248, 0.1);
+  padding-bottom: 38px;
+}
+footer>p{
+  grid-area: co;
+}
 ul{
   list-style-type: none;
+}
+footer div ul{
+padding-left: 0;
+}
+footer div ul li{
+  padding-bottom: 10px;
 }
 footer div  ul li svg{
   width: 15px;
   height: 15px;
+  color: var(--primary);
+}
+footer{
+  color: var(--footer-text-color);
+  background-color: var(--footer-foreground);
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  justify-content: center;
+  grid-template-areas: 
+      'hol1 hol2 hol3'
+      '. co .';
 }
