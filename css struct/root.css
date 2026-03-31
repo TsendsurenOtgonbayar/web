@@ -33,6 +33,7 @@
   --radius: .75rem;                              /* Border radius for cards, buttons, inputs */
   --white-buttons-bg-color:rgb(252, 250, 248);
   --white-buttons-border-color:rgb(220, 226, 229);
+  --huchgui-text-color: rgb(106, 121, 129);
 
   --sidebar-primary: rgb(53, 194, 144);          /* Primary sidebar items – active nav item, logo highlight */
   --sidebar-border: rgb(229, 231, 235);          /* Border between sidebar and main content, sidebar dividers */
@@ -95,7 +96,7 @@ header nav a{
     padding: 16px;
     padding-top: 8px;
     padding-bottom: 8px;
-    color: rgb(106, 121, 129);
+    color: var(--huchgui-text-color);
 }
 header nav a:hover{
   border-radius: var(--button-border-radius);

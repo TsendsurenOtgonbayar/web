@@ -18,15 +18,15 @@
 
   --accent: rgb(247, 133, 63);                   /* Accent color – special CTAs, highlights, badges */
 
-
 --button-bg-color:rgba(42, 157, 142, 0.1);
   --logo-border-radius: .30rem;                  /* Logo box border radius */
   --button-border-radius:.60rem;
   --radius: .75rem;                              /* Border radius for cards, buttons, inputs */
   --white-buttons-bg-color:rgb(252, 250, 248);
   --white-buttons-border-color:rgb(220, 226, 229);
---font-size: ;
-  --font-family: Arial, Helvetica, sans-serif;   /* Global font stack */
+   --huchgui-text-color: rgb(106, 121, 129);
+
+  --font-family: Inter, sans-serif;   /* Global font stack */
 }
 html{
     font-size: 16px;
@@ -37,14 +37,19 @@ html{
 #padding-con{
     display: flex;
     flex-wrap: nowrap;
-    padding: 5rem;
-    padding-top: 7rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+    margin-left: 35px;
+    margin-right: 35px;
 }
 #Ehnii-con{
     flex: 2;
     display: flex;
-    flex-wrap: wrap;
-    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-around;
 }
 #Ehnii-con svg{
     width: 15px;
@@ -52,6 +57,7 @@ html{
     padding: 3px;
 }
 #Ehnii-con p:nth-child(1){
+    width: max-content;
     height: max-content;
     padding: 12px;
     padding-bottom: 4px;
@@ -62,7 +68,7 @@ html{
     color: var(--primary);
 }
 #Ehnii-con h1{
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
     margin: 0;
     line-height: 1;
@@ -70,15 +76,24 @@ html{
 #Ehnii-con h1 span{
     color: var(--primary);
 }
+#Ehnii-con>h1+span{
+    color: var(--huchgui-text-color);
+    font-size: 18px;
+}
+#Switch-pages{
+    display: flex;
+    flex-wrap: nowrap;
+}
 #Ehnii-zur{
     flex: 2;
-    
+    display: flex;
+    justify-content: center;
 }
 #Ehnii-zur img{
     width: 30vw;
     height: 65vh;
     border-radius: var(--radius);
-    align-content: center;
+    justify-content: center;
 }
 /* second section start here */
 #statistic{
