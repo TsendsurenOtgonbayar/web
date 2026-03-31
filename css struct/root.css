@@ -49,11 +49,15 @@ body {
 /* HEADER hesgiin bihcleg */
 header {
   display: flex;
+  background-color: white;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-around;
   border-bottom: 1px solid var(--muted-foreground);
   height: 7.3vh;
+  position: sticky;
+  top: 0;
+  width: 100%;
 }
 header * {
   align-content: center;

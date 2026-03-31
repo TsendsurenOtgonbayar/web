@@ -1,0 +1,98 @@
+:root {
+  /* Global colors */
+  --background: rgb(248, 246, 240);              /* App background, main page background */
+  --foreground: rgb(36, 48, 53);                 /* Default text color on background */
+
+  --footer-text-color:rgba(252, 250, 248, 0.8);                    /* Card component background (panels, boxes) */
+  --footer-foreground: rgb(37, 49, 55);            /* Text color inside cards */
+
+  --popover: rgb(255, 255, 255);                 /* Popover, dropdown, tooltip background */
+  --popover-foreground: rgb(36, 48, 53);         /* Text/icon color inside popovers */
+
+  --primary: rgb(42, 157, 142);                  /* Main brand color – primary buttons, links, highlights */
+  --primary-foreground: rgb(255, 255, 255);      /* Text/icon color on primary background (e.g. on primary button) */
+
+  --secondary: rgb(247, 243, 235);               /* Secondary surfaces: subtle sections, secondary buttons */
+  --secondary-foreground: rgb(36, 48, 53);       /* Text/icon on secondary background */
+
+
+  --accent: rgb(247, 133, 63);                   /* Accent color – special CTAs, highlights, badges */
+
+
+--button-bg-color:rgba(42, 157, 142, 0.1);
+  --logo-border-radius: .30rem;                  /* Logo box border radius */
+  --button-border-radius:.60rem;
+  --radius: .75rem;                              /* Border radius for cards, buttons, inputs */
+  --white-buttons-bg-color:rgb(252, 250, 248);
+  --white-buttons-border-color:rgb(220, 226, 229);
+--font-size: ;
+  --font-family: Arial, Helvetica, sans-serif;   /* Global font stack */
+}
+html{
+    font-size: 16px;
+}
+*{
+    font-family: var(--font-family);
+}
+#padding-con{
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 5rem;
+    padding-top: 7rem;
+}
+#Ehnii-con{
+    flex: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+#Ehnii-con svg{
+    width: 15px;
+    height: 15px;
+    padding: 3px;
+}
+#Ehnii-con p:nth-child(1){
+    height: max-content;
+    padding: 12px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    display: inline-flex;
+    border-radius: var(--radius);
+    background-color: rgba(42, 157, 142, 0.1);
+    color: var(--primary);
+}
+#Ehnii-con h1{
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1;
+}
+#Ehnii-con h1 span{
+    color: var(--primary);
+}
+#Ehnii-zur{
+    flex: 2;
+    
+}
+#Ehnii-zur img{
+    width: 30vw;
+    height: 65vh;
+    border-radius: var(--radius);
+    align-content: center;
+}
+/* second section start here */
+#statistic{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    background-color: var(--primary);
+    color: var(--popover);
+}
+#statistic article{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+/* #statistci article h1{
+
+} */
