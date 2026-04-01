@@ -1,88 +1,109 @@
-:root {
-  /* Global colors */
-  --background: rgb(248, 246, 240);              /* App background, main page background */
-  --foreground: rgb(36, 48, 53);                 /* Default text color on background */
-
-  --footer-text-color:rgba(252, 250, 248, 0.8);                    /* Card component background (panels, boxes) */
-  --footer-foreground: rgb(37, 49, 55);            /* Text color inside cards */
-
-  --popover: rgb(255, 255, 255);                 /* Popover, dropdown, tooltip background */
-  --popover-foreground: rgb(36, 48, 53);         /* Text/icon color inside popovers */
-
-  --primary: rgb(42, 157, 142);                  /* Main brand color – primary buttons, links, highlights */
-  --primary-foreground: rgb(255, 255, 255);      /* Text/icon color on primary background (e.g. on primary button) */
-
-  --secondary: rgb(247, 243, 235);               /* Secondary surfaces: subtle sections, secondary buttons */
-  --secondary-foreground: rgb(36, 48, 53);       /* Text/icon on secondary background */
-
-
-  --accent: rgb(247, 133, 63);                   /* Accent color – special CTAs, highlights, badges */
-
---button-bg-color:rgba(42, 157, 142, 0.1);
-  --logo-border-radius: .30rem;                  /* Logo box border radius */
-  --button-border-radius:.60rem;
-  --radius: .75rem;                              /* Border radius for cards, buttons, inputs */
-  --white-buttons-bg-color:rgb(252, 250, 248);
-  --white-buttons-border-color:rgb(220, 226, 229);
-   --huchgui-text-color: rgb(106, 121, 129);
-
-  --font-family: Inter, sans-serif;   /* Global font stack */
-}
 html{
-    font-size: 16px;
+    font-size: var(--font-size-base);
 }
 *{
-    font-family: var(--font-family);
+    font-family: var(--font-family-primary);
 }
 #padding-con{
     display: flex;
-    flex-wrap: nowrap;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    padding-bottom: 3rem;
-    padding-top: 3rem;
-    margin-left: 35px;
-    margin-right: 35px;
+    padding-right: var(--section-padding);
+    padding-left: var(--section-padding);
+    padding-bottom: var(--container-padding-y);
+    padding-top: var(--container-padding-y);
+    margin-left: var(--container-padding-x);
+    margin-right: var(--container-padding-x);
 }
 #Ehnii-con{
     flex: 2;
     display: flex;
-    flex-wrap: nowrap;
     flex-direction: column;
     justify-content: space-around;
 }
 #Ehnii-con svg{
-    width: 15px;
-    height: 15px;
+    width: var(--icon-sm);
+    height: var(--icon-sm);
     padding: 3px;
 }
 #Ehnii-con p:nth-child(1){
     width: max-content;
     height: max-content;
-    padding: 12px;
-    padding-bottom: 4px;
-    padding-top: 4px;
+    padding: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    padding-top: var(--spacing-xs);
     display: inline-flex;
-    border-radius: var(--radius);
-    background-color: rgba(42, 157, 142, 0.1);
+    border-radius: var(--radius-lg);
+    background-color: var(--primary-light);
     color: var(--primary);
 }
 #Ehnii-con h1{
-    font-size: 4rem;
-    font-weight: bold;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     margin: 0;
-    line-height: 1;
+    line-height: var(--line-height-tight);
 }
 #Ehnii-con h1 span{
     color: var(--primary);
 }
 #Ehnii-con>h1+span{
-    color: var(--huchgui-text-color);
-    font-size: 18px;
+    color: var(--text-secondary);
+    font-size: var(--font-size-md);
 }
-#Switch-pages{
-    display: flex;
-    flex-wrap: nowrap;
+#SwitchPages{
+    display: inline-flex;
+    flex-direction: row;
+}
+#SwitchPages a:nth-child(1) button{
+    height: var(--button-height-md);
+    padding: var(--spacing-sm);
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+    border-style: solid;
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-lg);
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+    font-weight: var(--font-weight-bold);
+    margin-right: 0.5rem;
+}
+#SwitchPages a:nth-child(1) button:hover{
+    background-color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+    box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--muted-foreground);
+}
+#SwitchPages a:nth-child(2) button{
+    height: var(--button-height-md);
+    padding: var(--spacing-sm);
+    padding-left: var(--spacing-3xl);
+    padding-right: var(--spacing-3xl);
+    border-style: solid;
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-lg);
+    background-color: var(--button-light-bg);
+    border-color: var(--text-secondary);
+    border-width: var(--border-thin);
+    color: var(--foreground);
+    margin-right: 0.5rem;
+}
+#SwitchPages a:nth-child(2) button:hover{
+    background-color: var(--accent);
+    color: var(--white);
+    border-color: var(--muted-foreground);
+}
+#unelgee{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+}
+#fiveStar svg{
+    color: var(--accent);
+    fill: var(--accent);
+}
+#fiveStar+span{
+    padding-left: var(--spacing-3xl);
+    color: var(--text-secondary);
 }
 #Ehnii-zur{
     flex: 2;
@@ -90,10 +111,11 @@ html{
     justify-content: center;
 }
 #Ehnii-zur img{
-    width: 30vw;
-    height: 65vh;
-    border-radius: var(--radius);
+    width: var(--hero-image-width);
+    height: var(--hero-image-height);
+    border-radius: var(--radius-lg);
     justify-content: center;
+    box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-clr-dark);
 }
 /* second section start here */
 #statistic{
@@ -101,13 +123,76 @@ html{
     flex-wrap: nowrap;
     justify-content: space-evenly;
     background-color: var(--primary);
-    color: var(--popover);
+    color: var(--popover-bg);
 }
 #statistic article{
     display: flex;
     flex-direction: column;
-    margin: 0;
+    align-items: center; 
+    justify-content: center;
+    height: calc(3*var(--header-height));   
 }
-/* #statistci article h1{
+#statistic article h2{
+    margin-bottom: 0;
+    font-size: var(--font-size-3l);
+}
+#statistic article p{
+    margin-top: var(--spacing-sm);
+    color: rgba(255, 255, 255, 0.7);
+}
+/* serviceContent hesgiin bichleg ehelj bn */
+#serviceContent{
+    background-color: var(--footer-text);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: var(--section-padding);
+    padding-right: var(--section-padding);
+}
+#serviceContent p{
+    text-align: center;
+}
+#serviceContent section:nth-of-type(1){
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: var(--spacing-lg);
+    width: 100%;
+}
+#serviceContent article{
+    background-color: var(--popover-bg);
+    height: calc(4*var(--header-height));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: var(--spacing-sm);
+    padding-left: var(--spacing-sm);
+    border-width: var(--border-thin);
+    border-style: solid;
+    border-color: var(--muted-foreground);
+    border-radius: var(--radius-lg);
 
-} */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#serviceContent article:hover{
+    box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--muted-foreground);
+    transform: scale(1.05);
+    border-color: var(--primary);
+}
+#serviceContent section:nth-of-type(1) article{
+     flex: 1;
+}
+#serviceContent section:nth-of-type(2){
+    margin-top: var(--spacing-lg);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: var(--spacing-lg);
+    width: 100%;
+}
+#serviceContent section:nth-of-type(2) article{
+     flex: 1;
+}

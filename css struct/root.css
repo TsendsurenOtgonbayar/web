@@ -1,61 +1,118 @@
 :root {
-  /* Global colors */
-  --background: rgb(248, 246, 240);              /* App background, main page background */
-  --foreground: rgb(36, 48, 53);                 /* Default text color on background */
+  /* ========== ӨНГӨНИЙ СИСТЕМ ========== */
+  
+  /* Үндсэн өнгөнүүд */
+  --foreground: rgb(36, 48, 53);                 /* Үндсэн текстийн өнгө */
+  --white: rgb(255, 255, 255);                   /* Цагаан өнгө */
 
-  --footer-text-color:rgba(252, 250, 248, 0.8);                    /* Card component background (panels, boxes) */
-  --footer-foreground: rgb(37, 49, 55);            /* Text color inside cards */
+  /* Брэндийн үндсэн өнгө - Ногоон */
+  --primary: rgb(42, 157, 142);                  /* Үндсэн ногоон өнгө - товч, холбоос, highlight */
+  --primary-foreground: rgb(255, 255, 255);      /* Ногоон дээрх текст/icon өнгө */
+  --primary-light: rgba(42, 157, 142, 0.1);      /* Цайвар ногоон - дэвсгэр зориулалт */
 
-  --popover: rgb(255, 255, 255);                 /* Popover, dropdown, tooltip background */
-  --popover-foreground: rgb(36, 48, 53);         /* Text/icon color inside popovers */
+  /* Хоёрдогч өнгө - Саарал */
+  --secondary: rgb(247, 243, 235);               /* Хоёрдогч дэвсгэр өнгө */
+  --secondary-foreground: rgb(36, 48, 53);       /* Хоёрдогч дэвсгэр дээрх текст */
 
-  --primary: rgb(42, 157, 142);                  /* Main brand color – primary buttons, links, highlights */
-  --primary-foreground: rgb(255, 255, 255);      /* Text/icon color on primary background (e.g. on primary button) */
+  /* Онцлох өнгө - Улбар шар */
+  --accent: rgb(247, 133, 63);                   /* Онцлох улбар шар - CTA товч, анхаарал татах элементүүд */
+  --accent-secondary:rgba(247,133,63,0.9);      /*hover hihed haragdah ongo */
+  --accent-foreground: rgb(255, 255, 255);       /* Улбар шар дээрх текст өнгө */
 
-  --secondary: rgb(247, 243, 235);               /* Secondary surfaces: subtle sections, secondary buttons */
-  --secondary-foreground: rgb(36, 48, 53);       /* Text/icon on secondary background */
+  /* Хүчингүй/Хөнгөн текст */
+  --muted-foreground: rgb(117, 128, 133);        /* Хүчингүй текст - placeholder, disabled */
+  --text-secondary: rgb(106, 121, 129);          /* Хоёрдогч текстийн өнгө - тайлбар, дэд мэдээлэл */
 
-  --muted: rgb(242, 238, 230);                   /* Muted backgrounds – tags, subtle blocks, placeholders */
-  --muted-foreground: rgb(117, 128, 133);        /* Muted text – helper text, placeholders, disabled labels */
+  /* Footer өнгөнүүд */
+  --footer-bg: rgb(37, 49, 55);                  /* Footer дэвсгэр өнгө - хар саарал */
+  --footer-text: rgba(252, 250, 248, 0.8);       /* Footer текстийн өнгө - цагаан 80% */
+  --footer-border: rgba(252, 250, 248, 0.1);     /* Footer доторх зураас - цагаан 10% */
 
-  --accent: rgb(247, 133, 63);                   /* Accent color – special CTAs, highlights, badges */
-  --accent-foreground: rgb(255, 255, 255);       /* Text/icon on accent background */
+  /* Товчны өнгөнүүд */
+  --button-light-bg: rgb(252, 250, 248);         /* Цагаан товчны дэвсгэр */
+  --button-light-border: rgb(220, 226, 229);     /* Цагаан товчны хүрээ */
 
-  --destructive: rgb(239, 68, 68);               /* Error/danger – delete buttons, error states */
-  --destructive-foreground: rgb(255, 255, 255);  /* Text/icon on destructive background */
+  /* Sidebar өнгөнүүд */
+  --sidebar-primary: rgba(42, 157, 142, 0.1);          /* Sidebar идэвхтэй элемент */
 
-  --border: rgb(222, 226, 229);                  /* Default border color – cards, inputs, dividers */
-  --input: rgb(222, 226, 229);                   /* Input borders, input outlines */
-  --ring: rgb(53, 194, 144);                     /* Focus ring / outline color (focus-visible) */
---button-bg-color:rgba(42, 157, 142, 0.1);
-  --logo-border-radius: .30rem;                  /* Logo box border radius */
-  --button-border-radius:.60rem;
-  --radius: .75rem;                              /* Border radius for cards, buttons, inputs */
-  --white-buttons-bg-color:rgb(252, 250, 248);
-  --white-buttons-border-color:rgb(220, 226, 229);
-  --huchgui-text-color: rgb(106, 121, 129);
+  /* Popover дэвсгэр */
+  --popover-bg: rgb(255, 255, 255);              /* Popover дэвсгэр */
 
-  --sidebar-primary: rgb(53, 194, 144);          /* Primary sidebar items – active nav item, logo highlight */
-  --sidebar-border: rgb(229, 231, 235);          /* Border between sidebar and main content, sidebar dividers */
-  --sidebar-ring: rgb(53, 194, 144);             /* Focus ring / active outline for sidebar items */
+  /* ========== ХЭМЖЭЭСҮҮД ========== */
+  
+  /* Зай, padding */
+  --spacing-xs: 4px;                             /* Маш жижиг зай */
+  --spacing-sm: 8px;                             /* Жижиг зай */
+  --spacing-md: 12px;                            /* Дунд зай */
+  --spacing-lg: 16px;                            /* Том зай */
+  --spacing-3xl: 48px;                           /* Хамгийн том зай */
 
-  --font-family: Arial, Helvetica, sans-serif;   /* Global font stack */
+  /* Container margin/padding */
+  --container-padding-x: 35px;                   /* Контейнерын хажуугийн зай */
+  --container-padding-y: 3rem;                   /* Контейнерын дээд доод зай */
+  --section-padding: 1rem;                       /* Section доторх padding */
+
+  /* Өндөр */
+  --header-height: 7.3vh;                        /* Header-ийн өндөр */
+  --button-height-sm: 36px;                      /* Жижиг товчны өндөр */
+  --button-height-md: 48px;                      /* Дунд товчны өндөр */
+  --logo-size: 40px;                             /* Лого хайрцагийн хэмжээ */
+  --icon-sm: 15px;                               /* Жижиг icon хэмжээ */
+  --icon-md: 20px;                               /* Дунд icon хэмжээ */
+
+  /* Border radius - Булан дугуйруулалт */
+  --radius-sm: 0.30rem;                          /* Жижиг дугуй булан - лого */
+  --radius-md: 0.60rem;                          /* Дунд дугуй булан - товч, nav */
+  --radius-lg: 0.75rem;                          /* Том дугуй булан - карт, зураг */
+  --radius-xl: 10px;                             /* Маш том дугуй булан */
+
+  /* Border thickness */
+  --border-thin: 1px;                            /* Нимгэн хүрээ */
+
+  /* Font хэмжээ */
+  --font-size-base: 16px;                        /* Үндсэн фонт хэмжээ */
+  --font-size-md: 18px;                          /* Дунд текст */
+  --font-size-lg: 21px;                          /* Том текст - лого */
+  --font-size-2l:32px;
+  --font-size-3l:40px;
+  --font-size-xl: 4rem;                          /* Маш том - гарчиг */
+
+  /* Font бүдүүн */
+  --font-weight-bold: 700;                       /* Бүдүүн */
+
+  /* Font family */
+  --font-family-primary: Inter, Arial, Helvetica, sans-serif;  /* Үндсэн фонт */
+
+  /* Grid хэмжээ */
+  --footer-grid-col: 30%;                        /* Footer grid багана */
+
+  /* Зураг хэмжээ */
+  --hero-image-width: 30vw;                      /* Hero зургийн өргөн */
+  --hero-image-height: 65vh;                     /* Hero зургийн өндөр */
+
+  /* Line height */
+  --line-height-tight: 1;                        /* Нягт мөр өндөр */
+  /* shadow hemjee */
+  --shadow-blur:10px;
+  --shadow-x: 2px;
+  --shadow-y:2px;
+  --shadow-clr-dark:rgb(85, 85, 85);
 }
 body {
-  background-color: white;
+  background-color: var(--white);
   color: var(--foreground);
-  font-family: var(--font-family);
+  font-family: var(--font-family-primary);
   margin: 0;
 }
 /* HEADER hesgiin bihcleg */
 header {
   display: flex;
-  background-color: white;
+  background-color: var(--white);
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-around;
-  border-bottom: 1px solid var(--muted-foreground);
-  height: 7.3vh;
+  border-bottom: var(--border-thin) solid var(--muted-foreground);
+  height: var(--header-height);
   position: sticky;
   top: 0;
   width: 100%;
@@ -64,23 +121,23 @@ header * {
   align-content: center;
 }
 #logo-box {
-  width: 40px;
-  height: 40px;
+  width: var(--logo-size);
+  height: var(--logo-size);
   background-color: var(--primary);
-  border-radius: var(--logo-border-radius);
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
 }
-#logo-box > svg {
+#logo-box>svg {
   color: var(--accent-foreground);
-  width: 20px;
+  width: var(--icon-md);
 }
-#logo-box+span {
-    font-family: var(--font-family);
-    font-size: 21px;
-    font-weight: bold;
+#logo-box+span{
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     font-style: normal;
     color: var(--foreground);  
     position: relative;
@@ -93,37 +150,36 @@ header nav{
   display: flex;
 }
 header nav a{
-    padding: 16px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    color: var(--huchgui-text-color);
+    padding: var(--spacing-lg);
+    padding-top: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    color: var(--text-secondary);
 }
 header nav a:hover{
-  border-radius: var(--button-border-radius);
+  border-radius: var(--radius-md);
   color: var(--secondary-foreground);
   background-color: var(--secondary);
 }
 #log-in button{
-  height: 36px;
-  padding-left:12px;
-  padding-top:0 ;
+  height: var(--button-height-sm);
+  padding-left: var(--spacing-md);
+  padding-top: 0;
   padding-bottom: 0;
-  padding-right: 12px;
-  border-radius: 10px;
-  border-width: 1px;
+  padding-right: var(--spacing-md);
+  border-radius: var(--radius-xl);
+  border-width: var(--border-thin);
   border-style: solid;
-  row-gap: 8px;
+  row-gap: var(--spacing-sm);
   tab-size: 4;
 }
 #ehni-button{
-  background-color: var(--white-buttons-bg-color);
-  border-color: var(--white-buttons-border-color);
-  
+  background-color: var(--button-light-bg);
+  border-color: var(--button-light-border);
 }
 #ehni-button:hover{
   background-color: var(--accent);
   color: var(--primary-foreground);
-  border-color: var(--white-buttons-border-color);
+  border-color: var(--button-light-border);
 }
 #udaah-button{
   background-color: var(--primary);
@@ -132,47 +188,47 @@ header nav a:hover{
 }
 /* FOOTER hesegiin bichleg */
 footer h3{
-  color: white;
+  color: var(--white);
 }
 footer #logo-box{
   padding: 0;
 }
 footer #logo-box+span{
-  color: white;
+  color: var(--white);
 }
 .hol-list{
-  padding: 48px;
-  padding-left:16px;
-  padding-right: 16px;
+  padding: var(--spacing-3xl);
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
 }
 .hol-list:nth-child(1){
   grid-area: hol1;
-  border-width: 1;
+  border-width: var(--border-thin);
   border-left: 0;
   border-top: 0;
   border-right: 0;
   border-style: solid;
-  border-color: rgba(252, 250, 248, 0.1);
+  border-color: var(--footer-border);
   padding-bottom: 38px;
 }
 .hol-list:nth-child(2){
   grid-area: hol2;
-  border-width: 1;
+  border-width: var(--border-thin);
   border-left: 0;
   border-top: 0;
   border-right: 0;
   border-style: solid;
-  border-color: rgba(252, 250, 248, 0.1);
+  border-color: var(--footer-border);
   padding-bottom: 38px;
 }
 .hol-list:nth-child(3){
   grid-area: hol3;
-  border-width: 1;
+  border-width: var(--border-thin);
   border-left: 0;
   border-top: 0;
   border-right: 0;
   border-style: solid;
-  border-color: rgba(252, 250, 248, 0.1);
+  border-color: var(--footer-border);
   padding-bottom: 38px;
 }
 footer>p{
@@ -182,21 +238,21 @@ ul{
   list-style-type: none;
 }
 footer div ul{
-padding-left: 0;
+  padding-left: 0;
 }
 footer div ul li{
   padding-bottom: 10px;
 }
 footer div  ul li svg{
-  width: 15px;
-  height: 15px;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
   color: var(--primary);
 }
 footer{
-  color: var(--footer-text-color);
-  background-color: var(--footer-foreground);
+  color: var(--footer-text);
+  background-color: var(--footer-bg);
   display: grid;
-  grid-template-columns: 30% 30% 30%;
+  grid-template-columns: var(--footer-grid-col) var(--footer-grid-col) var(--footer-grid-col);
   justify-content: center;
   grid-template-areas: 
       'hol1 hol2 hol3'
