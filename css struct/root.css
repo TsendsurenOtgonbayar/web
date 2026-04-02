@@ -7,6 +7,7 @@
 
   /* Брэндийн үндсэн өнгө - Ногоон */
   --primary: rgb(42, 157, 142);                  /* Үндсэн ногоон өнгө - товч, холбоос, highlight */
+  --primary-logo-bg:rgba(42, 157, 142,0.2);
   --primary-foreground: rgb(255, 255, 255);      /* Ногоон дээрх текст/icon өнгө */
   --primary-light: rgba(42, 157, 142, 0.1);      /* Цайвар ногоон - дэвсгэр зориулалт */
 
@@ -17,6 +18,7 @@
   /* Онцлох өнгө - Улбар шар */
   --accent: rgb(247, 133, 63);                   /* Онцлох улбар шар - CTA товч, анхаарал татах элементүүд */
   --accent-secondary:rgba(247,133,63,0.9);      /*hover hihed haragdah ongo */
+  --accent-logo-bg:rgba(247,133,63,0.2);
   --accent-foreground: rgb(255, 255, 255);       /* Улбар шар дээрх текст өнгө */
 
   /* Хүчингүй/Хөнгөн текст */
@@ -116,6 +118,7 @@ header {
   position: sticky;
   top: 0;
   width: 100%;
+  z-index: 999;
 }
 header * {
   align-content: center;

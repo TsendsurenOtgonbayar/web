@@ -152,6 +152,7 @@ html{
 }
 #serviceContent p{
     text-align: center;
+    color: var(--text-secondary);
 }
 #serviceContent section:nth-of-type(1){
     display: flex;
@@ -171,16 +172,46 @@ html{
     padding-left: var(--spacing-sm);
     border-width: var(--border-thin);
     border-style: solid;
-    border-color: var(--muted-foreground);
+    border-color: var(--button-light-border);
     border-radius: var(--radius-lg);
 
     cursor: pointer;
     transition: all 0.3s ease;
 }
+#serviceContent article a{
+    color: var(--primary);
+}
+#serviceContent article a:hover{
+    color: var(--primary);
+    transform: scale(1.05);
+}
 #serviceContent article:hover{
     box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--muted-foreground);
     transform: scale(1.05);
     border-color: var(--primary);
+}
+#serviceContent article:hover div{
+    transform: scale(1.3);
+}
+#serviceContent article div{
+    background-color: var(--accent-logo-bg);
+    color: var(--accent);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+}
+#serviceContent section:nth-of-type(2) article div{
+    background-color: var(--primary-logo-bg);
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+}
+#serviceContent section:nth-of-type(1) article:hover div{
+    color: var(--white);
+    background-color: var(--accent);
+}
+#serviceContent section:nth-of-type(2) article:hover div{
+    color: var(--white);
+    background-color: var(--primary);
 }
 #serviceContent section:nth-of-type(1) article{
      flex: 1;
@@ -195,4 +226,21 @@ html{
 }
 #serviceContent section:nth-of-type(2) article{
      flex: 1;
+}
+#commentsSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#commentRow{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#commentsSection .commentKart{
+    flex: 1;
+    border-width: var(--border-thin);
+    border-color: var(--button-light-border);
+
 }
