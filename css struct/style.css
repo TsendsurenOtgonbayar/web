@@ -290,6 +290,9 @@ html{
 #commentSection button:hover{
     transform: scale(1.15);
 }
+.mobile-bottom-nav {
+    display: none;
+}
 @keyframes spinInfinite{
     from {translate: 0;}
     to{translate: -100%;}
@@ -334,6 +337,10 @@ html{
     #Ehnii-zur{
         margin-top: var(--spacing-lg);
     }
+    #scrollAnimation{
+        margin-left: var(--spacing-md);
+        margin-right: var(--spacing-md);
+    }
     #scrollAnimation article{
         width: 60vw;
         height: var(--service-article-height);
@@ -345,5 +352,72 @@ html{
     }
     #serviceContent article{
         height: calc(2*var(--service-article-height));
+    }
+}
+/* 2. Гар утасны хэмжээтэй үед харуулах тохиргоо */
+@media screen and (max-width: 768px) {
+    
+    /* Дээд талын header доторх хуучин nav-ыг гар утсан дээр нуух */
+    header nav {
+        display: none;
+    }
+
+    /* Доод талын цэсний ард бусад текст орохоос хамгаалж body-д доод зай өгөх */
+    body {
+        padding-bottom: 80px; 
+    }
+
+    /* Доод цэсний үндсэн хайрцаг */
+    .mobile-bottom-nav {
+        display: flex;
+        position: fixed; /* Дэлгэцэнд нааж байрлуулах */
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        border-top: 1px solid var(--button-light-border);
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 16px 12px 16px; /* Дээд, баруун, доод, зүүн зай */
+        box-sizing: border-box;
+        z-index: 1000; /* Бусад бүх зүйлсийн дээр гаргах */
+    }
+
+    /* Цэсний нэг ширхэг товч */
+    .mobile-bottom-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px; /* Icon болон текст хоорондын зай */
+        color: var(--muted-foreground); /* Саарал өнгөтэй байх */
+        font-size: 11px;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    /* Icon-ыг агуулах дугуй хайрцаг */
+    .mobile-bottom-nav .nav-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%; /* Дүгэрэг болгох */
+        transition: background-color 0.2s ease;
+    }
+
+    .mobile-bottom-nav .nav-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* === ИДЭВХТЭЙ (Active) ҮЕИЙН ЗАГВАР (Зурган дээрх Нүүр) === */
+    .mobile-bottom-nav a.active {
+        color: var(--primary); /* Текст нь ногоон болно */
+    }
+
+    .mobile-bottom-nav a.active .nav-icon {
+        background-color: var(--primary); /* Дугуй дэвсгэр нь ногоон болно */
+        color: var(--white); /* Доторх icon нь цагаан болно */
     }
 }

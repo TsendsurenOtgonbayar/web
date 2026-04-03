@@ -283,9 +283,9 @@ footer{
     --icon-md: 18px;                      
     
     /* Font хэмжээнүүд (Жижигрүүлэх) */
-    --font-size-base: 15px;               /* 16px байсныг 15px */
-    --font-size-md: 16px;                 /* 18px байсныг 16px */
-    --font-size-lg: 18px;                 /* 21px байсныг 18px */
+    --font-size-base: 13px;               /* 16px байсныг 15px */
+    --font-size-md: 14px;                 /* 18px байсныг 16px */
+    --font-size-lg: 16px;                 /* 21px байсныг 16px */
     --font-size-2l: 28px;                 /* 32px байсныг 28px */
     --font-size-3l: 34px;                 /* 40px байсныг 34px */
     --font-size-xl: 3rem;                 /* 4rem байсныг 3rem */
