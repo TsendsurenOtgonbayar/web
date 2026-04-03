@@ -56,7 +56,7 @@
 
   /* Өндөр */
   --header-height: 7.3vh;                        /* Header-ийн өндөр */
-  --service-article-height: calc(4*7.3vh);
+  --service-article-height: calc(4*var(--header-height));  /* Service article-ийн өндөр */
   --service-article-width: 500px;
   --button-height-sm: 36px;                      /* Жижиг товчны өндөр */
   --button-height-md: 48px;                      /* Дунд товчны өндөр */
@@ -92,7 +92,7 @@
 
   /* Зураг хэмжээ */
   --hero-image-width: 30vw;                      /* Hero зургийн өргөн */
-  --hero-image-height: 65vh;                     /* Hero зургийн өндөр */
+  --hero-image-height: 40vw;                     /* Hero зургийн өндөр */
 
   /* Line height */
   --line-height-tight: 1;                        /* Нягт мөр өндөр */
@@ -262,4 +262,155 @@ footer{
   grid-template-areas: 
       'hol1 hol2 hol3'
       '. co .';
+}
+@media screen and (min-width: 768px) and (max-width: 1024px){
+   :root {
+    /* Container болон зайнууд */
+    --container-padding-x: 20px;          /* Хажуугийн зайг багасгах */
+    --container-padding-y: 2rem;          /* Дээд доод зайг багасгах */
+    --section-padding: 0.8rem;
+    
+    /* Зай хэмжээсүүд (Жижигрүүлэх) */
+    --spacing-md: 10px;                   /* 12px байсныг 10px */
+    --spacing-lg: 14px;                   /* 16px байсныг 14px */
+    --spacing-3xl: 36px;                  /* 48px байсныг 36px */
+    
+    /* Өндөр болон хэмжээнүүд */
+    --header-height: 60px;                /* Header өндрийг тогтмол хэмжээтэйгээр арай багасгах */
+    --service-article-width: 100%;        /* Таблет дээр картууд бүрэн өргөнөөрөө байх эсвэл багасах */
+    --logo-size: 36px;                    /* Лого жижигрүүлэх */
+    --icon-sm: 14px;                      
+    --icon-md: 18px;                      
+    
+    /* Font хэмжээнүүд (Жижигрүүлэх) */
+    --font-size-base: 15px;               /* 16px байсныг 15px */
+    --font-size-md: 16px;                 /* 18px байсныг 16px */
+    --font-size-lg: 18px;                 /* 21px байсныг 18px */
+    --font-size-2l: 28px;                 /* 32px байсныг 28px */
+    --font-size-3l: 34px;                 /* 40px байсныг 34px */
+    --font-size-xl: 3rem;                 /* 4rem байсныг 3rem */
+    
+    /* Зураг хэмжээ */
+    --hero-image-width: 45vw;             /* Таблет дээр зураг арай их зай эзлэнэ */
+    --hero-image-height: 50vh;            /* Өндрийг багасгах */
+    
+    /* Footer тохиргоо */
+    --footer-grid-col: 33%;               /* Багануудын хэмжээг тааруулах */
+  }
+
+}
+  
+/* ========== 768px ба түүнээс доош ========== */
+@media screen and (max-width: 768px){
+  :root {
+    /* Зай, padding */
+    --spacing-xs: 3px;
+    --spacing-sm: 6px;
+    --spacing-md: 10px;
+    --spacing-lg: 12px;
+    --spacing-3xl: 32px;
+
+    /* Container margin/padding */
+    --container-padding-x: 20px;
+    --container-padding-y: 2rem;
+    --section-padding: 0.8rem;
+
+    /* Өндөр */
+    --header-height: 6vh;
+    --service-article-height: calc(3*6vh);
+    --service-article-width: 300px;
+    --button-height-sm: 32px;
+    --button-height-md: 40px;
+    --logo-size: 35px;
+    --icon-sm: 12px;
+
+    /* Зураг хэмжээ */
+    --hero-image-width: 40vw;
+    --hero-image-height: 50vw;
+
+    /* Font хэмжээ */
+    --font-size-base: 14px;
+    --font-size-md: 15px;
+    --font-size-lg: 18px;
+    --font-size-2l: 26px;
+    --font-size-3l: 32px;
+    --font-size-xl: 2.5rem;
+
+    /* Grid */
+    --footer-grid-col: 50%;
+  }
+
+  footer{
+    grid-template-columns: 100%;
+    grid-template-areas: 
+        'hol1'
+        'hol2'
+        'hol3'
+        'co';
+  }
+}
+
+/* ========== 480px ба түүнээс доош ========== */
+@media screen and (max-width: 480px){
+  :root {
+    /* Зай, padding */
+    --spacing-xs: 2px;
+    --spacing-sm: 4px;
+    --spacing-md: 8px;
+    --spacing-lg: 10px;
+    --spacing-3xl: 20px;
+
+    /* Container margin/padding */
+    --container-padding-x: 15px;
+    --container-padding-y: 1.5rem;
+    --section-padding: 0.6rem;
+
+    /* Өндөр */
+    --header-height: 7vh;
+    --service-article-height: calc(2.5*5vh);
+    --service-article-width: 100%;
+    --button-height-sm: 28px;
+    --button-height-md: 36px;
+    --logo-size: 30px;
+    --icon-sm: 10px;
+    --icon-md: 16px;
+
+    /* Radius */
+    --radius-sm: 0.20rem;
+    --radius-md: 0.50rem;
+    --radius-lg: 0.60rem;
+    --radius-xl: 8px;
+
+    /* Зураг хэмжээ */
+    --hero-image-width: 100%;
+    --hero-image-height: 90vw;
+
+    /* Font хэмжээ */
+    --font-size-base: 13px;
+    --font-size-md: 14px;
+    --font-size-lg: 16px;
+    --font-size-2l: 22px;
+    --font-size-3l: 28px;
+    --font-size-xl: 1.8rem;
+
+    /* Grid */
+    --footer-grid-col: 100%;
+
+    /* Shadow */
+    --shadow-blur: 6px;
+    --shadow-x: 1px;
+    --shadow-y: 1px;
+  }
+  header nav{
+    display: none;
+  }
+  footer{
+    padding: var(--spacing-3xl);
+    grid-template-columns: 100%;
+    grid-template-areas: 
+        'hol1'
+        'hol2'
+        'hol3'
+        'co';
+  }
 }
