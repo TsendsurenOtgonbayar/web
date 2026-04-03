@@ -1,20 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css struct/root.css">
-    <title>Үйлчилгээ</title>
-    <style>
-    header nav a:nth-child(3){
-      color: var(--primary);
-      background-color: var(--button-bg-color);
-      border-radius: var(--button-border-radius);
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./css struct/root.css">
+  <title>Үйлчилгээ</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
     }
-    </style>
+    header nav a:nth-child(3){
+        color: var(--primary);
+        background-color: var(--sidebar-primary);
+        border-radius: var(--radius-md);
+    }
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: white;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .navbar nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #555;
+    }
+
+    .navbar nav .active {
+      color: #0aa;
+      font-weight: bold;
+    }
+
+    .auth button {
+      margin-left: 10px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .login {
+      background: #eee;
+    }
+
+    .register {
+      background: #0aa;
+      color: white;
+    }
+
+    /* Main */
+    .container {
+      padding: 40px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filters input,
+    .filters select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: #0aa;
+      font-weight: bold;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    button {
+      background: #ff7a2f;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+
 </head>
 <body>
-    <header>
+
+<header>
         <div id="logo">
             <a href="index.html">
                 <div id="logo-box">
@@ -35,7 +145,88 @@
             <a href="logIn.html"><button id="udaah-button">Бүртгүүлэх</button></a>
         </div>
     </header>
-    <Footer>
+
+<section class="container">
+  <h1>Үйлчилгээнүүд</h1>
+
+  <div class="filters">
+    <input type="text" placeholder="Үйлчилгээний нэр хайх...">
+    <select>
+      <option>Бүгд</option>
+    </select>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="icon">🩺</div>
+      <h3>Ерөнхий үзлэг</h3>
+      <p>Амьтны биеийн ерөнхий байдлыг шалгана.</p>
+      <span class="price">25,000–40,000₮</span>
+      <div class="bottom">
+        <span>⭐ 4.8</span>
+        <button>Цаг авах</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon">💉</div>
+      <h3>Вакцинжуулалт</h3>
+      <p>Халдварт өвчнөөс сэргийлэх вакцин.</p>
+      <span class="price">15,000–35,000₮</span>
+      <div class="bottom">
+        <span>⭐ 4.9</span>
+        <button>Цаг авах</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon">😁</div>
+      <h3>Шүдний эмчилгээ</h3>
+      <p>Шүдний цэвэрлэгээ болон эмчилгээ.</p>
+      <span class="price">30,000–80,000₮</span>
+      <div class="bottom">
+        <span>⭐ 4.7</span>
+        <button>Цаг авах</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon">✂️</div>
+      <h3>Мэс засал</h3>
+      <p>Бүх төрлийн мэс заслын үйлчилгээ.</p>
+      <span class="price">100,000–500,000₮</span>
+      <div class="bottom">
+        <span>⭐ 4.9</span>
+        <button>Цаг авах</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔬</div>
+      <h3>Лабораторийн шинжилгээ</h3>
+      <p>Цусны болон шинжилгээ.</p>
+      <span class="price">20,000–60,000₮</span>
+      <div class="bottom">
+        <span>⭐ 4.6</span>
+        <button>Цаг авах</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="icon">✨</div>
+      <h3>Арьс үсний арчилгаа</h3>
+      <p>Арьс, үсний эрүүл мэндийн шалгалт.</p>
+      <span class="price">20,000–45,000₮</span>
+      <div class="bottom">
+        <span>⭐ 4.5</span>
+        <button>Цаг авах</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<Footer>
         <div class="hol-list">
             <div id="logo-box">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart w-5 h-5 text-primary-foreground"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
