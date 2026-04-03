@@ -1,0 +1,166 @@
+@charset "utf-8";
+
+/* RESET */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#logo img{
+    height: 40px;
+    width: 40px;
+}
+/* BODY */
+body {
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+/* LINKS */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+/* LIST */
+ul {
+    list-style: none;
+}
+
+/* IMAGES */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* BUTTON */
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* INPUT */
+input, textarea {
+    font-family: inherit;
+    outline: none;
+}
+
+/* CONTAINER */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* FLEX */
+.flex {
+    display: flex;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+/* FLOAT (хуучин layout-д) */
+.fleft {
+    float: left;
+}
+.fright {
+    float: right;
+}
+.clear {
+    clear: both;
+}
+
+/* TEXT */
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+
+/* MARGIN & PADDING (utility) */
+.mt-1 { margin-top: 10px; }
+.mt-2 { margin-top: 20px; }
+.mb-1 { margin-bottom: 10px; }
+.mb-2 { margin-bottom: 20px; }
+
+.p-1 { padding: 10px; }
+.p-2 { padding: 20px; }
+
+/* COLORS */
+.bg-dark {
+    background: #1f1f1f;
+    color: white;
+}
+.bg-primary {
+    background: #287df0;
+    color: white;
+}
+
+/* CARD */
+.card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+/* SHADOW */
+.shadow {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* RADIUS */
+.rounded {
+    border-radius: 8px;
+}
+
+/* HOVER EFFECT */
+.hover-scale:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+/* SCROLL */
+.scroll-y {
+    overflow-y: auto;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .flex {
+        flex-direction: column;
+    }
+
+    .container {
+        width: 95%;
+    }
+}
