@@ -1,0 +1,263 @@
+:root {
+  /* ========== ӨНГӨНИЙ СИСТЕМ ========== */
+  
+  /* Үндсэн өнгөнүүд */
+  --foreground: rgb(36, 48, 53);                 /* Үндсэн текстийн өнгө */
+  --white: rgb(255, 255, 255);                   /* Цагаан өнгө */
+
+  /* Брэндийн үндсэн өнгө - Ногоон */
+  --primary: rgb(42, 157, 142);                  /* Үндсэн ногоон өнгө - товч, холбоос, highlight */
+  --primary-logo-bg:rgba(42, 157, 142,0.2);
+  --primary-foreground: rgb(255, 255, 255);      /* Ногоон дээрх текст/icon өнгө */
+  --primary-light: rgba(42, 157, 142, 0.1);      /* Цайвар ногоон - дэвсгэр зориулалт */
+
+  /* Хоёрдогч өнгө - Саарал */
+  --secondary: rgb(247, 243, 235);               /* Хоёрдогч дэвсгэр өнгө */
+  --secondary-foreground: rgb(36, 48, 53);       /* Хоёрдогч дэвсгэр дээрх текст */
+
+  /* Онцлох өнгө - Улбар шар */
+  --accent: rgb(247, 133, 63);                   /* Онцлох улбар шар - CTA товч, анхаарал татах элементүүд */
+  --accent-secondary:rgba(247,133,63,0.9);      /*hover hihed haragdah ongo */
+  --accent-logo-bg:rgba(247,133,63,0.2);
+  --accent-foreground: rgb(255, 255, 255);       /* Улбар шар дээрх текст өнгө */
+
+  /* Хүчингүй/Хөнгөн текст */
+  --muted-foreground: rgb(117, 128, 133);        /* Хүчингүй текст - placeholder, disabled */
+  --text-secondary: rgb(106, 121, 129);          /* Хоёрдогч текстийн өнгө - тайлбар, дэд мэдээлэл */
+
+  /* Footer өнгөнүүд */
+  --footer-bg: rgb(37, 49, 55);                  /* Footer дэвсгэр өнгө - хар саарал */
+  --footer-text: rgba(252, 250, 248, 0.8);       /* Footer текстийн өнгө - цагаан 80% */
+  --footer-border: rgba(252, 250, 248, 0.1);     /* Footer доторх зураас - цагаан 10% */
+
+  /* Товчны өнгөнүүд */
+  --button-light-bg: rgb(252, 250, 248);         /* Цагаан товчны дэвсгэр */
+  --button-light-border: rgb(220, 226, 229);     /* Цагаан товчны хүрээ */
+
+  /* Sidebar өнгөнүүд */
+  --sidebar-primary: rgba(42, 157, 142, 0.1);          /* Sidebar идэвхтэй элемент */
+
+  /* Popover дэвсгэр */
+  --popover-bg: rgb(255, 255, 255);              /* Popover дэвсгэр */
+
+  /* ========== ХЭМЖЭЭСҮҮД ========== */
+  
+  /* Зай, padding */
+  --spacing-xs: 4px;                             /* Маш жижиг зай */
+  --spacing-sm: 8px;                             /* Жижиг зай */
+  --spacing-md: 12px;                            /* Дунд зай */
+  --spacing-lg: 16px;                            /* Том зай */
+  --spacing-3xl: 48px;                           /* Хамгийн том зай */
+
+  /* Container margin/padding */
+  --container-padding-x: 35px;                   /* Контейнерын хажуугийн зай */
+  --container-padding-y: 3rem;                   /* Контейнерын дээд доод зай */
+  --section-padding: 1rem;                       /* Section доторх padding */
+
+  /* Өндөр */
+  --header-height: 7.3vh;                        /* Header-ийн өндөр */
+  --button-height-sm: 36px;                      /* Жижиг товчны өндөр */
+  --button-height-md: 48px;                      /* Дунд товчны өндөр */
+  --logo-size: 40px;                             /* Лого хайрцагийн хэмжээ */
+  --icon-sm: 15px;                               /* Жижиг icon хэмжээ */
+  --icon-md: 20px;                               /* Дунд icon хэмжээ */
+
+  /* Border radius - Булан дугуйруулалт */
+  --radius-sm: 0.30rem;                          /* Жижиг дугуй булан - лого */
+  --radius-md: 0.60rem;                          /* Дунд дугуй булан - товч, nav */
+  --radius-lg: 0.75rem;                          /* Том дугуй булан - карт, зураг */
+  --radius-xl: 10px;                             /* Маш том дугуй булан */
+
+  /* Border thickness */
+  --border-thin: 1px;                            /* Нимгэн хүрээ */
+
+  /* Font хэмжээ */
+  --font-size-base: 16px;                        /* Үндсэн фонт хэмжээ */
+  --font-size-md: 18px;                          /* Дунд текст */
+  --font-size-lg: 21px;                          /* Том текст - лого */
+  --font-size-2l:32px;
+  --font-size-3l:40px;
+  --font-size-xl: 4rem;                          /* Маш том - гарчиг */
+
+  /* Font бүдүүн */
+  --font-weight-bold: 700;                       /* Бүдүүн */
+
+  /* Font family */
+  --font-family-primary: Inter, Arial, Helvetica, sans-serif;  /* Үндсэн фонт */
+
+  /* Grid хэмжээ */
+  --footer-grid-col: 30%;                        /* Footer grid багана */
+
+  /* Зураг хэмжээ */
+  --hero-image-width: 30vw;                      /* Hero зургийн өргөн */
+  --hero-image-height: 65vh;                     /* Hero зургийн өндөр */
+
+  /* Line height */
+  --line-height-tight: 1;                        /* Нягт мөр өндөр */
+  /* shadow hemjee */
+  --shadow-blur:10px;
+  --shadow-x: 2px;
+  --shadow-y:2px;
+  --shadow-clr-dark:rgb(85, 85, 85);
+}
+body {
+  background-color: var(--white);
+  color: var(--foreground);
+  font-family: var(--font-family-primary);
+  margin: 0;
+}
+/* HEADER hesgiin bihcleg */
+header {
+  display: flex;
+  background-color: var(--white);
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: var(--border-thin) solid var(--muted-foreground);
+  height: var(--header-height);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+header * {
+  align-content: center;
+}
+#logo-box {
+  width: var(--logo-size);
+  height: var(--logo-size);
+  background-color: var(--primary);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+#logo-box>svg {
+  color: var(--accent-foreground);
+  width: var(--icon-md);
+}
+#logo-box+span{
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    font-style: normal;
+    color: var(--foreground);  
+    position: relative;
+    top: -3px;
+}
+a{
+    text-decoration: none;
+}
+header nav{
+  display: flex;
+}
+header nav a{
+    padding: var(--spacing-lg);
+    padding-top: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    color: var(--text-secondary);
+}
+header nav a:hover{
+  border-radius: var(--radius-md);
+  color: var(--secondary-foreground);
+  background-color: var(--secondary);
+}
+#log-in button{
+  height: var(--button-height-sm);
+  padding-left: var(--spacing-md);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: var(--spacing-md);
+  border-radius: var(--radius-xl);
+  border-width: var(--border-thin);
+  border-style: solid;
+  row-gap: var(--spacing-sm);
+  tab-size: 4;
+}
+#ehni-button{
+  background-color: var(--button-light-bg);
+  border-color: var(--button-light-border);
+}
+#ehni-button:hover{
+  background-color: var(--accent);
+  color: var(--primary-foreground);
+  border-color: var(--button-light-border);
+}
+#udaah-button{
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--sidebar-primary);
+}
+/* FOOTER hesegiin bichleg */
+footer h3{
+  color: var(--white);
+}
+footer #logo-box{
+  padding: 0;
+}
+footer #logo-box+span{
+  color: var(--white);
+}
+.hol-list{
+  padding: var(--spacing-3xl);
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+}
+.hol-list:nth-child(1){
+  grid-area: hol1;
+  border-width: var(--border-thin);
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: var(--footer-border);
+  padding-bottom: 38px;
+}
+.hol-list:nth-child(2){
+  grid-area: hol2;
+  border-width: var(--border-thin);
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: var(--footer-border);
+  padding-bottom: 38px;
+}
+.hol-list:nth-child(3){
+  grid-area: hol3;
+  border-width: var(--border-thin);
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: var(--footer-border);
+  padding-bottom: 38px;
+}
+footer>p{
+  grid-area: co;
+}
+ul{
+  list-style-type: none;
+}
+footer div ul{
+  padding-left: 0;
+}
+footer div ul li{
+  padding-bottom: 10px;
+}
+footer div  ul li svg{
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+  color: var(--primary);
+}
+footer{
+  color: var(--footer-text);
+  background-color: var(--footer-bg);
+  display: grid;
+  grid-template-columns: var(--footer-grid-col) var(--footer-grid-col) var(--footer-grid-col);
+  justify-content: center;
+  grid-template-areas: 
+      'hol1 hol2 hol3'
+      '. co .';
+}
