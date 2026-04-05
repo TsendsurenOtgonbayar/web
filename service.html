@@ -2,6 +2,7 @@
 <html lang="mn">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css struct/root.css">
   <link rel="stylesheet" href="./css struct/service.css">
   <title>Үйлчилгээ</title>
@@ -30,16 +31,26 @@
         </div>
 </header>
 
-<section class="container">
-  <h1>Үйлчилгээнүүд</h1>
-
-  <div class="filters">
-    <input type="text" placeholder="Үйлчилгээний нэр хайх...">
-    <select>
-      <option>Бүгд</option>
-    </select>
-  </div>
-
+<main >
+  <section>
+    <h1>Үйлчилгээнүүд</h1>
+    <p>Бидний үзүүлж буй мэргэжлийн үйлчилгээнүүд</p>
+    <div class="filters">
+      <label for="search-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input type="text" id="search-logo" placeholder="Үйлчилгээний нэр хайх...">
+      </label>
+      <div>
+        <button>Бүгд</button>
+        <button>Үзлэг</button>
+        <button>Вакцин</button>
+        <button>Мэс засал</button>
+        <button>Оншилгоо</button>
+        <button>Арьс үс</button>
+      </div>
+      </div>
+    </div>
+  </section>
   <div class="cards">
 
     <div class="card">
@@ -109,7 +120,7 @@
     </div>
 
   </div>
-</section>
+</main>
 <Footer>
         <div class="hol-list">
             <div id="logo-box">
