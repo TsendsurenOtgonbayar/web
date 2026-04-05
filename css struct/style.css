@@ -297,67 +297,8 @@ html{
     from {translate: 0;}
     to{translate: -100%;}
 }
-@media screen and (max-width: 480px) {
-    #padding-con{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-    #padding-con p{
-        align-self: center;
-    }
-    #padding-con span{
-        margin-top: var(--spacing-lg);
-        margin-bottom: var(--spacing-lg);
-    }
-    #SwitchPages{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-md);
-        margin-top: var(--spacing-sm);
-        margin-bottom: var(--spacing-sm);
-    }
-    #SwitchPages a button{
-        width: 90vw;
-        justify-content: center;
-    }
-    #unelgee{
-        display: flex;
-        justify-content: center;
-        row-gap: var(--spacing-sm);
-    }
-    #Ehnii-con{
-        flex-direction: column;
-        justify-content: space-around;
-    }
-    #Ehnii-zur{
-        margin-top: var(--spacing-lg);
-    }
-    #scrollAnimation{
-        margin-left: var(--spacing-md);
-        margin-right: var(--spacing-md);
-    }
-    #scrollAnimation article{
-        width: 60vw;
-        height: var(--service-article-height);
-    }
-    #serviceContent section{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-    #serviceContent article{
-        height: calc(2*var(--service-article-height));
-    }
-}
-/* 2. Гар утасны хэмжээтэй үед харуулах тохиргоо */
 @media screen and (max-width: 768px) {
-    
-    /* Дээд талын header доторх хуучин nav-ыг гар утсан дээр нуух */
+/* Дээд талын header доторх хуучин nav-ыг гар утсан дээр нуух */
     header nav {
         display: none;
     }
@@ -420,4 +361,64 @@ html{
         background-color: var(--primary); /* Дугуй дэвсгэр нь ногоон болно */
         color: var(--white); /* Доторх icon нь цагаан болно */
     }
+
 }
+@media screen and (max-width: 480px) {
+    #padding-con{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    #padding-con p{
+        align-self: center;
+    }
+    #padding-con span{
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+    #SwitchPages{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+    }
+    #SwitchPages a button{
+        width: 90vw;
+        justify-content: center;
+    }
+    #unelgee{
+        display: flex;
+        justify-content: center;
+        row-gap: var(--spacing-sm);
+    }
+    #Ehnii-con{
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    #Ehnii-zur{
+        margin-top: var(--spacing-lg);
+    }
+    #scrollAnimation{
+        margin-left: var(--spacing-md);
+        margin-right: var(--spacing-md);
+    }
+    #scrollAnimation article{
+        width: 60vw;
+        height: var(--service-article-height);
+    }
+    #serviceContent section{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    #serviceContent article{
+        height: calc(2*var(--service-article-height));
+    }
+}
+    
+    

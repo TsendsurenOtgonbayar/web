@@ -3,123 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./css struct/root.css">
+  <link rel="stylesheet" href="./css struct/service.css">
   <title>Үйлчилгээ</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-    }
-    header nav a:nth-child(3){
-        color: var(--primary);
-        background-color: var(--sidebar-primary);
-        border-radius: var(--radius-md);
-    }
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      background: white;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .navbar nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #555;
-    }
-
-    .navbar nav .active {
-      color: #0aa;
-      font-weight: bold;
-    }
-
-    .auth button {
-      margin-left: 10px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: none;
-    }
-
-    .login {
-      background: #eee;
-    }
-
-    .register {
-      background: #0aa;
-      color: white;
-    }
-
-    /* Main */
-    .container {
-      padding: 40px;
-    }
-
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    /* Filters */
-    .filters {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    .filters input,
-    .filters select {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    /* Cards */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .icon {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .price {
-      color: #0aa;
-      font-weight: bold;
-    }
-
-    .bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 15px;
-    }
-
-    button {
-      background: #ff7a2f;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-    </style>
 </head>
 <body>
 
@@ -134,7 +19,7 @@
         </div>
         <nav>
                 <a href="index.html">Нүүр</a>
-                <a href="aboutWe.html">Бидний тухай</a>
+                <a href="aboutUs.html">Бидний тухай</a>
                 <a href="service.html">Үйлчилгээ</a>
                 <a href="booking.html">Цаг захиалах</a>
                 <a href="contact.html">Холбоо барих</a>
@@ -143,7 +28,7 @@
             <a href="logIn.html"><button id="ehni-button">Нэвтрэх</button></a>
             <a href="logIn.html"><button id="udaah-button">Бүртгүүлэх</button></a>
         </div>
-    </header>
+</header>
 
 <section class="container">
   <h1>Үйлчилгээнүүд</h1>
@@ -250,6 +135,40 @@
             </ul>
         </div>
         <p>&copy; 2026 Petcare clinic. Бүх эрх хуулиар хамгаалагдсан.</p>
-    </Footer>
+</Footer>
+        <!-- Гар утасны доод цэс -->
+    <nav class="mobile-bottom-nav">
+        <!-- class="active" гэдэг нь тухайн хуудсан дээр байгааг илтгэнэ (ногоон дугуйтай болох хэсэг) -->
+        <a href="index.html">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <span>Нүүр</span>
+        </a>
+        <a href="aboutUs.html">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            </div>
+            <span>Бидний тухай</span>
+        </a>
+        <a href="service.html" class="active">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>
+            </div>
+            <span>Үйлчилгээ</span>
+        </a>
+        <a href="booking.html">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </div>
+            <span>Цаг захиалах</span>
+        </a>
+        <a href="contact.html">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <span>Холбоо барих</span>
+        </a>
+    </nav>
 </body>
 </html>
