@@ -97,7 +97,7 @@
   /* Line height */
   --line-height-tight: 1;                        /* Нягт мөр өндөр */
   /* shadow hemjee */
-  --shadow-blur:10px;
+  --shadow-blur: 10px;
   --shadow-x: 2px;
   --shadow-y:2px;
   --shadow-clr-dark:rgb(85, 85, 85);
@@ -417,53 +417,53 @@ footer{
 /* ========== 480px ба түүнээс доош ========== */
 @media screen and (max-width: 480px){
   :root {
-    /* Зай, padding */
-    --spacing-xs: 2px;
-    --spacing-sm: 4px;
-    --spacing-md: 8px;
-    --spacing-lg: 10px;
-    --spacing-3xl: 20px;
+    /* Зай, padding - dvh нэгж ашигласан */
+    --spacing-xs: 0.3dvh;                      /* 2px → 0.3dvh */
+    --spacing-sm: 0.6dvh;                      /* 4px → 0.6dvh */
+    --spacing-md: 1.2dvh;                      /* 8px → 1.2dvh */
+    --spacing-lg: 1.5dvh;                      /* 10px → 1.5dvh */
+    --spacing-3xl: 3dvh;                       /* 20px → 3dvh */
 
     /* Container margin/padding */
-    --container-padding-x: 15px;
+    --container-padding-x: 2.25dvh;            /* 15px → 2.25dvh */
     --container-padding-y: 1.5rem;
     --section-padding: 0.6rem;
 
-    /* Өндөр */
-    --header-height: 7vh;
-    --service-article-height: calc(2.5*5vh);
+    /* Өндөр - dvh нэгж ашигласан */
+    --header-height: 7dvh;
+    --service-article-height: calc(2.5*5dvh);
     --service-article-width: 100%;
-    --button-height-sm: 28px;
-    --button-height-md: 36px;
-    --logo-size: 30px;
-    --icon-sm: 10px;
-    --icon-md: 16px;
+    --button-height-sm: 4.2dvh;                /* 28px → 4.2dvh */
+    --button-height-md: 5.4dvh;                /* 36px → 5.4dvh */
+    --logo-size: 4.5dvh;                       /* 30px → 4.5dvh */
+    --icon-sm: 1.5dvh;                         /* 10px → 1.5dvh */
+    --icon-md: 2.4dvh;                         /* 16px → 2.4dvh */
 
-    /* Radius */
+    /* Radius - dvh нэгж ашигласан (жижиг хэмжээнүүдэд) */
     --radius-sm: 0.20rem;
     --radius-md: 0.50rem;
     --radius-lg: 0.60rem;
-    --radius-xl: 8px;
+    --radius-xl: 1.2dvh;                       /* 8px → 1.2dvh */
 
     /* Зураг хэмжээ */
     --hero-image-width: 100%;
     --hero-image-height: 90vw;
 
-    /* Font хэмжээ */
-    --font-size-base: 13px;
-    --font-size-md: 14px;
-    --font-size-lg: 16px;
-    --font-size-2l: 22px;
-    --font-size-3l: 28px;
+    /* Font хэмжээ - dvh нэгж ашигласан */
+    --font-size-base: 1.95dvh;                 /* 13px → 1.95dvh */
+    --font-size-md: 2.1dvh;                    /* 14px → 2.1dvh */
+    --font-size-lg: 2.4dvh;                    /* 16px → 2.4dvh */
+    --font-size-2l: 3.3dvh;                    /* 22px → 3.3dvh */
+    --font-size-3l: 4.2dvh;                    /* 28px → 4.2dvh */
     --font-size-xl: 1.8rem;
 
     /* Grid */
     --footer-grid-col: 100%;
 
-    /* Shadow */
-    --shadow-blur: 6px;
-    --shadow-x: 1px;
-    --shadow-y: 1px;
+    /* Shadow - dvh нэгж ашигласан */
+    --shadow-blur: 0.9dvh;                     /* 6px → 0.9dvh */
+    --shadow-x: 0.15dvh;                       /* 1px → 0.15dvh */
+    --shadow-y: 0.15dvh;                       /* 1px → 0.15dvh */
   }
   footer{
     padding: var(--spacing-3xl);
