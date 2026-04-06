@@ -84,15 +84,16 @@ footer {
 
 .section-title {
   text-align: center;
-  font-size: 28px;
-  margin-top: 3rem;
+  font-size: 1.875rem;
+  margin: 1.25rem 0 0.6rem 0;
 }
 
 .section-sub {
   text-align: center;
   color : var(--text-secondary);
-  font-size: 20px;
-  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
 }
 
 
