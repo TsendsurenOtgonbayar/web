@@ -1,11 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Нэвтрэх</title>
+    <link rel="stylesheet" href="./css struct/root.css">
+    <link rel="stylesheet" href="./css struct/style.css">
+    <title>Нэвтрэх / Бүртгүүлэх - Pet Care Clinic</title>
+    <style>
+        /* Нэвтрэх хуудасны үндсэн агуулга байрлах хэсэг */
+        #auth-container {
+            max-width: 450px;
+            margin: 60px auto 100px;
+            padding: 30px;
+            background-color: var(--card-bg, #fff); /* Таны root дээрх өнгө */
+            border-radius: var(--radius-lg, 12px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color, #eee);
+        }
+
+        /* Табуудын дизайн */
+        .auth-tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border-color, #eee);
+            margin-bottom: 30px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted, #777);
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .auth-tab.active {
+            color: var(--primary, #287df0);
+            border-bottom: 2px solid var(--primary, #287df0);
+            margin-bottom: -2px; /* Бордерыг дарж харуулах */
+        }
+
+        /* Формын дизайн */
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color, #333);
+        }
+
+        .form-group input {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color, #ddd);
+            border-radius: var(--radius-md, 8px);
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary, #287df0);
+            box-shadow: 0 0 0 3px var(--sidebar-primary, rgba(40, 125, 240, 0.1));
+        }
+
+        /* Submit товч (Таны үндсэн button стильтэй төстэй) */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary, #287df0);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md, 8px);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Толгой цэсийг идэвхжүүлэх (Нэвтрэх товчийг primary харагдуулах) */
+        header #log-in a:nth-child(1) button {
+            color: var(--primary);
+            background-color: var(--sidebar-primary);
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- Үндсэн толгой хэсэг (Таны index.html дээрээс) -->
+    <header>
+        <div id="logo">
+            <a href="index.html">
+                <div id="logo-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart w-5 h-5 text-primary-foreground"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                </div>
+                <span>Pet Care Clinic</span>
+            </a>
+        </div>
+        <nav>
+                <a href="index.html">Нүүр</a>
+                <a href="aboutUs.html">Бидний тухай</a>
+                <a href="service.html">Үйлчилгээ</a>
+                <a href="booking.html">Цаг захиалах</a>
+                <a href="contact.html">Холбоо барих</a>
+        </nav>
+        <div id="log-in">
+            <a href="logIn.html"><button id="ehni-button">Нэвтрэх</button></a>
+            <a href="logIn.html"><button id="udaah-button">Бүртгүүлэх</button></a>
+        </div>
+    </header>
+
+    <!-- Гол агуулга -->
+    <main>
+        <section id="auth-container">
+            <!-- Сонгох хэсэг -->
+            <div class="auth-tabs">
+                <div id="tab-login" class="auth-tab active" onclick="switchTab('login')">Нэвтрэх</div>
+                <div id="tab-register" class="auth-tab" onclick="switchTab('register')">Бүртгүүлэх</div>
+            </div>
+
+            <!-- Нэвтрэх Форм -->
+            <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Имэйл хаяг</label>
+                    <input type="email" id="loginEmail" placeholder="Имэйлээ оруулна уу" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Нууц үг</label>
+                    <input type="password" id="loginPassword" placeholder="Нууц үгээ оруулна уу" required>
+                </div>
+                <button type="submit" class="btn-submit">Нэвтрэх</button>
+            </form>
+
+            <!-- Бүртгүүлэх Форм -->
+            <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regName">Овог нэр</label>
+                    <input type="text" id="regName" placeholder="Бүтэн нэрээ оруулна уу" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPet">Амьтны нэр / Төрөл</label>
+                    <input type="text" id="regPet" placeholder="Жнь: Мийгээ (Муур)" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Имэйл хаяг</label>
+                    <input type="email" id="regEmail" placeholder="Имэйлээ оруулна уу" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Нууц үг</label>
+                    <input type="password" id="regPassword" placeholder="Нууц үг зохионо уу" required>
+                </div>
+                <button type="submit" class="btn-submit">Бүртгүүлэх</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Үндсэн хөл хэсэг (Таны index.html дээрээс) -->
+    <Footer>
+        <div class="hol-list">
+            <div id="logo-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart w-5 h-5 text-primary-foreground"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+            </div>
+            <span>Pet Care Clinic</span>
+            <p>Таны тэжээвэр амьтны эрүүл мэнд, аз жаргалыг хамгийн түрүүнд тавьдаг мэргэжлийн эмнэлэг.</p>
+        </div>
+        <div class="hol-list"> 
+            <h3>Холбоо барих</h3>
+            <ul>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg> УБ, Сүхбаатар дүүрэг,1-р хороо</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> +976 9999999</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg> info@vetclinic.mn</li>
+            </ul>
+        </div>
+        <div class="hol-list">
+            <h3>Ажлын цаг</h3>
+            <ul>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock w-4 h-4 text-primary"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Даваа–Баасан: 09:00–18:00</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock w-4 h-4 text-primary"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Бямба: 10:00–15:00</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock w-4 h-4 text-primary"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Ням: Амарна</li>
+            </ul>
+        </div>
+        <p>&copy; 2026 Petcare clinic. Бүх эрх хуулиар хамгаалагдсан.</p>
+    </Footer>
+
+    <!-- Гар утасны доод цэс -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <span>Нүүр</span>
+        </a>
+        <a href="booking.html">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <span>Цаг</span>
+        </a>
+        <a href="logIn.html" class="active"> <!-- Энэ хуудсан дээр active байна -->
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <span>Нэвтрэх</span>
+        </a>
+    </nav>
+
+    <!-- JavaScript логик -->
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/pages/logIn.js"></script>
 </body>
 </html>
