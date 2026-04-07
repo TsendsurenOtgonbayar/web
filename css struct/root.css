@@ -58,6 +58,7 @@
   --header-height: 7.3vh;                        /* Header-ийн өндөр */
   --service-article-height: calc(4*var(--header-height));  /* Service article-ийн өндөр */
   --service-article-width: 500px;
+  --comment-textarea-height: 100px;                   
   --button-height-sm: 36px;                      /* Жижиг товчны өндөр */
   --button-height-md: 48px;                      /* Дунд товчны өндөр */
   --logo-size: 40px;                             /* Лого хайрцагийн хэмжээ */
