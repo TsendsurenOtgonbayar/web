@@ -120,6 +120,7 @@ html{
 /* second section start here */
 #scrollAnimation{
     display: flex;
+    overflow-y: hidden;
     overflow-x: auto;
     background-color: var(--primary);
 }
@@ -254,6 +255,7 @@ html{
 }
 #commentSection article{
     flex: 1;
+    width: 30vw;
     padding-top: var(--spacing-lg);
     padding-bottom: var(--spacing-lg);
     padding-left: var(--spacing-lg);
@@ -264,6 +266,13 @@ html{
     border-color:var(--button-light-border);
     border-style: solid;
     border-radius: var(--radius-lg);
+    #fiveStar{
+        display: flex;
+        flex-direction: row;
+        svg{
+            width: 24px;
+        }
+    }
 }
 #commentSection article p:nth-of-type(1){
     color: var(--text-secondary);
@@ -271,7 +280,7 @@ html{
     padding-bottom: var(--spacing-md);
     margin-top: var(--spacing-md);
 }
-#commentSection button{
+#commentSection>button{
     height: var(--button-height-md);
     padding: var(--spacing-sm);
     padding-left: var(--spacing-lg);
@@ -289,6 +298,57 @@ html{
 }
 #commentSection button:hover{
     transform: scale(1.15);
+}
+#UnelgeeFiveStar{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: var(--spacing-md);
+    color: var(--button-light-border);
+    cursor: pointer;
+    svg{
+        width: 24px;
+    }
+    svg.filled{
+        fill: var(--accent);
+    }
+}
+#makeComments{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border: var(--border-thin) solid var(--button-light-border);
+    border-radius: var(--radius-lg);
+    width: 50%;
+    height: max-content;
+    padding-left: var(--spacing-3xl);
+    padding-bottom: var(--spacing-md);
+    margin-bottom: var(--container-padding-y);
+    
+    textarea{
+        width: 90%;
+        height: var(--comment-textarea-height);
+        padding: var(--spacing-sm);
+        border-width: var(--border-thin);
+        border-color: var(--button-light-border);
+        border-style: solid;
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--spacing-md);
+    }
+    button{
+        height: var(--button-height-sm);
+        padding: var(--spacing-sm);
+        padding-left: var(--spacing-lg);
+        padding-right: var(--spacing-lg);
+        border-style: solid;
+        display: inline-flex;
+        align-items: center;
+        border-radius: var(--radius-lg);
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: var(--white);
+        font-weight: var(--font-weight-bold);
+    }
+
 }
 .mobile-bottom-nav {
     display: none;

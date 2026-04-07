@@ -29,7 +29,7 @@
 .avatar {
     width: 80px;
     height: 80px;
-    background: #287df0;
+    background: var(--primary);
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -64,8 +64,8 @@
 }
 
 .profile-menu a:hover, .profile-menu a.active {
-    background: rgba(40, 125, 240, 0.1);
-    color: #287df0;
+    background: var(--primary-light);
+    color: var(--primary);
 }
 
 /* Баруун талын агуулга */
@@ -93,7 +93,7 @@
 
 .item-card h3 {
     margin-bottom: 5px;
-    color: #287df0;
+    color: var(--primary);
 }
 
 .item-card p {
@@ -114,9 +114,9 @@
 .status-completed { background: #e8f5e9; color: #2e7d32; }
 
 .btn-outline {
-    border: 1px dashed #287df0;
+    border: 1px dashed var(--primary);
     background: transparent;
-    color: #287df0;
+    color: var(--primary);
     width: 100%;
     padding: 15px;
     border-radius: 12px;
@@ -131,7 +131,7 @@
 }
 
 .btn-outline:hover {
-    background: #287df0;
+    background: var(--primary);
     color: #fff;
 }
 
