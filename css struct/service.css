@@ -92,6 +92,7 @@ label[for="search-logo"]:focus-within {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    margin: clamp(1rem, 3vw, 3rem) clamp(3rem, 6vw, 6rem);
 }
 
 .card {
