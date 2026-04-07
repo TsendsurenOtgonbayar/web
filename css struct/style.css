@@ -6,12 +6,13 @@ html{
 }
 #padding-con{
     display: flex;
-    padding-right: var(--section-padding);
+    /* padding-right: var(--section-padding);
     padding-left: var(--section-padding);
     padding-bottom: var(--container-padding-y);
     padding-top: var(--container-padding-y);
     margin-left: var(--container-padding-x);
-    margin-right: var(--container-padding-x);
+    margin-right: var(--container-padding-x); */
+    margin: clamp(1rem, 3vw, 3rem) clamp(3rem, 6vw, 6rem);
 }
 #Ehnii-con{
     flex: 2;
@@ -161,8 +162,9 @@ html{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-left: var(--section-padding);
-    padding-right: var(--section-padding);
+    /* padding-left: var(--section-padding);
+    padding-right: var(--section-padding); */
+    padding: clamp(1rem, 3vw, 3rem) clamp(3rem, 6vw, 6rem);
 }
 #serviceContent p{
     text-align: center;

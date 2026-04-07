@@ -9,8 +9,9 @@ html{
   padding: 0;
 }
 
+/* hero css */
 
-.hero{
+.hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
@@ -19,16 +20,16 @@ html{
   background: #f8f9fa;
 }
 
-.hero-left{
+.hero-left {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   
-  h1{
+  h1 {
     font-size: clamp(2rem, 4vw, 2.5rem);
     margin-bottom: 1rem;
   }
-  p{
+  p {
     font-size: 1rem;
     margin-bottom: 0.8rem;
     line-height: 1.5;
@@ -66,7 +67,48 @@ html{
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   max-height: 400px;
 }
-/* Эмчийн дэлгэрэнгүй картны ерөнхий хайрцаг */
+
+
+/* eronhi emchiin sectionii css */
+.container {
+  padding: clamp(1rem, 3vw, 3rem) clamp(3rem, 6vw, 6rem);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1.875rem;
+  margin: 1.25rem 0 0.6rem 0;
+}
+
+.section-sub {
+  text-align: center;
+  color : var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.doctor-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+  gap: 1rem;
+}
+.card {
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+.card img {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+
+
 .doctor-detail-container {
     max-width: 800px;
     margin: 40px auto;
@@ -292,7 +334,7 @@ hr.divider {
 }
 
 
-footer{
+footer {
   p{
   margin-top: var(--spacing-lg);
   }
@@ -307,6 +349,9 @@ footer{
   }
   .stats {
     flex-direction: column;
+  }
+  .doctor-list{
+    grid-template-columns: 1fr; /* 1 багана болгоно */
   }
     .doctor-header { flex-direction: column; align-items: center; text-align: center; }
     .doctor-tags { justify-content: center; }
