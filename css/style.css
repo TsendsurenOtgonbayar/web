@@ -4,15 +4,18 @@ html{
 *{
     font-family: var(--font-family-primary);
 }
+body{
+    overflow-x: hidden;
+}
 #padding-con{
     display: flex;
-    /* padding-right: var(--section-padding);
+    padding-right: var(--section-padding);
     padding-left: var(--section-padding);
     padding-bottom: var(--container-padding-y);
     padding-top: var(--container-padding-y);
     margin-left: var(--container-padding-x);
-    margin-right: var(--container-padding-x); */
-    margin: clamp(1rem, 3vw, 3rem) clamp(3rem, 6vw, 6rem);
+    margin-right: var(--container-padding-x);
+    /* margin: clamp(1rem, 3vw, 3rem) clamp(3rem, 6vw, 6rem); */
 }
 #Ehnii-con{
     flex: 2;
@@ -193,38 +196,61 @@ html{
     margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-md);
 }
-#serviceContent article a{
-    color: var(--primary);
+.service-card:hover {
+  transform: scale(1.03) translateY(-4px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
 }
-#serviceContent article a:hover{
-    color: var(--primary);
-    transform: scale(1.05);
+.service-card .card-detail {
+  margin-top: 8px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, max-height 0.25s ease, transform 0.5s ease;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  a{
+        color: var(--primary);
+    }
 }
-#serviceContent section:nth-of-type(2) article:hover{
-    box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--muted-foreground);
-    transform: scale(1.05);
-    border-color: var(--primary);
+.service-card:hover .card-detail {
+  opacity: 1;
+  max-height: 200px; /* Дэлгэрэнгүй текстийн уртаас хамаарч тохируулна */
+  transform: translateY(0); 
 }
-#serviceContent section:nth-of-type(2) article:hover div{
-    transform: scale(1.3);
+.service-card h3 {
+  margin-top: 12px;
+  margin-bottom: 4px;
 }
-#serviceContent article div{
+.service-card p {
+  margin: 0;
+}#serviceContent section:nth-of-type(1) article div{
     background-color: var(--accent-logo-bg);
     color: var(--accent);
     border-radius: var(--radius-sm);
     padding: var(--spacing-sm);
 }
-#serviceContent section:nth-of-type(2) article div{
+#serviceContent section:nth-of-type(2) article:hover{
+    box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--muted-foreground);
+    transform: scale(1.05);
+    border-color: var(--primary);
+    div {
+        transform: scale(1.05);
+    }
+    .nunDispley{
+        display: none;
+    }
+}
+#serviceContent section:nth-of-type(2) article div:nth-of-type(1){
     background-color: var(--primary-logo-bg);
     color: var(--primary);
     border-radius: var(--radius-sm);
     padding: var(--spacing-sm);
 }
-/* #serviceContent section:nth-of-type(1) article:hover div{
-    color: var(--white);
-    background-color: var(--accent);
-} */
-#serviceContent section:nth-of-type(2) article:hover div{
+#serviceContent section:nth-of-type(2) article:hover div:nth-of-type(1){
     color: var(--white);
     background-color: var(--primary);
 }
@@ -242,16 +268,25 @@ html{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow-x: auto;
 }
-#commentSection::-webkit-scrollbar{
+#commentSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#commentSection div::-webkit-scrollbar{
     display: none;
 }
 #commentRow{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    animation: spinInfinite 30s infinite linear;
+    animation: spinInfinite 50s infinite linear;
+    div{
+    overflow: hidden;
+    position: relative;
+    }
 }
 #commentSection article{
     flex: 1;
@@ -299,18 +334,19 @@ html{
 #commentSection button:hover{
     transform: scale(1.15);
 }
-#UnelgeeFiveStar{
+.UnelgeeFiveStar{
     display: flex;
     flex-direction: row;
     margin-bottom: var(--spacing-md);
     color: var(--button-light-border);
     cursor: pointer;
-    svg{
+}
+svg{
         width: 24px;
     }
-    svg.filled{
-        fill: var(--accent);
-    }
+svg.filled{
+    fill: var(--accent);
+    stroke: gold;
 }
 #makeComments{
     display: flex;
