@@ -161,6 +161,11 @@ header nav a{
     padding-bottom: var(--spacing-sm);
     color: var(--text-secondary);
 }
+header nav a.active{
+        color: var(--primary);
+        background-color: var(--sidebar-primary);
+        border-radius: var(--radius-md);
+    }
 header nav a:hover{
   border-radius: var(--radius-md);
   color: var(--secondary-foreground);
