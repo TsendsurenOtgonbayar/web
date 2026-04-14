@@ -1,3 +1,4 @@
+import { showNotification } from "../utils.js";
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     console.log(`${index+1}.${user.Email},${user.Name},${user.Pass},${user.Pet}`);
                 });
                 if(registedUserLogin){
-                    alert("Амжилттай нэвтэрлээ!");
+                    showNotification("Амжилттай нэвтэрлээ!","success");
                     localStorage.setItem(loggedUser_key,JSON.stringify(registedUserLogin));
                     loginForm.reset();
                     window.location.href = "profile.html"; // Профайл хуудас руу шилжүүлэх

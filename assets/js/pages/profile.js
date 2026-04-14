@@ -1,6 +1,7 @@
 import  {petCard}  from "../components/pet.js";
+import {showNotification} from "../utils.js"
 document.addEventListener("DOMContentLoaded", (event) => {
-    // 1. Хэрэглэгч нэвтрээгүй бол буцаагаад нэвтрэх хуудас руу шидэх (Хамгаалалт)
+    
     const loggedUser_key="LoggedIn";
     const isLoggedIn = localStorage.getItem("isRegisted");
     const Name=document.querySelector(".user-info-mini h3");
@@ -8,8 +9,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const avatar=document.querySelector(".avatar");
     const addPet=document.getElementById("addPetForm");
     if(addPet) addPet.style.display="none";
+    // 1. Хэрэглэгч нэвтрээгүй бол буцаагаад нэвтрэх хуудас руу шидэх (Хамгаалалт)
     if (!isLoggedIn) {
-        alert("Та эхлээд нэвтэрч орно уу!");
+        showNotification("Та эхлээд нэвтэрч орно уу!","error");
         window.location.href = "logIn.html";
         return;
     }
@@ -62,26 +64,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
             event.preventDefault();
             addPet.style.display="";
             addPetBtn.style.display="none";
-            if(SubBtn){
-                SubBtn.addEventListener("submit",(e)=>{
-                    e.preventDefault();
-                let NewAnimal={
-                    Name:PetName.value.trim(),
-                    Type:PetType.value,
-                    Age:{
-                        age:PetAge.value.trim(),
-                        month:PetMonth.value.trim(),
-                    },
-                    Gender:PetGender.value,
-                }
-                const newCard=petCard(NewAnimal);
-                petList.appendChild(newCard);
-                });
-                
-            }
         });
     }
-
+    if(addPet){
+        addPet.addEventListener("submit",(e)=>{
+            e.preventDefault();
+        let NewAnimal={
+            Name:PetName.value.trim(),
+            Type:PetType.value,
+            Age:{
+                age:PetAge.value.trim(),
+                month:PetMonth.value.trim(),
+            },
+            Gender:PetGender.value,
+        }
+        const newCard=petCard(NewAnimal);
+        petList.appendChild(newCard);
+        showNotification("Амжилттай бүртгэгдлээ!", "success");
+        addPet.reset();
+        addPet.style.display="none";
+        addPetBtn.style.display="";
+        });
+        
+    }
     const BtnCancel=document.getElementById("cancelPetFormBtn");
     function clrForm(){
         BtnCancel.addEventListener("click",()=>{
