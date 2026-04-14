@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/root.css">
-    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/profile.css"> <!-- Профайлын CSS -->
     <title>Миний булан - Pet Care Clinic</title>
 </head>
@@ -37,9 +36,9 @@
             <!-- Зүүн талын цэс -->
             <aside class="profile-sidebar">
                 <div class="user-info-mini">
-                    <div class="avatar">Б</div>
-                    <h3>Бат-Эрдэнэ</h3>
-                    <p style="color: #777; font-size: 14px;">bat@email.com</p>
+                    <div class="avatar"></div>
+                    <h3></h3>
+                    <p style="color: #777; font-size: 14px;"></p>
                 </div>
                 <ul class="profile-menu">
                     <li><a href="#pets" class="active">
@@ -62,23 +61,43 @@
                 <!-- Миний амьтад -->
                 <h2>Миний тэжээвэр амьтад</h2>
                 <div class="card-grid">
-                    <div class="item-card">
-                        <h3>Мийгээ</h3>
-                        <p><strong>Төрөл:</strong> Муур (Перс)</p>
-                        <p><strong>Нас:</strong> 2 нас 3 сар</p>
-                        <p><strong>Хүйс:</strong> Эм</p>
-                    </div>
-                    <div class="item-card">
-                        <h3>Банхар</h3>
-                        <p><strong>Төрөл:</strong> Нохой (Хаски)</p>
-                        <p><strong>Нас:</strong> 1 нас 5 сар</p>
-                        <p><strong>Хүйс:</strong> Эр</p>
-                    </div>
                     <button class="btn-outline">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                         Шинээр амьтан нэмэх
                     </button>
+                    <form id="addPetForm" >
+                        <div class="form-row">
+                            <input type="text" id="petName" required placeholder="Pet Name"/>
+                        </div>
+                        
+                        <div class="form-row">
+                            <input type="number" id="petAge" min="0" placeholder="Pet age"/>
+                            <input type="number" id="petMonth" min="0" placeholder="Month"/>
+                        </div>
+                        <div id="option">
+                            <div class="form-row">
+                                <select id="petType" required>
+                                    <option value="">Төрөл</option>
+                                    <option value="bird">Шувуу</option>
+                                    <option value="dog">Нохой</option>
+                                    <option value="cat">Муур</option>
+                                    <option value="other">Бусад</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <select  id="selGender" required>
+                                    <option value="">Хүйс</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit">Хадгалах</button>
+                        <button type="button" id="cancelPetFormBtn"> Болих </button>
+                    </form>
                 </div>
+
 
                 <!-- Захиалгын түүх -->
                 <h2>Захиалгын мэдээлэл</h2>
@@ -101,7 +120,7 @@
             </section>
         </div>
     </main>
-<Footer>
+    <footer>
         <div class="hol-list">
             <div id="logo-box">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart w-5 h-5 text-primary-foreground"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
@@ -126,8 +145,8 @@
             </ul>
         </div>
         <p>&copy; 2026 Petcare clinic. Бүх эрх хуулиар хамгаалагдсан.</p>
-    </Footer>
-     <script src="./assets/js/main.js"></script>
-     <script src="./assets/js/pages/profile.js"></script>
+    </footer>
+     <script type="module" src="./assets/js/main.js"></script>
+     <script type="module" src="./assets/js/pages/profile.js"></script>
 </body>
 </html>

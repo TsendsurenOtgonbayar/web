@@ -197,6 +197,40 @@ header nav a:hover{
   color: var(--primary-foreground);
   border-color: var(--sidebar-primary);
 }
+/* Профайл болон Гарах товчны стайл */
+#profile-button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--sidebar-primary);
+}
+
+#profile-button:hover {
+  background-color: var(--accent);
+  color: var(--primary-foreground);
+  border-color: var(--accent);
+}
+
+#logout-button {
+  height: var(--button-height-sm);
+  padding-left: var(--spacing-md);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: var(--spacing-md);
+  border-radius: var(--radius-xl);
+  border-width: var(--border-thin);
+  border-style: solid;
+  background-color: var(--button-light-bg);
+  border-color: var(--button-light-border);
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: var(--font-family-primary);
+}
+
+#logout-button:hover {
+  background-color: var(--accent);
+  color: var(--primary-foreground);
+  border-color: var(--button-light-border);
+}
 /* FOOTER hesegiin bichleg */
 footer h3{
   color: var(--white);
@@ -268,6 +302,22 @@ footer{
   grid-template-areas: 
       'hol1 hol2 hol3'
       '. co .';
+}
+.toast-msg {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    background: #333;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 .mobile-bottom-nav {      
   display: none;

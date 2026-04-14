@@ -1,23 +1,45 @@
+import { showNotification } from "../utils.js";
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
-
+    const User_register_key="isRegisted";
+    const loggedUser_key="LoggedIn";
+    // localStorage.clear()
     // Нэвтрэх үйлдэл
     if (loginForm) {
         loginForm.addEventListener("submit", (e) => {
             e.preventDefault(); // Хуудас рефреш хийгдэхийг зогсоох
             
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
 
             // Энд Backend рүү fetch() ашиглан хүсэлт илгээнэ. Одоогоор дуурайлгаж хийе:
             if(email && password) {
                 // Хэрэглэгч нэвтэрсэн гэдгийг LocalStorage-д түр хадгалах
-                localStorage.setItem("isLoggedIn", "true");
-                localStorage.setItem("userEmail", email);
+                const userInfo ={
+                    Email:email,
+                    Pass:password,
+                }
+                const CheckJSON =JSON.parse(localStorage.getItem(User_register_key));
+
+                const RegistedData=Array.isArray(CheckJSON)? CheckJSON:[CheckJSON];
+
+                const registedUserLogin=RegistedData.find(user=>user.Email===userInfo.Email && user.Pass===userInfo.Pass);
+
+                RegistedData.forEach((user,index)=>{
+                    console.log(`${index+1}.${user.Email},${user.Name},${user.Pass},${user.Pet}`);
+                });
+                if(registedUserLogin){
+                    showNotification("Амжилттай нэвтэрлээ!","success");
+                    localStorage.setItem(loggedUser_key,JSON.stringify(registedUserLogin));
+                    loginForm.reset();
+                    window.location.href = "profile.html"; // Профайл хуудас руу шилжүүлэх
+                }
+                else{
+                    showNotification("Email эсвэл password буруу байна","error");
+                    loginForm.reset();
+                }
                 
-                alert("Амжилттай нэвтэрлээ!");
-                window.location.href = "profile.html"; // Профайл хуудас руу шилжүүлэх
             }
         });
     }
@@ -27,13 +49,24 @@ document.addEventListener("DOMContentLoaded", () => {
         registerForm.addEventListener("submit", (e) => {
             e.preventDefault();
             
-            const name = document.getElementById('regName').value;
-            const pet = document.getElementById('regPet').value;
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
+            const name = document.getElementById('regName').value.trim();
+            const pet = document.getElementById('regPet').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
 
             // Бааз руу хадгалах логик энд бичигдэнэ
             console.log("Шинэ хэрэглэгч:", { name, pet, email, password });
+            const registedUserInfo={
+                Name:name,
+                Pet:pet,
+                Email:email,
+                Pass:password
+            }
+            let AllUserData =JSON.parse(localStorage.getItem(User_register_key));
+            if(!Array.isArray(AllUserData))AllUserData=[AllUserData];
+
+            AllUserData.push(registedUserInfo);
+            localStorage.setItem(User_register_key,JSON.stringify(AllUserData));
             
             alert("Амжилттай бүртгэгдлээ! Одоо имэйл болон нууц үгээрээ нэвтэрнэ үү.");
             
@@ -62,48 +95,3 @@ window.switchTab = function(tabName) {
         window.location.hash = 'register';
     }
 };
-
-// 2. Хуудас ачаалж дууссаны дараа ажиллах хэсэг
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // Хэрэв URL нь #register гэж орж ирвэл шууд бүртгүүлэх табыг нээх
-    if (window.location.hash === '#register') {
-        switchTab('register');
-    }
-
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-
-    // НЭВТРЭХ үйлдэл
-    if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
-            e.preventDefault(); // Хуудас рефреш хийгдэхийг зогсоох
-            
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            if(email && password) {
-                // Хэрэглэгч нэвтэрсэн гэдгийг хөтөчийн санах ойд (LocalStorage) түр хадгалах
-                localStorage.setItem("isLoggedIn", "true");
-                localStorage.setItem("userEmail", email);
-                
-                alert("Амжилттай нэвтэрлээ!");
-                window.location.href = "profile.html"; // Профайл руу үсрэх
-            }
-        });
-    }
-
-    // БҮРТГҮҮЛЭХ үйлдэл
-    if (registerForm) {
-        registerForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            
-            // Бааз руу хадгалах логик энд бичигдэнэ (Одоогоор зүгээр alert харуулна)
-            alert("Амжилттай бүртгэгдлээ! Одоо имэйл болон нууц үгээрээ нэвтэрнэ үү.");
-            
-            // Формыг хоосолж цэвэрлээд Нэвтрэх таб руу шилжих
-            registerForm.reset();
-            switchTab('login'); 
-        });
-    }
-});
