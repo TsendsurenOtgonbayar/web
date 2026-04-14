@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const commentRow = document.getElementById("commentRow");
   const makeComment = document.getElementById("makeComments");
   const commentButton = document.getElementById("CommentButton");
-  const commentTextarea = document.getElementById("commenText");
+  const commentTextarea = document.getElementById("commentText");
   const sendButton = document.getElementById("sentButton");
 
   // Comment form-ыг анх нууцалж эхэлнэ
