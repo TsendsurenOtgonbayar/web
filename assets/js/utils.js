@@ -68,3 +68,15 @@ export function showNotification(message, type = 'success') {
         toast.remove();
     }, 3000);
 }
+export function isUserLoggedIn() {
+    const loggedUser = localStorage.getItem("LoggedIn");
+    return loggedUser ? true : false;
+}
+export function checkAuthAndRedirect() {
+    if (!isUserLoggedIn()) {
+        showNotification("Та эхэлээд нэвтэрэх хэрэгтэй!","error");
+        window.location.href = "login.html";
+        return false;
+    }
+    return true;
+}

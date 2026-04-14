@@ -197,6 +197,40 @@ header nav a:hover{
   color: var(--primary-foreground);
   border-color: var(--sidebar-primary);
 }
+/* Профайл болон Гарах товчны стайл */
+#profile-button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--sidebar-primary);
+}
+
+#profile-button:hover {
+  background-color: var(--accent);
+  color: var(--primary-foreground);
+  border-color: var(--accent);
+}
+
+#logout-button {
+  height: var(--button-height-sm);
+  padding-left: var(--spacing-md);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: var(--spacing-md);
+  border-radius: var(--radius-xl);
+  border-width: var(--border-thin);
+  border-style: solid;
+  background-color: var(--button-light-bg);
+  border-color: var(--button-light-border);
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: var(--font-family-primary);
+}
+
+#logout-button:hover {
+  background-color: var(--accent);
+  color: var(--primary-foreground);
+  border-color: var(--button-light-border);
+}
 /* FOOTER hesegiin bichleg */
 footer h3{
   color: var(--white);

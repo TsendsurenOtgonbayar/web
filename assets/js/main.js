@@ -1,18 +1,35 @@
-import { delElm, addStarColor } from "./utils.js";
+import { delElm, addStarColor,isUserLoggedIn,checkAuthAndRedirect  } from "./utils.js";
 
 const COMMENTS_KEY = "petcare_comments";
-
+const loggedUser_key = "LoggedIn";
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("Main JS ажиллаж байна...");
-  // event.preventDefault();
-  // document.addEventListener('click', (event) => {
-  //   if (event.cancelable) {
-  //       console.log("Энэ үйлдлийг preventDefault()-оор зогсоож болно.");
-  //       // event.preventDefault(); // Шаардлагатай бол зогсооно
-  //   } else {
-  //       console.log("Энэ үйлдлийг зогсоох боломжгүй!");
-  //   }
-  // });
+  function updateHeaderAuthStatus() {
+    const loggedUser = JSON.parse(localStorage.getItem(loggedUser_key)) || null;
+    const logInContainer = document.getElementById("log-in");
+
+    if (!logInContainer) return;
+
+    // Хуучин товчн��удыг устгах
+    logInContainer.innerHTML = "";
+
+    if (loggedUser) {
+      const profileBtn = document.createElement("a");
+      profileBtn.href = "profile.html";
+      profileBtn.innerHTML = `<button id="profile-button">${loggedUser.Name || loggedUser.Email}</button>`;
+      logInContainer.appendChild(profileBtn);
+    } else {
+      const loginLink = document.createElement("a");
+      loginLink.href = "logIn.html";
+      loginLink.innerHTML = `<button id="ehni-button">Нэвтрэх</button>`;
+      const registerLink = document.createElement("a");
+      registerLink.href = "logIn.html";
+      registerLink.innerHTML = `<button id="udaah-button">Бүртгүүлэх</button>`;
+      logInContainer.appendChild(loginLink);
+      logInContainer.appendChild(registerLink);
+    }
+  }
+  updateHeaderAuthStatus();
   // -----------------------------
   // 1. NAV ACTIVE STATE
   // -----------------------------
@@ -144,6 +161,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // "Сэтгэгдэл үлдээх" товч – form-ыг нээх/хаах
   if (commentButton && makeComment) {
     commentButton.addEventListener("click", () => {
+      if(!checkAuthAndRedirect())return;
       const isHidden =
         makeComment.style.display === "none" ||
         getComputedStyle(makeComment).display === "none";
@@ -155,7 +173,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // "Илгээх" товч – шинэ сэтгэгдэл үүсгээд LocalStorage-д хадгалах
   if (sendButton && commentTextarea && commentRow) {
     sendButton.addEventListener("click", () => {
-
+      if (!checkAuthAndRedirect()) {
+        return;
+      }
       const text = commentTextarea.value.trim();
       if (text.length < 5) {
         alert("Сэтгэгдэл хамгийн багадаа 5 тэмдэгт байх ёстой.");

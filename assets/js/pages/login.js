@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.location.href = "profile.html"; // Профайл хуудас руу шилжүүлэх
                 }
                 else{
-                    alert("Email эсвэл password буруу байна");
+                    showNotification("Email эсвэл password буруу байна","error");
                     loginForm.reset();
                 }
                 
