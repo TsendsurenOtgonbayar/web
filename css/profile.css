@@ -134,7 +134,69 @@
     background: var(--primary);
     color: #fff;
 }
+form{
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    div.form-row{
+        margin: 5px 10px;
+    }
+    >.form-row:nth-of-type(2){
+        display: flex;
+        column-gap: 5px;
+    }
 
+    #option{
+        display: flex;
+        margin: 10px 10px;
+        .form-row{
+            flex: 1;
+            select{
+                width: 100%;
+                padding: 6px;
+                text-align: center;
+                border-radius: 12px;
+            }
+        }
+    }
+    input {
+        width: 90%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color, #ddd);
+        border-radius: var(--radius-md, 8px);
+        font-size: 1rem;
+        outline: none;
+        transition: 0.3s;
+        font-family: inherit;
+    }
+    input:focus {
+        border-color: var(--primary, #287df0);
+        box-shadow: 0 0 0 3px var(--sidebar-primary, rgba(40, 125, 240, 0.1));
+    }
+    button{
+        border-radius: 12px;
+        padding: 12px 15px;
+        margin: 5px ;
+        border: 1px solid ;
+    }
+    button:nth-of-type(1){
+        background-color: var(--accent);
+        color: var(--accent-foreground);
+        border-color: var(--accent);
+    }
+    button:nth-of-type(1):hover{
+        box-shadow: 2px 2px 3px var(--accent),-2px -2px 3px  var(--accent) ;
+    }
+    button:nth-of-type(2){
+        border: var(--secondary);
+        box-shadow: 4px 4px 3px var(--secondary);
+    }
+    button:nth-of-type(2):hover{
+        box-shadow: 2px 2px 3px var(--secondary),-2px -2px 3px  var(--secondary) ;
+    }
+}
 /* Гар утсанд зориулсан */
 @media (max-width: 768px) {
     .profile-wrapper {

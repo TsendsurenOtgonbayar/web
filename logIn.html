@@ -145,7 +145,7 @@
             </div>
 
             <!-- Нэвтрэх Форм -->
-            <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+            <form id="loginForm" class="auth-form active">
                 <div class="form-group">
                     <label for="loginEmail">Имэйл хаяг</label>
                     <input type="email" id="loginEmail" placeholder="Имэйлээ оруулна уу" required>
@@ -158,7 +158,7 @@
             </form>
 
             <!-- Бүртгүүлэх Форм -->
-            <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+            <form id="registerForm" class="auth-form">
                 <div class="form-group">
                     <label for="regName">Овог нэр</label>
                     <input type="text" id="regName" placeholder="Бүтэн нэрээ оруулна уу" required>
@@ -231,7 +231,7 @@
     </nav>
 
     <!-- JavaScript логик -->
-    <script src="./assets/js/main.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
     <script src="./assets/js/pages/logIn.js"></script>
 </body>
 </html>

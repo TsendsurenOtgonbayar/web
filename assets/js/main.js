@@ -1,10 +1,18 @@
-import { delElm, CountElements, addStarColor } from "./utils.js";
+import { delElm, addStarColor } from "./utils.js";
 
 const COMMENTS_KEY = "petcare_comments";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", (event) => {
   console.log("Main JS ажиллаж байна...");
-
+  // event.preventDefault();
+  document.addEventListener('click', (event) => {
+    if (event.cancelable) {
+        console.log("Энэ үйлдлийг preventDefault()-оор зогсоож болно.");
+        // event.preventDefault(); // Шаардлагатай бол зогсооно
+    } else {
+        console.log("Энэ үйлдлийг зогсоох боломжгүй!");
+    }
+});
   // -----------------------------
   // 1. NAV ACTIVE STATE
   // -----------------------------
@@ -20,31 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // -----------------------------
-  // 2. SCROLL ANIMATION
-  // -----------------------------
-  // const animateElements = document.querySelectorAll(".statistic, .commentKart, article");
-
-  // const observer = new IntersectionObserver(
-  //   (entries) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting) {
-  //         entry.target.style.opacity = 1;
-  //         entry.target.style.transform = "translateY(0)";
-  //       }
-  //     });
-  //   },
-  //   { threshold: 0.1 }
-  // );
-
-  // animateElements.forEach((el) => {
-  //   el.style.opacity = 0;
-  //   el.style.transform = "translateY(20px)";
-  //   el.style.transition = "all 0.6s ease-out";
-  //   observer.observe(el);
-  // });
-
-  // -----------------------------
-  // 3. COMMENT + LOCALSTORAGE
+  // 2. COMMENT + LOCALSTORAGE
   // -----------------------------
   const commentRow = document.getElementById("commentRow");
   const makeComment = document.getElementById("makeComments");
