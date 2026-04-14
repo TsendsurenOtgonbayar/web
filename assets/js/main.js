@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     if (!logInContainer) return;
 
-    // Хуучин товчн��удыг устгах
+    // Хуучин товчнуудыг устгах
     logInContainer.innerHTML = "";
 
     if (loggedUser) {
