@@ -1,0 +1,178 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+
+/* ===== MAIN CENTER ===== */
+main {
+  max-width: 900px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 25px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* ===== TITLE ===== */
+h3 {
+  margin: 25px 0 10px;
+  color: #333;
+}
+
+/* ===== SERVICE GRID ===== */
+#serviceList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+/* ===== SERVICE CARD ===== */
+.service-item {
+  background: #fafafa;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  text-align: center;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+  border-color: teal;
+}
+
+/* ===== BUTTON ===== */
+button {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: teal;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: teal;
+  transform: translateY(-2px);
+}
+
+/* ===== DOCTOR & TIME BUTTON STYLE ===== */
+#doctorList button,
+#timeList button {
+  background: #e5e7eb;
+  color: #333;
+}
+
+#doctorList button:hover,
+#timeList button:hover {
+  background: teal;
+  color: #fff;
+}
+
+/* ===== FLEX LAYOUT ===== */
+#doctorList,
+#timeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ===== INPUT ===== */
+#date {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 200px;
+}
+
+/* ===== SELECTED STATE ===== */
+button.active {
+  background: teal !important;
+  color: #fff;
+  box-shadow: 0 0 0 2px teal;
+  transform: scale(1.05);
+}
+
+.service-item.active {
+  border: 2px solid teal;
+  background: #ecfdf5;
+}
+
+/* ===== SUMMARY ===== */
+#summary {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f0fdf4;
+  border-radius: 12px;
+  border-left: 5px solid teal;
+}
+
+/* ===== SUCCESS BOX ===== */
+#successBox {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* ICON */
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: #dcfce7;
+  color: teal;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin: 0 auto 20px;
+}
+
+/* CARD */
+.card {
+  max-width: 420px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* DOCTOR */
+.doctor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.doctor img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+/* INFO */
+.info p {
+  margin: 6px 0;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  main {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  #serviceList {
+    grid-template-columns: 1fr;
+  }
+}
