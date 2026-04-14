@@ -5,14 +5,14 @@ const COMMENTS_KEY = "petcare_comments";
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("Main JS ажиллаж байна...");
   // event.preventDefault();
-  document.addEventListener('click', (event) => {
-    if (event.cancelable) {
-        console.log("Энэ үйлдлийг preventDefault()-оор зогсоож болно.");
-        // event.preventDefault(); // Шаардлагатай бол зогсооно
-    } else {
-        console.log("Энэ үйлдлийг зогсоох боломжгүй!");
-    }
-});
+  // document.addEventListener('click', (event) => {
+  //   if (event.cancelable) {
+  //       console.log("Энэ үйлдлийг preventDefault()-оор зогсоож болно.");
+  //       // event.preventDefault(); // Шаардлагатай бол зогсооно
+  //   } else {
+  //       console.log("Энэ үйлдлийг зогсоох боломжгүй!");
+  //   }
+  // });
   // -----------------------------
   // 1. NAV ACTIVE STATE
   // -----------------------------

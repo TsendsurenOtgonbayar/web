@@ -1,6 +1,6 @@
+import  {petCard}  from "../components/pet.js";
 document.addEventListener("DOMContentLoaded", (event) => {
     // 1. Хэрэглэгч нэвтрээгүй бол буцаагаад нэвтрэх хуудас руу шидэх (Хамгаалалт)
-    event.preventDefault();
     const loggedUser_key="LoggedIn";
     const isLoggedIn = localStorage.getItem("isRegisted");
     const Name=document.querySelector(".user-info-mini h3");
@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // 4. Амьтан шинээр нэмэх товч
     const addPetBtn = document.querySelector(".btn-outline");
     const SubBtn=document.querySelector(`button[type="submit"]`);
+    const petList=document.querySelector(".card-grid");
     const PetName=document.getElementById("petName");
     const PetAge=document.getElementById("petAge");
     const PetMonth=document.getElementById("petMonth");
@@ -62,8 +63,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             addPet.style.display="";
             addPetBtn.style.display="none";
             if(SubBtn){
-                SubBtn.addEventListener("click",(event)=>{
-                    event.preventDefault();
+                SubBtn.addEventListener("submit",(e)=>{
+                    e.preventDefault();
                 let NewAnimal={
                     Name:PetName.value.trim(),
                     Type:PetType.value,
@@ -73,8 +74,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     },
                     Gender:PetGender.value,
                 }
-                clrForm();
-                console.log(JSON.stringify(NewAnimal));
+                const newCard=petCard(NewAnimal);
+                petList.appendChild(newCard);
                 });
                 
             }
