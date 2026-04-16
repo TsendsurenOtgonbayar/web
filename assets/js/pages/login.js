@@ -1,4 +1,5 @@
 import { showNotification } from "../utils.js";
+import user from "../domain/models/user.js"
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
