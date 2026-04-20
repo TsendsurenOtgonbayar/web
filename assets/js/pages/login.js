@@ -1,10 +1,11 @@
 import { showNotification } from "../utils.js";
 import user from "../domain/models/user.js"
+import AuthService from "../domain/services/AuthenticationService.js";
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
-    const User_register_key="isRegisted";
-    const loggedUser_key="LoggedIn";
+    const User_register_key="isRegisted";//burtguulsen buh huniig tur hadgalah
+    const loggedUser_key="LoggedIn";//nevterrsen huniig tur hadgalna
     // localStorage.clear()
     // Нэвтрэх үйлдэл
     if (loginForm) {
@@ -13,28 +14,16 @@ document.addEventListener("DOMContentLoaded", () => {
             
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
-
             // Энд Backend рүү fetch() ашиглан хүсэлт илгээнэ. Одоогоор дуурайлгаж хийе:
             if(email && password) {
-                // Хэрэглэгч нэвтэрсэн гэдгийг LocalStorage-д түр хадгалах
-                const userInfo ={
+                const loginFormInfo ={
                     Email:email,
-                    Pass:password,
+                    Password:password,
                 }
-                const CheckJSON =JSON.parse(localStorage.getItem(User_register_key));
-
-                const RegistedData=Array.isArray(CheckJSON)? CheckJSON:[CheckJSON];
-
-                const registedUserLogin=RegistedData.find(user=>user.Email===userInfo.Email && user.Pass===userInfo.Pass);
-
-                RegistedData.forEach((user,index)=>{
-                    console.log(`${index+1}.${user.Email},${user.Name},${user.Pass},${user.Pet}`);
-                });
-                if(registedUserLogin){
-                    showNotification("Амжилттай нэвтэрлээ!","success");
-                    localStorage.setItem(loggedUser_key,JSON.stringify(registedUserLogin));
+                if(AuthService.logCheck(loginFormInfo)){
+                    throw showNotification("Амжилттай нэвтэрлээ!","success");
                     loginForm.reset();
-                    window.location.href = "profile.html"; // Профайл хуудас руу шилжүүлэх
+                    window.location.href = "profile.html"; 
                 }
                 else{
                     showNotification("Email эсвэл password буруу байна","error");
@@ -69,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             AllUserData.push(registedUserInfo);
             localStorage.setItem(User_register_key,JSON.stringify(AllUserData));
             
-            alert("Амжилттай бүртгэгдлээ! Одоо имэйл болон нууц үгээрээ нэвтэрнэ үү.");
+            showNotification("Амжилттай бүртгэгдлээ! Одоо имэйл болон нууц үгээрээ нэвтэрнэ үү.","success");
             
             // Формыг цэвэрлээд Нэвтрэх таб руу шилжих
             registerForm.reset();

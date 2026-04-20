@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0.123456789,
+    "name": "А.Бат",
+    "email": "bat@gmail.com",
+    "password": "Password123!",
+    "role": {
+      "User": "User",
+      "Admin": "Admin"
+    },
+    "currentRole": "User",
+    "pets": [
+      {
+        "petId": "p1",
+        "name": "Банхар",
+        "type": "Нохой",
+        "breed": "Төвд мастиф"
+      }
+    ],
+    "appointments": []
+  },
+  {
+    "id": 0.987654321,
+    "name": "С.Сараа",
+    "email": "saraa@yahoo.com",
+    "password": "Saraa6789Password",
+    "role": {
+      "User": "User",
+      "Admin": "Admin"
+    },
+    "currentRole": "User",
+    "pets": [
+      {
+        "petId": "p2",
+        "name": "Мийгаа",
+        "type": "Муур",
+        "breed": "Шотланд"
+      }
+    ],
+    "appointments": [
+      {
+        "appId": "a101",
+        "date": "2026-04-20",
+        "time": "14:30",
+        "reason": "Вакцин"
+      }
+    ]
+  },
+  {
+    "id": 0.555666777,
+    "name": "Админ Баяр",
+    "email": "admin@vetclinic.mn",
+    "password": "AdminSecure2026",
+    "role": {
+      "User": "User",
+      "Admin": "Admin"
+    },
+    "currentRole": "Admin",
+    "pets": [],
+    "appointments": []
+  }
+]

@@ -384,7 +384,7 @@ svg.filled{
     display: none;
 }
 @keyframes spinInfinite{
-    from {translate: 100%;}
+    from {translate: 50%;}
     to{translate: -100%;}
 }
 @media screen and (max-width: 768px) {
