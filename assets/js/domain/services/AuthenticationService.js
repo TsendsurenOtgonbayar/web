@@ -1,7 +1,7 @@
 //ene file dotor tanin batalgaajulah logiciig bichne
 import { showNotification } from "../../utils.js";
 import User from "../models/user.js"
-const serverURL="";//fetch hiihed heregleh url
+//const serverURL="";//fetch hiihed heregleh url
 class AuthService{
 //hereglegch nevtersen uyd burtguuleh logic 
 //comment bichih bolon busad ymar negen uildel hiisen uyd log shalgah

@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (registerForm) {
         registerForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            
+
             const name = document.getElementById('regName').value.trim();
             const pet = document.getElementById('regPet').value.trim();
             const email = document.getElementById('regEmail').value.trim();
@@ -73,7 +73,7 @@ window.switchTab = function(tabName) {
     // Табуудын active классыг солих
     document.getElementById('tab-login').classList.remove('active');
     document.getElementById('tab-register').classList.remove('active');
-    
+
     document.getElementById('loginForm').classList.remove('active');
     document.getElementById('registerForm').classList.remove('active');
 
