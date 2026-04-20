@@ -4,8 +4,8 @@ import AuthService from "../domain/services/AuthenticationService.js";
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
-    const User_register_key="isRegisted";//burtguulsen buh huniig tur hadgalah
-    const loggedUser_key="LoggedIn";//nevterrsen huniig tur hadgalna
+    const User_register_key="isRegisted";
+    const loggedUser_key="LoggedIn";
     // localStorage.clear()
     // Нэвтрэх үйлдэл
     if (loginForm) {
@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Бүртгүүлэх үйлдэл
+    // ─────────────────────────────────────────
+    // БҮРТГҮҮЛЭХ форм
+    // ─────────────────────────────────────────
     if (registerForm) {
         registerForm.addEventListener("submit", (e) => {
             e.preventDefault();
