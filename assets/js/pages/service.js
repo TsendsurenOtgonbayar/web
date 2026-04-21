@@ -1,52 +1,53 @@
-const searchInput = document.getElementById("search-logo");
-const buttons = document.querySelectorAll(".cat-btn");
-const cards = document.querySelectorAll(".card");
+function normalize(text) {
+    return (text || "").toString().trim().toLowerCase();
+}
 
-let selectedCategory = "all";
-let searchText = "";
+function cardMatchesFilter(card, selectedCategory, query) {
+    const category = card.dataset.category;
+    const title = normalize(card.dataset.title || card.querySelector("h3")?.textContent);
 
-    function normalize(str) {
-        return (str || "").toString().trim().toLowerCase();
+    const categoryMatch = selectedCategory === "all" || category === selectedCategory;
+    const searchMatch = !query || title.includes(query);
+    return categoryMatch && searchMatch;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("search-logo");
+    const buttons = document.querySelectorAll(".cat-btn");
+    const cards = document.querySelectorAll(".card");
+
+    if (!searchInput || !buttons.length || !cards.length) {
+        return;
     }
 
-    function render() {
-        const q = normalize(searchText);
+    const state = {
+        selectedCategory: "all",
+        searchText: "",
+    };
 
+    function renderCards() {
+        const query = normalize(state.searchText);
         cards.forEach((card) => {
-        const cat = card.dataset.category; // "vaksin" гэх мэт
-        // Нэрийг 2 янзаар авч болно:
-        // 1) data-title ашиглах
-        // 2) h3 дээрх textContent ашиглах
-        const title = normalize(card.dataset.title || card.querySelector(".card-title")?.textContent);
-
-        const matchCategory = selectedCategory === "all" || cat === selectedCategory;
-        const matchSearch = q === "" || title.includes(q);
-
-        const show = matchCategory && matchSearch;
-
-        // Хэрвээ card чинь flex байвал "flex" гэж соль
-        card.style.display = show ? "" : "none";
+            card.style.display = cardMatchesFilter(card, state.selectedCategory, query) ? "" : "none";
         });
     }
 
-  // Category click
-    buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-        buttons.forEach((b) => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
-
-        selectedCategory = btn.dataset.filter; // "all" | "vaksin" ...
-        render();
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            buttons.forEach((item) => item.classList.remove("is-active"));
+            button.classList.add("is-active");
+            state.selectedCategory = button.dataset.filter || "all";
+            renderCards();
         });
     });
 
-  // Search input
-    searchInput.addEventListener("input", (e) => {
-        searchText = e.target.value;
-        render();
+    searchInput.addEventListener("input", (event) => {
+        state.searchText = event.target.value;
+        renderCards();
     });
 
-    // Initial render
-    render();
+    renderCards();
+});
      
+
   

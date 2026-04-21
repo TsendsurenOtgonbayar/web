@@ -1,75 +1,21 @@
-//ene file dotor tanin batalgaajulah logiciig bichne
 import { showNotification } from "../../utils.js";
-import User from "../models/user.js"
-//const serverURL="";//fetch hiihed heregleh url
-const data=[
-  {
-    "id": 0.123456789,
-    "name": "А.Бат",
-    "email": "bat@gmail.com",
-    "password": "Password123!",
-    "role": {
-      "User": "User",
-      "Admin": "Admin"
-    },
-    "currentRole": "User",
-    "pets": [
-      {
-        "petId": "p1",
-        "name": "Банхар",
-        "type": "Нохой",
-        "breed": "Төвд мастиф"
-      }
-    ],
-    "appointments": []
-  },
-  {
-    "id": 0.987654321,
-    "name": "С.Сараа",
-    "email": "saraa@yahoo.com",
-    "password": "Saraa6789Password",
-    "role": {
-      "User": "User",
-      "Admin": "Admin"
-    },
-    "currentRole": "User",
-    "pets": [
-      {
-        "petId": "p2",
-        "name": "Мийгаа",
-        "type": "Муур",
-        "breed": "Шотланд"
-      }
-    ],
-    "appointments": [
-      {
-        "appId": "a101",
-        "date": "2026-04-20",
-        "time": "14:30",
-        "reason": "Вакцин"
-      }
-    ]
-  },
-  {
-    "id": 0.555666777,
-    "name": "Админ Баяр",
-    "email": "admin@vetclinic.mn",
-    "password": "AdminSecure2026",
-    "role": {
-      "User": "User",
-      "Admin": "Admin"
-    },
-    "currentRole": "Admin",
-    "pets": [],
-    "appointments": []
-  }
-]
-class AuthService{
-    static validateEmail(email) {//ene baij boln✅
+import { authenticateTestCredentials, TEST_LOGIN_USERS } from "./mockAuthProvider.js";
+
+const REGISTERED_USERS_KEY = "isRegisted";
+const LOGGED_IN_KEY = "LoggedIn";
+const TOKEN_KEY = "token";
+const CACHE_TTL_MS = 5 * 60 * 1000;
+
+class AuthService {
+    static cachedRemoteUsers = null;
+    static lastFetchedAt = 0;
+
+    static validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
-    static validatePassword(password) {//ene baij bolnу✅
+
+    static validatePassword(password) {
         if (password.length < 8) {
             return { valid: false, message: "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой" };
         }
@@ -81,168 +27,222 @@ class AuthService{
         }
         return { valid: true, message: "Нууц үг сайн байна" };
     }
-    static validateLoginInput(loginOBJ) {//ene baij boln✅
+
+    static validateLoginInput(loginOBJ) {
         if (!loginOBJ.Email || !loginOBJ.Password) {
             return { valid: false, error: "Имэйл болон нууц үг оруулна уу" };
         }
         if (!this.validateEmail(loginOBJ.Email)) {
             return { valid: false, error: "Имэйлийн формат буруу байна" };
         }
-        const passwordValidation = this.validatePassword(loginOBJ.Password);
-        if (!passwordValidation.valid) {
-            return { valid: false, error: passwordValidation.message };
-        }
         return { valid: true, error: null };
+    }
+
+    static normalizeUser(rawUser) {
+        const firstName = rawUser.FirstName || rawUser.firstName || "";
+        const lastName = rawUser.LastName || rawUser.lastName || "";
+        const fullName =
+            rawUser.Name ||
+            rawUser.name ||
+            `${lastName} ${firstName}`.trim() ||
+            rawUser.Email ||
+            rawUser.email ||
+            "Unknown";
+
+        const password = rawUser.Password || rawUser.password || rawUser.Pass || "";
+        const email = (rawUser.Email || rawUser.email || "").trim();
+        const currentRole = rawUser.currentRole || (rawUser.role === "Admin" ? "Admin" : "User");
+
+        return {
+            id: rawUser.id || Math.random(),
+            FirstName: firstName,
+            LastName: lastName,
+            Name: fullName,
+            Email: email,
+            Password: password,
+            currentRole,
+            role: { User: "User", Admin: "Admin" },
+            pets: Array.isArray(rawUser.pets) ? rawUser.pets : [],
+            appointments: Array.isArray(rawUser.appointments) ? rawUser.appointments : [],
+            createdAt: rawUser.createdAt || new Date().toISOString(),
+            isTestAccount: Boolean(rawUser.isTestAccount),
+        };
+    }
+
+    static getRegisteredUsers() {
+        try {
+            const users = JSON.parse(localStorage.getItem(REGISTERED_USERS_KEY)) || [];
+            return Array.isArray(users) ? users.map((u) => this.normalizeUser(u)) : [];
+        } catch (error) {
+            console.error("Бүртгэлтэй хэрэглэгчдийн өгөгдөл уншихад алдаа:", error);
+            return [];
+        }
+    }
+
+    static saveRegisteredUsers(users) {
+        localStorage.setItem(REGISTERED_USERS_KEY, JSON.stringify(users));
+    }
+
+    static async fetchRemoteUsers() {
+        const now = Date.now();
+        if (this.cachedRemoteUsers && now - this.lastFetchedAt < CACHE_TTL_MS) {
+            return this.cachedRemoteUsers;
+        }
+
+        try {
+            const response = await fetch(new URL("./userData.json", import.meta.url).href, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+            const normalized = Array.isArray(data) ? data.map((u) => this.normalizeUser(u)) : [];
+            this.cachedRemoteUsers = normalized;
+            this.lastFetchedAt = now;
+            return normalized;
+        } catch (error) {
+            console.warn("Backend fetch амжилтгүй, fallback хэрэглэгч ашиглав:", error.message);
+            if (this.cachedRemoteUsers) {
+                return this.cachedRemoteUsers;
+            }
+            return [];
+        }
+    }
+
+    static async getAllUsers() {
+        const remoteUsers = await this.fetchRemoteUsers();
+        const registeredUsers = this.getRegisteredUsers();
+        const testUsers = TEST_LOGIN_USERS.map((u) => this.normalizeUser(u));
+
+        const byEmail = new Map();
+        [...remoteUsers, ...registeredUsers, ...testUsers].forEach((user) => {
+            if (!user.Email) {
+                return;
+            }
+            byEmail.set(user.Email.toLowerCase(), user);
+        });
+        return [...byEmail.values()];
+    }
+
+    static persistLoggedInUser(user) {
+        const sessionUser = {
+            id: user.id,
+            Name: user.Name,
+            FirstName: user.FirstName || "",
+            LastName: user.LastName || "",
+            Email: user.Email,
+            currentRole: user.currentRole || "User",
+            role: user.role || { User: "User", Admin: "Admin" },
+            pets: Array.isArray(user.pets) ? user.pets : [],
+            appointments: Array.isArray(user.appointments) ? user.appointments : [],
+            isTestAccount: Boolean(user.isTestAccount),
+        };
+
+        localStorage.setItem(LOGGED_IN_KEY, JSON.stringify(sessionUser));
+        localStorage.setItem(TOKEN_KEY, `role:${sessionUser.currentRole}`);
     }
 
     static async logCheck(loginOBJ) {
         try {
-            // 1. Input validation
             const validation = this.validateLoginInput(loginOBJ);
             if (!validation.valid) {
                 showNotification(validation.error, "error");
                 return false;
             }
-            // 2. Хэрэв backend URL-н байвал fetch хийх
-            // if (!serverURL) {
-            //     console.warn("Backend URL тохируулагдаагүй байна. Дуурайлгын өгөгдөл ашигладаг.");
-            //     // Дуурайлгын өгөгдөл - локал testing-д ашигла
-            //     const mockUser = {
-            //         Email: "bat@gmail.com",
-            //         Password: "Password123"
-            //     };
-            //     if (loginOBJ.Email === mockUser.Email && loginOBJ.Password === mockUser.Password) {
-            //         const userData = {
-            //             Name: "А.Бат",
-            //             Email: mockUser.Email,
-            //             id: Math.random()
-            //         };
-            //         localStorage.setItem("LoggedIn", JSON.stringify(userData));
-            //         showNotification("Амжилттай нэвтэрлээ!", "success");
-            //         return true;
-            //     } else {
-            //         showNotification("Email эсвэл password буруу байна", "error");
-            //         return false;
-            //     }
-            // }
-            // const response = await fetch(serverURL, {
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify({
-            //         email: loginOBJ.Email,
-            //         password: loginOBJ.Password
-            //     })
-            // });
-            // if (!response.ok) {
-            //     throw new Error(`HTTP алдаа: ${response.status} ${response.statusText}`);
-            // }
 
-            // 5. JSON-д задлах
-            // const data = await response.json();
-
-            // // // 6. Success эсэхийг шалгах
-            // // if (data.success) {
-            // //     // Token хадгалах
-            // //     if (data.token) {
-            // //         localStorage.setItem("token", data.token);
-            // //         localStorage.setItem("LoggedIn", JSON.stringify(data.user));
-            // //         showNotification("Амжилттай нэвтэрлээ!", "success");
-            // //     }
-            // //     return true;
-            // // } else {
-            // //     showNotification(data.message || "Email эсвэл password буруу байна", "error");
-            // //     return false;
-            // // }
-
-            const result=data.some(u=>u.Email===loginOBJ.Email && u.Password===loginOBJ.Password);
-            if(result){
+            // Туршилтын нэвтрэлтийн тусгай хэсэг (User/Admin role).
+            const testUser = authenticateTestCredentials(loginOBJ.Email, loginOBJ.Password);
+            if (testUser) {
+                const normalizedTestUser = this.normalizeUser(testUser);
+                this.persistLoggedInUser(normalizedTestUser);
+                showNotification(`Туршилтын ${normalizedTestUser.currentRole} эрхээр нэвтэрлээ`, "success");
                 return true;
             }
+
+            const users = await this.getAllUsers();
+            const email = loginOBJ.Email.trim().toLowerCase();
+            const user = users.find(
+                (item) => item.Email.toLowerCase() === email && item.Password === loginOBJ.Password
+            );
+
+            if (!user) {
+                showNotification("Email эсвэл password буруу байна", "error");
+                return false;
+            }
+
+            this.persistLoggedInUser(user);
+            showNotification(`Амжилттай нэвтэрлээ (${user.currentRole})`, "success");
+            return true;
         } catch (error) {
             console.error("Нэвтрэх алдаа:", error);
-            
-            // Network алдаа эсэхийг шалгах
-            if (error instanceof TypeError) {
-                showNotification("Интернет холболтоо шалгана уу", "error");
-            } else {
-                showNotification(`Системийн алдаа: ${error.message}`, "error");
-            }
+            showNotification("Системийн алдаа гарлаа", "error");
             return false;
         }
     }
-    static enrollUser(enrollOBJ) {
+
+    static async enrollUser(enrollOBJ) {
         try {
-            // 1. Input validation
-            if (!enrollOBJ.Email || !enrollOBJ.Password) {
+            const firstName = (enrollOBJ.FirstName || "").trim();
+            const lastName = (enrollOBJ.LastName || "").trim();
+            const email = (enrollOBJ.Email || "").trim();
+            const password = enrollOBJ.Password || "";
+
+            if (!firstName || !lastName || !email || !password) {
                 return {
                     success: false,
-                    message: "Имэйл болон нууц үг оруулна уу"
+                    message: "Овог, нэр, имэйл болон нууц үгээ бүрэн оруулна уу",
                 };
             }
-
-            if (!this.validateEmail(enrollOBJ.Email)) {
-                return {
-                    success: false,
-                    message: "Имэйлийн формат буруу байна"
-                };
+            if (!this.validateEmail(email)) {
+                return { success: false, message: "Имэйлийн формат буруу байна" };
             }
 
-            const passwordValidation = this.validatePassword(enrollOBJ.Password);
+            const passwordValidation = this.validatePassword(password);
             if (!passwordValidation.valid) {
-                return {
-                    success: false,
-                    message: passwordValidation.message
-                };
+                return { success: false, message: passwordValidation.message };
             }
 
-            // 2. Бүртгүүлэх өгөгдөл шалгах (эхлээд байгаа эсэх)
-            const registeredUsers = JSON.parse(localStorage.getItem("isRegisted")) || [];
-            
-            // Email дүнхэй байгаа эсэх шалгах
-            const emailExists = registeredUsers.some(user => user.Email === enrollOBJ.Email);
-            if (emailExists) {
-                return {
-                    success: false,
-                    message: "Энэ имэйл дээр аль хэдийн бүртгэгдсэн байна"
-                };
+            const allUsers = await this.getAllUsers();
+            const exists = allUsers.some((user) => user.Email.toLowerCase() === email.toLowerCase());
+            if (exists) {
+                return { success: false, message: "Энэ имэйл дээр аль хэдийн бүртгэгдсэн байна" };
             }
 
-            // 3. Шинэ хэрэглэгч объект үүсгэх
-            const newUser = {
+            const newUser = this.normalizeUser({
                 id: Math.random(),
-                Name: enrollOBJ.Name,
-                Email: enrollOBJ.Email,
-                Pass: enrollOBJ.Password, // ⚠️ TODO: Хэмжээллэх хэрэгтэй!
-                Pet: enrollOBJ.Pet || "",
-                createdAt: new Date().toISOString()
-            };
+                FirstName: firstName,
+                LastName: lastName,
+                Name: `${lastName} ${firstName}`.trim(),
+                Email: email,
+                Password: password,
+                currentRole: "User",
+                pets: [],
+                appointments: [],
+                createdAt: new Date().toISOString(),
+            });
 
-            // 4. Массивт нэмэх
+            const registeredUsers = this.getRegisteredUsers();
             registeredUsers.push(newUser);
-            localStorage.setItem("isRegisted", JSON.stringify(registeredUsers));
+            this.saveRegisteredUsers(registeredUsers);
 
             return {
                 success: true,
                 message: "Амжилттай бүртгэгдлээ! Одоо нэвтэрнэ үү.",
-                user: newUser
+                user: newUser,
             };
-
         } catch (error) {
             console.error("Бүртгүүлэлтийн алдаа:", error);
-            return {
-                success: false,
-                message: "Системийн алдаа гарлаа"
-            };
+            return { success: false, message: "Системийн алдаа гарлаа" };
         }
     }
 
-    /**
-     * Хэрэглэгч гараа (Logout)
-     */
     static logout() {
         try {
-            localStorage.removeItem("token");
-            localStorage.removeItem("LoggedIn");
+            localStorage.removeItem(TOKEN_KEY);
+            localStorage.removeItem(LOGGED_IN_KEY);
             showNotification("Системээс гарлаа", "success");
             return true;
         } catch (error) {
@@ -251,21 +251,24 @@ class AuthService{
         }
     }
 
-    /**
-     * Одоогийн нэвтэрсэн хэрэглэгчийн мэдээлэл авах
-     * @returns {object|null} - Хэрэглэгчийн өгөгдөл эсвэл null
-     */
     static getCurrentUser() {
         try {
-            const user = localStorage.getItem("LoggedIn");
+            const user = localStorage.getItem(LOGGED_IN_KEY);
             return user ? JSON.parse(user) : null;
         } catch (error) {
             console.error("getCurrentUser алдаа:", error);
             return null;
         }
     }
+
     static getToken() {
-        return localStorage.getItem("token") || null;
+        return localStorage.getItem(TOKEN_KEY) || null;
+    }
+
+    static isAdmin(user = null) {
+        const target = user || this.getCurrentUser();
+        return target?.currentRole === "Admin";
     }
 }
+
 export default AuthService;

@@ -1,139 +1,142 @@
-const data = [
-  {id:1,name:"Ерөнхий үзлэг",price:30000,doctors:["Д.Бат","Д.Сараа"]},
-  {id:2,name:"Вакцин",price:20000,doctors:["Д.Тэмүүжин","Д.Номин"]},
-  {id:3,name:"Мэс засал",price:150000,doctors:["Д.Болд","Д.Ганаа"]},
-  {id:4,name:"Лабораторийн шинжилгээ",price:20000,doctors:["Д.Болд","Д.Ганаа"]},
-  {id:5,name:"Шүдний эмчилгээ",price:100000,doctors:["Д.Номин","Д.Бат"]},
-  {id:6,name:"Арьс үсний арчилгаа",price:100000,doctors:["Д.Сараа","Д.Бат"]}
-];
+import AppointmentService from "../domain/services/appointService.js";
 
-const times = ["09:00","11:00","14:00","17:00","19:00"];
-
-let selectedService = null;
-let selectedDoctor = null;
-let selectedDate = null;
-let selectedTime = null;
-
-
-// ===== SERVICE RENDER =====
-const serviceList = document.getElementById("serviceList");
-
-serviceList.innerHTML = data.map(s => `
-  <div class="service-item">
-    <h3>${s.name}</h3>
-    <p>${s.price}₮</p>
-    <button onclick="selectService(${s.id}, this.parentElement)">Сонгох</button>
-  </div>
-`).join("");
-
-
-// ===== AUTO SELECT =====
-const savedName = localStorage.getItem("serviceName");
-
-if(savedName){
-  const found = data.find(s => s.name === savedName);
-  if(found){
-    setTimeout(() => {
-      const el = [...document.querySelectorAll(".service-item")]
-        .find(e => e.querySelector("h3").innerText === savedName);
-
-      if(el){
-        selectService(found.id, el);
-      }
-    }, 100);
-  }
-}
-
-
-// ===== SERVICE SELECT =====
-window.selectService = (id, el) => {
-  selectedService = data.find(s => s.id === id);
-
-  // reset doctor & time
-  selectedDoctor = null;
-  selectedTime = null;
-  document.getElementById("doctorList").innerHTML = "";
-  document.getElementById("timeList").innerHTML = "";
-
-  document.querySelectorAll(".service-item").forEach(e=>{
-    e.classList.remove("active");
-  });
-
-  el.classList.add("active");
-
-  loadDoctors();
-};
-
-
-// ===== DOCTOR =====
-function loadDoctors(){
+document.addEventListener("DOMContentLoaded", () => {
+  const serviceList = document.getElementById("serviceList");
   const doctorList = document.getElementById("doctorList");
-
-  doctorList.innerHTML = selectedService.doctors.map(d => `
-    <button onclick="selectDoctor('${d}', this)">${d}</button>
-  `).join("");
-}
-
-
-// ===== SELECT DOCTOR =====
-window.selectDoctor = (doc, el) => {
-  selectedDoctor = doc;
-
-  document.querySelectorAll("#doctorList button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  el.classList.add("active");
-};
-
-
-// ===== DATE =====
-document.getElementById("date").addEventListener("change", (e)=>{
-  selectedDate = e.target.value;
-  loadTimes();
-});
-
-
-// ===== TIME =====
-function loadTimes(){
   const timeList = document.getElementById("timeList");
+  const dateInput = document.getElementById("date");
+  const confirmButton = document.getElementById("confirmBtn");
 
-  timeList.innerHTML = times.map(t => `
-    <button onclick="selectTime('${t}', this)">${t}</button>
-  `).join("");
-}
-
-
-// ===== SELECT TIME =====
-window.selectTime = (t, el)=>{
-  selectedTime = t;
-
-  document.querySelectorAll("#timeList button").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  el.classList.add("active");
-};
-
-
-// ===== CONFIRM =====
-document.getElementById("confirmBtn").onclick = () => {
-
-  if(!selectedService || !selectedDoctor || !selectedDate || !selectedTime){
-    alert("Бүгдийг сонгоно уу!");
+  if (!serviceList || !doctorList || !timeList || !dateInput || !confirmButton) {
     return;
   }
 
-  // FORM нуух 
-  document.querySelector("main > *:not(#successBox)").style.display = "none";
+  const state = {
+    selectedService: null,
+    selectedDoctor: null,
+    selectedDate: null,
+    selectedTime: null,
+  };
 
-  // SUCCESS SHOW
-  document.getElementById("successBox").style.display = "block";
+  function resetDependentSelections() {
+    state.selectedDoctor = null;
+    state.selectedTime = null;
+    doctorList.innerHTML = "";
+    timeList.innerHTML = "";
+  }
 
-  // DATA хийх
-  document.getElementById("c-service").innerText = selectedService.name;
-  document.getElementById("c-doctor").innerText = selectedDoctor;
-  document.getElementById("c-date").innerText = selectedDate;
-  document.getElementById("c-time").innerText = selectedTime;
-  document.getElementById("c-price").innerText = selectedService.price + "₮";
-};
+  function renderServiceOptions() {
+    const services = AppointmentService.getServiceOptions();
+    serviceList.innerHTML = services
+      .map(
+        (service) => `
+          <div class="service-item" data-service-id="${service.id}">
+            <h3>${service.name}</h3>
+            <p>${service.price}₮</p>
+            <button type="button">Сонгох</button>
+          </div>
+        `
+      )
+      .join("");
+
+    serviceList.querySelectorAll(".service-item button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const serviceItem = button.closest(".service-item");
+        const serviceId = Number(serviceItem?.dataset.serviceId);
+        const selected = AppointmentService.getServiceById(serviceId);
+        if (!serviceItem || !selected) {
+          return;
+        }
+
+        state.selectedService = selected;
+        serviceList.querySelectorAll(".service-item").forEach((item) => item.classList.remove("active"));
+        serviceItem.classList.add("active");
+        resetDependentSelections();
+        renderDoctorOptions();
+      });
+    });
+  }
+
+  function renderDoctorOptions() {
+    if (!state.selectedService) {
+      doctorList.innerHTML = "";
+      return;
+    }
+
+    doctorList.innerHTML = state.selectedService.doctors
+      .map((doctor) => `<button type="button" data-doctor="${doctor}">${doctor}</button>`)
+      .join("");
+
+    doctorList.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.selectedDoctor = button.dataset.doctor;
+        doctorList.querySelectorAll("button").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+      });
+    });
+  }
+
+  function renderTimeOptions() {
+    const times = AppointmentService.getTimes();
+    timeList.innerHTML = times
+      .map((time) => `<button type="button" data-time="${time}">${time}</button>`)
+      .join("");
+
+    timeList.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.selectedTime = button.dataset.time;
+        timeList.querySelectorAll("button").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+      });
+    });
+  }
+
+  function autoSelectServiceFromStorage() {
+    const savedName = localStorage.getItem("serviceName");
+    if (!savedName) {
+      return;
+    }
+    const foundService = AppointmentService.getServiceByName(savedName);
+    if (!foundService) {
+      return;
+    }
+
+    const targetItem = serviceList.querySelector(`[data-service-id="${foundService.id}"]`);
+    const targetButton = targetItem?.querySelector("button");
+    if (targetButton) {
+      targetButton.click();
+    }
+  }
+
+  function showConfirmation() {
+    if (!state.selectedService || !state.selectedDoctor || !state.selectedDate || !state.selectedTime) {
+      alert("Бүгдийг сонгоно уу!");
+      return;
+    }
+
+    const bookingSection = document.querySelector("main > *:not(#successBox)");
+    const successBox = document.getElementById("successBox");
+    if (bookingSection) {
+      bookingSection.style.display = "none";
+    }
+    if (successBox) {
+      successBox.style.display = "block";
+    }
+
+    document.getElementById("c-service").innerText = state.selectedService.name;
+    document.getElementById("c-doctor").innerText = state.selectedDoctor;
+    document.getElementById("c-date").innerText = state.selectedDate;
+    document.getElementById("c-time").innerText = state.selectedTime;
+    document.getElementById("c-price").innerText = `${state.selectedService.price}₮`;
+  }
+
+  dateInput.addEventListener("change", (event) => {
+    state.selectedDate = event.target.value;
+    renderTimeOptions();
+  });
+
+  confirmButton.addEventListener("click", showConfirmation);
+
+  renderServiceOptions();
+  autoSelectServiceFromStorage();
+});
