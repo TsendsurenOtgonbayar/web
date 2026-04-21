@@ -101,16 +101,6 @@ function setupRegisterForm(registerForm) {
         }, 1500);
     });
 }
-function redirectIfAlreadyLoggedIn() {
-    const currentUser = AuthService.getCurrentUser();
-    if (!currentUser) {
-        return;
-    }
-    showNotification(`Сайн байна уу, ${currentUser.Name}!`, "success");
-    setTimeout(() => {
-        window.location.href = "profile.html";
-    }, 1000);
-}
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
@@ -118,6 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
     setupLoginForm(loginForm);
     setupRegisterForm(registerForm);
     setupTabNavigation();
-    // setupRealtimeValidation();
-    redirectIfAlreadyLoggedIn();
+    if(AuthService.checkAuthAndRedirect()) {
+        const currentUser = AuthService.getCurrentUser();
+        showNotification(`Сайн байна уу, ${currentUser.Name}!`, "success");
+        setTimeout(() => {
+            window.location.href = "profile.html";
+        }, 1000);
+    }else return;
 });
