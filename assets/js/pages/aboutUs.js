@@ -1,10 +1,46 @@
+import { DoctorCard } from "../components/DoctorCard.js";
+
 document.addEventListener("DOMContentLoaded", () => {
     const stars = document.querySelectorAll("#starSelector svg");
     const reviewText = document.getElementById("reviewText");
     const submitBtn = document.getElementById("submitReviewBtn");
     const reviewsList = document.getElementById("reviewsList");
+    const doctorList = document.querySelector('.doctor-list');
     
     let currentRating = 0;
+
+    const doctors = [
+        {
+            name: "Б. Оюунчимэг",
+            type: "Ерөнхий малын эмч",
+            image: "assets/doctor-1.png",
+            rating: 5,
+            experience: 12,
+            speciality: "Дотрын өвчин"
+        },
+        {
+            name: "Т. Батбаярг",
+            type: "Мэс заслын эмч",
+            image: "assets/doctor-2.png",
+            rating: 4,
+            experience: 8,
+            speciality: "Дотрын өвчин"
+        },
+        {
+            name: "Л. Ганзориг",
+            type: "Оношилгооны эмч",
+            image: "assets/doctor-3.png",
+            rating: 5,
+            experience: 12,
+            speciality: "Дотрын өвчин"
+        }
+    ];
+
+
+    doctors.forEach(doctor => {
+        const card = DoctorCard(doctor); // Карт үүсгэх
+        doctorList.appendChild(card);    // Жагсаалт руу нэмэх
+    });
 
     // 1. Одод дээр дарах үйлдэл
     stars.forEach((star, index) => {
