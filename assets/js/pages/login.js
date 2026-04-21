@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (result) {
                 // Form цэвэрлэх
                 loginForm.reset();
-                
+                window.location.href="profile.html"
                 // Профайл хуудас руу шилжүүлэх
-                setTimeout(() => {
-                    window.location.href = "profile.html";
-                }, 1500); // 1.5 сек хүлээж үзүүлэх (notification бүтээгүй болгохын тулд)
+                // setTimeout(() => {
+                //     window.location.href = "profile.html";
+                // }, 1500); // 1.5 сек хүлээж үзүүлэх (notification бүтээгүй болгохын тулд)
             } else {
                 // Нэвтрэлт амжилтгүй - form цэвэрлэх
                 loginForm.reset();

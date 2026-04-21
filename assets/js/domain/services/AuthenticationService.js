@@ -2,6 +2,68 @@
 import { showNotification } from "../../utils.js";
 import User from "../models/user.js"
 //const serverURL="";//fetch hiihed heregleh url
+const data=[
+  {
+    "id": 0.123456789,
+    "name": "А.Бат",
+    "email": "bat@gmail.com",
+    "password": "Password123!",
+    "role": {
+      "User": "User",
+      "Admin": "Admin"
+    },
+    "currentRole": "User",
+    "pets": [
+      {
+        "petId": "p1",
+        "name": "Банхар",
+        "type": "Нохой",
+        "breed": "Төвд мастиф"
+      }
+    ],
+    "appointments": []
+  },
+  {
+    "id": 0.987654321,
+    "name": "С.Сараа",
+    "email": "saraa@yahoo.com",
+    "password": "Saraa6789Password",
+    "role": {
+      "User": "User",
+      "Admin": "Admin"
+    },
+    "currentRole": "User",
+    "pets": [
+      {
+        "petId": "p2",
+        "name": "Мийгаа",
+        "type": "Муур",
+        "breed": "Шотланд"
+      }
+    ],
+    "appointments": [
+      {
+        "appId": "a101",
+        "date": "2026-04-20",
+        "time": "14:30",
+        "reason": "Вакцин"
+      }
+    ]
+  },
+  {
+    "id": 0.555666777,
+    "name": "Админ Баяр",
+    "email": "admin@vetclinic.mn",
+    "password": "AdminSecure2026",
+    "role": {
+      "User": "User",
+      "Admin": "Admin"
+    },
+    "currentRole": "Admin",
+    "pets": [],
+    "appointments": []
+  }
+]
 class AuthService{
     static validateEmail(email) {//ene baij boln✅
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,35 +125,39 @@ class AuthService{
             //         return false;
             //     }
             // }
-            const response = await fetch(serverURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    email: loginOBJ.Email,
-                    password: loginOBJ.Password
-                })
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP алдаа: ${response.status} ${response.statusText}`);
-            }
+            // const response = await fetch(serverURL, {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({
+            //         email: loginOBJ.Email,
+            //         password: loginOBJ.Password
+            //     })
+            // });
+            // if (!response.ok) {
+            //     throw new Error(`HTTP алдаа: ${response.status} ${response.statusText}`);
+            // }
 
             // 5. JSON-д задлах
-            const data = await response.json();
+            // const data = await response.json();
 
-            // 6. Success эсэхийг шалгах
-            if (data.success) {
-                // Token хадгалах
-                if (data.token) {
-                    localStorage.setItem("token", data.token);
-                    localStorage.setItem("LoggedIn", JSON.stringify(data.user));
-                    showNotification("Амжилттай нэвтэрлээ!", "success");
-                }
+            // // // 6. Success эсэхийг шалгах
+            // // if (data.success) {
+            // //     // Token хадгалах
+            // //     if (data.token) {
+            // //         localStorage.setItem("token", data.token);
+            // //         localStorage.setItem("LoggedIn", JSON.stringify(data.user));
+            // //         showNotification("Амжилттай нэвтэрлээ!", "success");
+            // //     }
+            // //     return true;
+            // // } else {
+            // //     showNotification(data.message || "Email эсвэл password буруу байна", "error");
+            // //     return false;
+            // // }
+
+            const result=data.some(u=>u.Email===loginOBJ.Email && u.Password===loginOBJ.Password);
+            if(result){
                 return true;
-            } else {
-                showNotification(data.message || "Email эсвэл password буруу байна", "error");
-                return false;
             }
-
         } catch (error) {
             console.error("Нэвтрэх алдаа:", error);
             
