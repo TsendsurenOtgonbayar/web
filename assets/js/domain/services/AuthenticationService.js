@@ -269,7 +269,7 @@ class AuthService {
         const target = user || this.getCurrentUser();
         return target?.currentRole === "Admin";
     }
-    static checkAuthAndRedirect() {
+    static checkAuthAndRedirect() {//main js d zoriulj hiisen function
         const currentUser = AuthService.getCurrentUser();
         if (currentUser) {
           return true;

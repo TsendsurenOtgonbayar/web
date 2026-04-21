@@ -2,7 +2,9 @@ import { addStarColor } from "../utils.js";
 import AuthService from "../domain/services/AuthenticationService.js";
 import { createCommentCard } from "../components/commentsComp.js";
 import {addComment,getRecentComments,validateCommentInput,} from "../domain/services/commentService.js";
-
+function resolveAuthorName(currentUser) {
+  return currentUser?.Name || currentUser?.name || currentUser?.Email || "Тодорхойгүй";
+}
 function initCommentsSection() {
   const commentRow = document.getElementById("commentRow");
   const makeComment = document.getElementById("makeComments");
@@ -78,7 +80,6 @@ function initCommentsSection() {
       makeComment.style.display = "none";
     });
   }
-
   renderComments();
 }
 document.addEventListener("DOMContentLoaded", () => {

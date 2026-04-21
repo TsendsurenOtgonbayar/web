@@ -39,11 +39,6 @@ function setActiveNavigation() {
     link.classList.toggle("active", isActive);
   });
 }
-
-
-function resolveAuthorName(currentUser) {
-  return currentUser?.Name || currentUser?.name || currentUser?.Email || "Тодорхойгүй";
-}
 document.addEventListener("DOMContentLoaded", () => {
   updateHeaderAuthStatus();
   setActiveNavigation();
