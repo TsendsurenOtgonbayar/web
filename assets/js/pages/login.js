@@ -63,14 +63,15 @@ function setupLoginForm(loginForm) {
         if (result) {
             window.location.href = "profile.html";
         }
+        else{
+            showNotification("Имэйл эсвэл нууц үг буруу байна", "error");
+        }
     });
 }
-
 function setupRegisterForm(registerForm) {
     if (!registerForm) {
         return;
     }
-
     registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
@@ -80,22 +81,19 @@ function setupRegisterForm(registerForm) {
         const password = document.getElementById('regPassword').value.trim();
 
         if (!lastName || !firstName || !email || !password) {
-            showNotification("Бүх талбарыг өглөх хэрэгтэй", "error");
+            showNotification("Бүх талбарыг бөглөх хэрэгтэй", "error");
             return;
         }
-
         const enrollResult = await AuthService.enrollUser({
             LastName: lastName,
             FirstName: firstName,
             Email: email,
             Password: password
         });
-
         if (!enrollResult.success) {
             showNotification(enrollResult.message, "error");
             return;
         }
-
         showNotification(enrollResult.message, "success");
         registerForm.reset();
         setTimeout(() => {
@@ -103,52 +101,6 @@ function setupRegisterForm(registerForm) {
         }, 1500);
     });
 }
-
-function setupRealtimeValidation() {
-    const loginEmailInput = document.getElementById('loginEmail');
-    const regEmailInput = document.getElementById('regEmail');
-    const regPasswordInput = document.getElementById('regPassword');
-
-    if (loginEmailInput) {
-        loginEmailInput.addEventListener('blur', () => {
-            const email = loginEmailInput.value.trim();
-            const invalid = email && !AuthService.validateEmail(email);
-            loginEmailInput.style.borderColor = invalid ? '#ff4757' : '';
-            if (invalid) {
-                showNotification("Имэйлийн формат буруу байна", "error");
-            }
-        });
-    }
-
-    if (regEmailInput) {
-        regEmailInput.addEventListener('blur', () => {
-            const email = regEmailInput.value.trim();
-            const invalid = email && !AuthService.validateEmail(email);
-            regEmailInput.style.borderColor = invalid ? '#ff4757' : '';
-            if (invalid) {
-                showNotification("Имэйлийн формат буруу байна", "error");
-            }
-        });
-    }
-
-    if (regPasswordInput) {
-        regPasswordInput.addEventListener('blur', () => {
-            const password = regPasswordInput.value;
-            if (!password) {
-                return;
-            }
-            const validation = AuthService.validatePassword(password);
-            if (!validation.valid) {
-                regPasswordInput.style.borderColor = '#ff4757';
-                showNotification(validation.message, "error");
-                return;
-            }
-            regPasswordInput.style.borderColor = '#2ed573';
-            showNotification("Нууц үг сайн байна ✓", "success");
-        });
-    }
-}
-
 function redirectIfAlreadyLoggedIn() {
     const currentUser = AuthService.getCurrentUser();
     if (!currentUser) {
@@ -159,7 +111,6 @@ function redirectIfAlreadyLoggedIn() {
         window.location.href = "profile.html";
     }, 1000);
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
@@ -167,6 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setupLoginForm(loginForm);
     setupRegisterForm(registerForm);
     setupTabNavigation();
-    setupRealtimeValidation();
+    // setupRealtimeValidation();
     redirectIfAlreadyLoggedIn();
 });

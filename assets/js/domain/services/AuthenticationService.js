@@ -193,7 +193,7 @@ class AuthService {
             if (!firstName || !lastName || !email || !password) {
                 return {
                     success: false,
-                    message: "Овог, нэр, имэйл болон нууц үгээ бүрэн оруулна уу",
+                    message: "Бүртгүүлэх талбаруудыг бүрэн оруулна уу",
                 };
             }
             if (!this.validateEmail(email)) {
