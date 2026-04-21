@@ -1,4 +1,4 @@
-import { delElm, addStarColor,isUserLoggedIn,checkAuthAndRedirect  } from "./utils.js";
+import { delElm, addStarColor  } from "./utils.js";
 
 const COMMENTS_KEY = "petcare_comments";
 const loggedUser_key = "LoggedIn";
