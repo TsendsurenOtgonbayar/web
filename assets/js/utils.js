@@ -59,6 +59,7 @@ export function showNotification(message, type = 'success') {
     
     // Өнгө тохируулах
     if(type === 'error') toast.style.backgroundColor = '#ff4757';
+    if(type==='pending') toast.style.backgroundColor="#ffcc00";
     if(type === 'success') toast.style.backgroundColor = '#2ed573';
 
     document.body.appendChild(toast);
@@ -67,16 +68,4 @@ export function showNotification(message, type = 'success') {
     setTimeout(() => {
         toast.remove();
     }, 3000);
-}
-export function isUserLoggedIn() {
-    const loggedUser = localStorage.getItem("LoggedIn");
-    return loggedUser ? true : false;
-}
-export function checkAuthAndRedirect() {
-    if (!isUserLoggedIn()) {
-        showNotification("Та эхэлээд нэвтэрэх хэрэгтэй!","error");
-        window.location.href = "login.html";
-        return false;
-    }
-    return true;
 }

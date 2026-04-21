@@ -1,89 +1,188 @@
 import { showNotification } from "../utils.js";
-import user from "../domain/models/user.js"
 import AuthService from "../domain/services/AuthenticationService.js";
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
-    const User_register_key="isRegisted";
-    const loggedUser_key="LoggedIn";
-    // localStorage.clear()
-    // Нэвтрэх үйлдэл
+    // НЭВТРЭХ ФОРМ
     if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
-            e.preventDefault(); // Хуудас рефреш хийгдэхийг зогсоох
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
             
+            // Form доторх элементүүдийг авах
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
-            // Энд Backend рүү fetch() ашиглан хүсэлт илгээнэ. Одоогоор дуурайлгаж хийе:
-            if(email && password) {
-                const loginFormInfo ={
-                    Email:email,
-                    Password:password,
-                }
-                if(AuthService.logCheck(loginFormInfo)){
-                    throw showNotification("Амжилттай нэвтэрлээ!","success");
-                    loginForm.reset();
-                    window.location.href = "profile.html"; 
-                }
-                else{
-                    showNotification("Email эсвэл password буруу байна","error");
-                    loginForm.reset();
-                }
+
+            // Input validation
+            if (!email || !password) {
+                showNotification("Имэйл болон нууц үг оруулна уу", "error");
+                return;
+            }
+
+            // AuthService-г дуудаж нэвтрэх
+            const result = await AuthService.logCheck({
+                Email: email,
+                Password: password
+            });
+
+            // Нэвтрэлт амжилттай эсэхийг шалгах
+            if (result) {
+                // Form цэвэрлэх
+                loginForm.reset();
                 
+                // Профайл хуудас руу шилжүүлэх
+                setTimeout(() => {
+                    window.location.href = "profile.html";
+                }, 1500); // 1.5 сек хүлээж үзүүлэх (notification бүтээгүй болгохын тулд)
+            } else {
+                // Нэвтрэлт амжилтгүй - form цэвэрлэх
+                loginForm.reset();
             }
         });
     }
-
-    // ─────────────────────────────────────────
-    // БҮРТГҮҮЛЭХ форм
-    // ─────────────────────────────────────────
+    // БҮРТГҮҮЛЭХ ФОРМ
     if (registerForm) {
         registerForm.addEventListener("submit", (e) => {
             e.preventDefault();
-
+            
+            // Form доторх элементүүдийг авах
             const name = document.getElementById('regName').value.trim();
             const pet = document.getElementById('regPet').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value.trim();
 
-            // Бааз руу хадгалах логик энд бичигдэнэ
-            console.log("Шинэ хэрэглэгч:", { name, pet, email, password });
-            const registedUserInfo={
-                Name:name,
-                Pet:pet,
-                Email:email,
-                Pass:password
+            // Нэмэлт input validation
+            if (!name || !pet || !email || !password) {
+                showNotification("Бүх талбарыг өглөх хэрэгтэй", "error");
+                return;
             }
-            let AllUserData =JSON.parse(localStorage.getItem(User_register_key));
-            if(!Array.isArray(AllUserData))AllUserData=[AllUserData];
 
-            AllUserData.push(registedUserInfo);
-            localStorage.setItem(User_register_key,JSON.stringify(AllUserData));
-            
-            showNotification("Амжилттай бүртгэгдлээ! Одоо имэйл болон нууц үгээрээ нэвтэрнэ үү.","success");
-            
-            // Формыг цэвэрлээд Нэвтрэх таб руу шилжих
-            registerForm.reset();
-            switchTab('login'); // logIn.html доторх функцийг дуудах
+            // AuthService-ийн enrollUser методыг дуудаж бүртгүүлэх
+            const enrollResult = AuthService.enrollUser({
+                Name: name,
+                Pet: pet,
+                Email: email,
+                Password: password
+            });
+
+            // Бүртгүүлэлтийн үр дүнг шалгах
+            if (enrollResult.success) {
+                showNotification(enrollResult.message, "success");
+                
+                // Form цэвэрлэх
+                registerForm.reset();
+                
+                // Нэвтрэх таб руу шилжүүлэх
+                setTimeout(() => {
+                    switchTab('login');
+                }, 1500);
+            } else {
+                showNotification(enrollResult.message, "error");
+                // Формыг цэвэрлэхгүй үлдээх (хэрэглэгч засахын тулд)
+            }
         });
     }
-});
-// 1. Таб солих функц (HTML дээрх onclick="switchTab(...)" товчнууд ажиллахын тулд)
-window.switchTab = function(tabName) {
-    // Табуудын active классыг солих
-    document.getElementById('tab-login').classList.remove('active');
-    document.getElementById('tab-register').classList.remove('active');
 
-    document.getElementById('loginForm').classList.remove('active');
-    document.getElementById('registerForm').classList.remove('active');
+    // ────────────────────────────────────────
+    // ТАБ СОЛИХ ФУНКЦ
+    // ────────────────────────────────────────
+    window.switchTab = function(tabName) {
+        const tabLogin = document.getElementById('tab-login');
+        const tabRegister = document.getElementById('tab-register');
+        const loginFormEl = document.getElementById('loginForm');
+        const registerFormEl = document.getElementById('registerForm');
 
-    if (tabName === 'login') {
-        document.getElementById('tab-login').classList.add('active');
-        document.getElementById('loginForm').classList.add('active');
-        window.location.hash = 'login';
-    } else {
-        document.getElementById('tab-register').classList.add('active');
-        document.getElementById('registerForm').classList.add('active');
-        window.location.hash = 'register';
+        // Бүх tab-ыг идэвхигүй болгох
+        if (tabLogin) tabLogin.classList.remove('active');
+        if (tabRegister) tabRegister.classList.remove('active');
+        if (loginFormEl) loginFormEl.classList.remove('active');
+        if (registerFormEl) registerFormEl.classList.remove('active');
+
+        // Сонгосон tab-ыг идэвхижүүлэх
+        if (tabName === 'login') {
+            if (tabLogin) tabLogin.classList.add('active');
+            if (loginFormEl) loginFormEl.classList.add('active');
+            window.location.hash = 'login';
+        } else if (tabName === 'register') {
+            if (tabRegister) tabRegister.classList.add('active');
+            if (registerFormEl) registerFormEl.classList.add('active');
+            window.location.hash = 'register';
+        }
+    };
+    // URL HASH-ээр ТАБ СОНГОХ (опционал)
+    function initializeTabFromHash() {
+        const hash = window.location.hash.substring(1);
+        if (hash === 'register') {
+            switchTab('register');
+        } else {
+            switchTab('login');
+        }
     }
-};
+
+    // Хуудас ачаалахад tab инициализ хийх
+    initializeTabFromHash();
+
+    // Hash өөрчлөгдөхөд tab сонгох
+    window.addEventListener('hashchange', () => {
+        initializeTabFromHash();
+    });
+
+    // FORM VALIDATION - Real-time
+    const loginEmailInput = document.getElementById('loginEmail');
+    const loginPasswordInput = document.getElementById('loginPassword');
+    const regNameInput = document.getElementById('regName');
+    const regPetInput = document.getElementById('regPet');
+    const regEmailInput = document.getElementById('regEmail');
+    const regPasswordInput = document.getElementById('regPassword');
+
+    // Email validation (Real-time)
+    if (loginEmailInput) {
+        loginEmailInput.addEventListener('blur', () => {
+            const email = loginEmailInput.value.trim();
+            if (email && !AuthService.validateEmail(email)) {
+                loginEmailInput.style.borderColor = '#ff4757';
+                showNotification("Имэйлийн формат буруу байна", "error");
+            } else {
+                loginEmailInput.style.borderColor = '';
+            }
+        });
+    }
+
+    if (regEmailInput) {
+        regEmailInput.addEventListener('blur', () => {
+            const email = regEmailInput.value.trim();
+            if (email && !AuthService.validateEmail(email)) {
+                regEmailInput.style.borderColor = '#ff4757';
+                showNotification("Имэйлийн формат буруу байна", "error");
+            } else {
+                regEmailInput.style.borderColor = '';
+            }
+        });
+    }
+
+    // Password validation (Real-time)
+    if (regPasswordInput) {
+        regPasswordInput.addEventListener('blur', () => {
+            const password = regPasswordInput.value;
+            if (password) {
+                const validation = AuthService.validatePassword(password);
+                if (!validation.valid) {
+                    regPasswordInput.style.borderColor = '#ff4757';
+                    showNotification(validation.message, "error");
+                } else {
+                    regPasswordInput.style.borderColor = '#2ed573';
+                    showNotification("Нууц үг сайн байна ✓", "success");
+                }
+            }
+        });
+    }
+
+    // ХЭРЭГЛЭГЧ АЛЬ ХЭДИЙН НЭВТЭРСЭН ЭСЭ ШАЛГАХ
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser) {
+        // Хэрэглэгч аль хэдийн нэвтэрсэн бол профайл хуудас руу шилжүүлэх
+        showNotification(`Сайн байна уу, ${currentUser.Name}!`, "success");
+        setTimeout(() => {
+            window.location.href = "profile.html";
+        }, 1000);
+    }
+});
