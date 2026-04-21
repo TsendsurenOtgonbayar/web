@@ -1,4 +1,4 @@
-import { petCard } from "../components/pet.js";
+import { petCard } from "../components/PetCard.js";
 import { showNotification } from "../utils.js"
 import AuthService from "../domain/services/AuthenticationService.js";
 
