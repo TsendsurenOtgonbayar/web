@@ -7,6 +7,10 @@ const LOGGED_USER_KEY = "LoggedIn";
 function getCurrentUserOrRedirect() {
     const user = AuthService.getCurrentUser();
     if (user) {
+        if (AuthService.isAdmin(user)) {
+            window.location.href = "dashboard.html";
+            return null;
+        }
         return user;
     }
     showNotification("Та эхлээд нэвтэрч орно уу!", "error");

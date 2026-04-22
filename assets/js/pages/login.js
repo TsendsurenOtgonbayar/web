@@ -61,10 +61,8 @@ function setupLoginForm(loginForm) {
 
         loginForm.reset();
         if (result) {
-            window.location.href = "profile.html";
-        }
-        else{
-            showNotification("Имэйл эсвэл нууц үг буруу байна", "error");
+            const currentUser = AuthService.getCurrentUser();
+            window.location.href = AuthService.getRedirectRoute(currentUser);
         }
     });
 }
@@ -101,6 +99,16 @@ function setupRegisterForm(registerForm) {
         }, 1500);
     });
 }
+function redirectIfAlreadyLoggedIn() {
+    const currentUser = AuthService.getCurrentUser();
+    if (!currentUser) {
+        return;
+    }
+    showNotification(`Сайн байна уу, ${currentUser.Name}!`, "success");
+    setTimeout(() => {
+        window.location.href = AuthService.getRedirectRoute(currentUser);
+    }, 1000);
+}
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
@@ -108,11 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setupLoginForm(loginForm);
     setupRegisterForm(registerForm);
     setupTabNavigation();
-    if(AuthService.checkAuthAndRedirect()) {
-        const currentUser = AuthService.getCurrentUser();
-        showNotification(`Сайн байна уу, ${currentUser.Name}!`, "success");
-        setTimeout(() => {
-            window.location.href = "profile.html";
-        }, 1000);
-    }else return;
+    // setupRealtimeValidation();
+    redirectIfAlreadyLoggedIn();
 });

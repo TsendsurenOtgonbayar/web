@@ -1,3 +1,20 @@
+import AuthService from "../domain/services/AuthenticationService.js";
+
+function guardDashboardAccess() {
+    const currentUser = AuthService.getCurrentUser();
+    if (!currentUser) {
+        window.location.href = "logIn.html";
+        return false;
+    }
+
+    if (!AuthService.isAdmin(currentUser)) {
+        window.location.href = "profile.html";
+        return false;
+    }
+
+    return true;
+}
+
 function setStatus(row, statusHtml, actionHtml) {
     const statusCell = row.querySelector("td:nth-child(5)");
     const actionCell = row.querySelector("td:last-child");
@@ -42,6 +59,10 @@ function handleReject(button) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    if (!guardDashboardAccess()) {
+        return;
+    }
+
     document.querySelectorAll(".btn-approve").forEach((button) => {
         button.addEventListener("click", () => handleApprove(button));
     });

@@ -12,8 +12,9 @@ function updateHeaderAuthStatus() {
 
   if (loggedUser) {
     const profileBtn = document.createElement("a");
-    profileBtn.href = "profile.html";
-    profileBtn.innerHTML = `<button id="profile-button">${loggedUser.Name || loggedUser.Email}</button>`;
+    profileBtn.href = AuthService.getRedirectRoute(loggedUser);
+    const buttonLabel = AuthService.isAdmin(loggedUser) ? "Хянах самбар" : (loggedUser.Name || loggedUser.Email);
+    profileBtn.innerHTML = `<button id="profile-button">${buttonLabel}</button>`;
     logInContainer.appendChild(profileBtn);
     return;
   }

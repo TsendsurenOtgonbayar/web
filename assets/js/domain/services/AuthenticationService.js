@@ -269,13 +269,19 @@ class AuthService {
         const target = user || this.getCurrentUser();
         return target?.currentRole === "Admin";
     }
-    static checkAuthAndRedirect() {//main js d zoriulj hiisen function
-        const currentUser = AuthService.getCurrentUser();
+
+    static getRedirectRoute(user = null) {
+        const target = user || this.getCurrentUser();
+        return this.isAdmin(target) ? "dashboard.html" : "profile.html";
+    }
+
+    static checkAuthAndRedirect(redirectTo = "logIn.html") {
+        const currentUser = this.getCurrentUser();
         if (currentUser) {
-          return true;
+            return true;
         }
-    
-        window.location.href = "logIn.html";
+
+        window.location.href = redirectTo;
         return false;
     }
 }

@@ -6,6 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeList = document.getElementById("timeList");
   const dateInput = document.getElementById("date");
   const confirmButton = document.getElementById("confirmBtn");
+  const summaryFields = {
+    service: document.getElementById("c-service"),
+    doctor: document.getElementById("c-doctor"),
+    date: document.getElementById("c-date"),
+    time: document.getElementById("c-time"),
+    price: document.getElementById("c-price"),
+  };
 
   if (!serviceList || !doctorList || !timeList || !dateInput || !confirmButton) {
     return;
@@ -23,6 +30,19 @@ document.addEventListener("DOMContentLoaded", () => {
     state.selectedTime = null;
     doctorList.innerHTML = "";
     timeList.innerHTML = "";
+    syncSummary();
+  }
+
+  function formatDate(dateValue) {
+    return dateValue || "Сонгоогүй";
+  }
+
+  function syncSummary() {
+    if (summaryFields.service) summaryFields.service.innerText = state.selectedService?.name || "Сонгоогүй";
+    if (summaryFields.doctor) summaryFields.doctor.innerText = state.selectedDoctor || "Сонгоогүй";
+    if (summaryFields.date) summaryFields.date.innerText = formatDate(state.selectedDate);
+    if (summaryFields.time) summaryFields.time.innerText = state.selectedTime || "Сонгоогүй";
+    if (summaryFields.price) summaryFields.price.innerText = state.selectedService ? `${state.selectedService.price}₮` : "0₮";
   }
 
   function renderServiceOptions() {
@@ -53,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         serviceItem.classList.add("active");
         resetDependentSelections();
         renderDoctorOptions();
+        syncSummary();
       });
     });
   }
@@ -72,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         state.selectedDoctor = button.dataset.doctor;
         doctorList.querySelectorAll("button").forEach((item) => item.classList.remove("active"));
         button.classList.add("active");
+        syncSummary();
       });
     });
   }
@@ -87,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         state.selectedTime = button.dataset.time;
         timeList.querySelectorAll("button").forEach((item) => item.classList.remove("active"));
         button.classList.add("active");
+        syncSummary();
       });
     });
   }
@@ -120,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       bookingSection.style.display = "none";
     }
     if (successBox) {
+      successBox.hidden = false;
       successBox.style.display = "block";
     }
 
@@ -133,10 +157,13 @@ document.addEventListener("DOMContentLoaded", () => {
   dateInput.addEventListener("change", (event) => {
     state.selectedDate = event.target.value;
     renderTimeOptions();
+    syncSummary();
   });
 
   confirmButton.addEventListener("click", showConfirmation);
 
   renderServiceOptions();
   autoSelectServiceFromStorage();
+  renderTimeOptions();
+  syncSummary();
 });
