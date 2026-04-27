@@ -1,7 +1,7 @@
 const COMMENTS_KEY = "petcare_comments";
 const MAX_COMMENTS = 10;
 
-import { Comment } from "../models/comment.js";
+import  Comment  from "../entity/comment.js";
 
 function parseComments(rawComments) {
 	if (!rawComments) {
