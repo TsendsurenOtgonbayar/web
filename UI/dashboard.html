@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Энэ хуудсанд зөвхөн dashboard.css-ийг дуудна, учир нь админ дэлгэц шал өөр бүтэцтэй -->
     <link rel="stylesheet" href="./css/dashboard.css">
     <title>Эмчийн самбар - Pet Care Clinic</title>
 </head>
@@ -18,7 +17,7 @@
             <ul class="admin-nav">
                 <li><a href="#" class="active">Хянах самбар</a></li>
                 <li><a href="#">Цагийн хуваарь (Календарь)</a></li>
-                <li style="margin-top: auto;"><a href="index.html">Гарах</a></li>
+                <li style="margin-top: auto;"><a id="logoutButton" href="index.html">Гарах</a></li>
             </ul>
         </aside>
 
@@ -75,7 +74,7 @@
                 <!-- Хүснэгт -->
                 <div class="table-container">
                     <div class="table-header">
-                        <h2>Шинэ цаг захиалгууд</h2>
+                        <h2>Баталгаажсан цаг захиалгууд</h2>
                     </div>
                     <table>
                         <thead>
@@ -84,43 +83,30 @@
                                 <th>Амьтан</th>
                                 <th>Үйлчилгээ</th>
                                 <th>Хүссэн цаг</th>
-                                <th>Төлөв</th>
-                                <th>Үйлдэл</th>
+                                <th>Тайлбар</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Бат-Эрдэнэ</td>
-                                <td>Банхар (Нохой)</td>
-                                <td>Вакцинжуулалт</td>
-                                <td>2026-04-10 14:00</td>
-                                <td><span style="color: #f57c00; font-weight: bold;">Хүлээгдэж буй</span></td>
-                                <td>
-                                    <button class="action-btn btn-approve">Батлах</button>
-                                    <button class="action-btn btn-reject">Цуцлах</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Саранцэцэг</td>
-                                <td>Мийгээ (Муур)</td>
-                                <td>Шүд цэвэрлэгээ</td>
-                                <td>2026-04-10 15:30</td>
-                                <td><span style="color: #f57c00; font-weight: bold;">Хүлээгдэж буй</span></td>
-                                <td>
-                                    <button class="action-btn btn-approve">Батлах</button>
-                                    <button class="action-btn btn-reject">Цуцлах</button>
-                                </td>
-                            </tr>
                             <tr>
                                 <td>Тэмүүлэн</td>
                                 <td>Пуужий (Туулай)</td>
                                 <td>Ерөнхий үзлэг</td>
                                 <td>2026-04-11 10:00</td>
                                 <td><span style="color: #2e7d32; font-weight: bold;">Баталгаажсан</span></td>
-                                <td>
-                                    <!-- Баталгаажсан тул харах товч байж болно -->
-                                    <button class="action-btn" style="background: #eee;">Дэлгэрэнгүй</button>
-                                </td>
+                            </tr>
+                            <tr>
+                                <td>Саранцэцэг</td>
+                                <td>Мийгээ (Муур)</td>
+                                <td>Шүд цэвэрлэгээ</td>
+                                <td>2026-04-12 15:30</td>
+                                <td><span style="color: #2e7d32; font-weight: bold;">Баталгаажсан</span></td>
+                            </tr>
+                            <tr>
+                                <td>Бат-Эрдэнэ</td>
+                                <td>Банхар (Нохой)</td>
+                                <td>Вакцинжуулалт</td>
+                                <td>2026-04-13 14:00</td>
+                                <td><span style="color: #2e7d32; font-weight: bold;">Баталгаажсан</span></td>
                             </tr>
                         </tbody>
                     </table>

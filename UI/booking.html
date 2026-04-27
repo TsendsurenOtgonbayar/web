@@ -54,7 +54,6 @@
                 </div>
             </div>
         </section>
-
         <section class="booking-layout" aria-label="Цаг захиалах хэсэг">
             <section class="booking-panel" aria-label="Сонголтын хэсэг">
                 <article class="booking-stage">
@@ -71,6 +70,7 @@
                         <p>Сонгосон үйлчилгээнд тохирох эмч нар гарч ирнэ.</p>
                     </div>
                     <div id="doctorList" class="choice-group" aria-live="polite"></div>
+                    <div id="doctorSchedule" class="doctor-schedule" aria-live="polite"></div>
                 </article>
 
                 <article class="booking-stage">
@@ -99,6 +99,10 @@
                             <dd id="c-doctor">Сонгоогүй</dd>
                         </div>
                         <div>
+                            <dt>Эмчийн хуваарь</dt>
+                            <dd id="c-schedule">Сонгоогүй</dd>
+                        </div>
+                        <div>
                             <dt>Огноо</dt>
                             <dd id="c-date">Сонгоогүй</dd>
                         </div>
@@ -117,6 +121,28 @@
                 <section id="successBox" class="success-box" hidden aria-live="polite">
                     <h2>Захиалга баталгаажлаа</h2>
                     <p>Таны сонгосон мэдээлэл бүртгэгдлээ. Доорх мэдээллийг шалгаарай.</p>
+                    <dl>
+                        <div>
+                            <dt>Үйлчилгээ</dt>
+                            <dd id="s-service">Сонгоогүй</dd>
+                        </div>
+                        <div>
+                            <dt>Эмч</dt>
+                            <dd id="s-doctor">Сонгоогүй</dd>
+                        </div>
+                        <div>
+                            <dt>Эмчийн хуваарь</dt>
+                            <dd id="s-schedule">Сонгоогүй</dd>
+                        </div>
+                        <div>
+                            <dt>Огноо</dt>
+                            <dd id="s-date">Сонгоогүй</dd>
+                        </div>
+                        <div>
+                            <dt>Цаг</dt>
+                            <dd id="s-time">Сонгоогүй</dd>
+                        </div>
+                    </dl>
                 </section>
             </aside>
         </section>
