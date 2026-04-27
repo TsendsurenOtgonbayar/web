@@ -1,6 +1,6 @@
 import { addStarColor } from "../utils.js";
 import AuthService from "../domain/services/AuthenticationService.js";
-import { createCommentCard } from "../components/commentsComp.js";
+import { createCommentCard } from "../components/commentsCard.js";
 import {addComment,getRecentComments,validateCommentInput,} from "../domain/services/commentService.js";
 function resolveAuthorName(currentUser) {
   return currentUser?.Name || currentUser?.name || currentUser?.Email || "Тодорхойгүй";
