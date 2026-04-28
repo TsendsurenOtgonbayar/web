@@ -1,4 +1,4 @@
-import { DoctorCard } from "../components/DoctorCard.js";
+import { DoctorCard } from "/web/js/components/DoctorCard.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const stars = document.querySelectorAll("#starSelector svg");
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             name: "Б. Оюунчимэг",
             type: "Ерөнхий малын эмч",
-            image: "assets/doctor-1.png",
+            image: "/web/access/doctor-1.png",
             rating: 5,
             experience: 12,
             speciality: "Дотрын өвчин"
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             name: "Т. Батбаярг",
             type: "Мэс заслын эмч",
-            image: "assets/doctor-2.png",
+            image: "/web/access/doctor-2.png",
             rating: 4,
             experience: 8,
             speciality: "Дотрын өвчин"
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             name: "Л. Ганзориг",
             type: "Оношилгооны эмч",
-            image: "assets/doctor-3.png",
+            image: "/web/access/doctor-3.png",
             rating: 5,
             experience: 12,
             speciality: "Дотрын өвчин"
