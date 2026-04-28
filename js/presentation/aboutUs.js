@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             speciality: "Дотрын өвчин"
         },
         {
-            name: "Т. Батбаярг",
+            name: "Т. Батбаяр",
             type: "Мэс заслын эмч",
             image: "/web/access/doctor-2.png",
             rating: 4,
