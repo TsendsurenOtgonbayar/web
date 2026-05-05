@@ -223,9 +223,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (successFields.time) successFields.time.innerText = state.selectedTime;
   }
 
-  dateInput.addEventListener("change", (event) => {
+  dateInput.addEventListener("change", async (event) => {
     state.selectedDate = event.target.value;
-    const availableSlots = state.selectedDate ? APIGateway.getAvailableSlots(null, state.selectedDate) : [];
+    let availableSlots = [];
+
+    if (state.selectedDate) {
+      const res = await APIGateway.getAvailableSlots(null, state.selectedDate);
+      // APIGateway.getAvailableSlots returns an object { success, slots }
+      if (res && Array.isArray(res.slots)) {
+        availableSlots = res.slots;
+      } else if (Array.isArray(res)) {
+        availableSlots = res;
+      }
+    }
+
     renderTimeOptions(availableSlots);
     syncSummary();
   });
