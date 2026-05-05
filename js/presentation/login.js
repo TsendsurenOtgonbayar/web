@@ -1,5 +1,5 @@
 import { showNotification } from "../utils.js";
-import AuthService from "../domain/services/AuthenticationService.js";
+import APIGateway from "../gateway/apiGateway.js";
 
 function setTabState(tabName) {
     const tabLogin = document.getElementById('tab-login');
@@ -54,22 +54,23 @@ function setupLoginForm(loginForm) {
             return;
         }
 
-        const result = await AuthService.logCheck({
-            Email: email,
-            Password: password
-        });
-
+        const result = await APIGateway.login(email, password);
         loginForm.reset();
-        if (result) {
-            const currentUser = AuthService.getCurrentUser();
-            window.location.href = AuthService.getRedirectRoute(currentUser);
+
+        if (result.success) {
+            window.location.href = APIGateway.getRedirectRoute(result.user);
+            return;
         }
+
+        showNotification(result.error || "Нэвтрэхэд алдаа гарлаа", "error");
     });
 }
+
 function setupRegisterForm(registerForm) {
     if (!registerForm) {
         return;
     }
+
     registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
@@ -82,33 +83,39 @@ function setupRegisterForm(registerForm) {
             showNotification("Бүх талбарыг бөглөх хэрэгтэй", "error");
             return;
         }
-        const enrollResult = await AuthService.enrollUser({
-            LastName: lastName,
-            FirstName: firstName,
-            Email: email,
-            Password: password
+
+        const enrollResult = await APIGateway.register({
+            lastName,
+            firstName,
+            email,
+            password
         });
+
         if (!enrollResult.success) {
-            showNotification(enrollResult.message, "error");
+            showNotification(enrollResult.error || "Бүртгэл үүсгэхэд алдаа гарлаа", "error");
             return;
         }
-        showNotification(enrollResult.message, "success");
+
+        showNotification("Бүртгэл амжилттай үүслээ", "success");
         registerForm.reset();
         setTimeout(() => {
             setTabState('login');
         }, 1500);
     });
 }
-function redirectIfAlreadyLoggedIn() {
-    const currentUser = AuthService.getCurrentUser();
+
+async function redirectIfAlreadyLoggedIn() {
+    const currentUser = await APIGateway.getCurrentUser();
     if (!currentUser) {
         return;
     }
-    showNotification(`Сайн байна уу, ${currentUser.Name}!`, "success");
+
+    showNotification(`Сайн байна уу, ${currentUser.Name || currentUser.name}!`, "success");
     setTimeout(() => {
-        window.location.href = AuthService.getRedirectRoute(currentUser);
+        window.location.href = APIGateway.getRedirectRoute(currentUser);
     }, 1000);
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
@@ -116,6 +123,5 @@ document.addEventListener("DOMContentLoaded", () => {
     setupLoginForm(loginForm);
     setupRegisterForm(registerForm);
     setupTabNavigation();
-    // setupRealtimeValidation();
     redirectIfAlreadyLoggedIn();
 });

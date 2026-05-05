@@ -1,11 +1,24 @@
-import { addStarColor } from "../utils.js";
-import AuthService from "../domain/services/AuthenticationService.js";
+import { addStarColor, showNotification } from "../utils.js";
+import APIGateway from "../gateway/apiGateway.js";
 import { createCommentCard } from "../components/commentsCard.js";
-import {addComment,getRecentComments,validateCommentInput,} from "../domain/services/commentService.js";
+
 function resolveAuthorName(currentUser) {
-  return currentUser?.Name || currentUser?.name || currentUser?.Email || "Тодорхойгүй";
+  return currentUser?.Name || currentUser?.name || currentUser?.Email || currentUser?.email || "Тодорхойгүй";
 }
-function initCommentsSection() {
+
+function validateReviewInput(text, rating) {
+  if (!text || text.trim().length < 5) {
+    return { valid: false, message: "Сэтгэгдэл хамгийн багадаа 5 тэмдэгттэй байна" };
+  }
+
+  if (rating < 1 || rating > 5) {
+    return { valid: false, message: "Одны үнэлгээг сонгоно уу" };
+  }
+
+  return { valid: true };
+}
+
+async function initCommentsSection() {
   const commentRow = document.getElementById("commentRow");
   const makeComment = document.getElementById("makeComments");
   const commentButton = document.getElementById("CommentButton");
@@ -19,8 +32,8 @@ function initCommentsSection() {
 
   let currentRating = 0;
 
-  function renderComments() {
-    const comments = getRecentComments();
+  async function renderComments() {
+    const comments = await APIGateway.getRecentReviews(10);
     commentRow.innerHTML = "";
     comments.forEach((comment) => {
       commentRow.appendChild(createCommentCard(comment));
@@ -39,7 +52,7 @@ function initCommentsSection() {
 
   if (commentButton && makeComment) {
     commentButton.addEventListener("click", () => {
-      if (!AuthService.checkAuthAndRedirect()) {
+      if (!APIGateway.checkAuthAndRedirect()) {
         return;
       }
       const isHidden = getComputedStyle(makeComment).display === "none";
@@ -48,28 +61,33 @@ function initCommentsSection() {
   }
 
   if (sendButton && commentTextarea && makeComment) {
-    sendButton.addEventListener("click", () => {
-      if (!AuthService.checkAuthAndRedirect()) {
+    sendButton.addEventListener("click", async () => {
+      if (!APIGateway.checkAuthAndRedirect()) {
         return;
       }
 
       const text = commentTextarea.value;
-      const validation = validateCommentInput(text, currentRating);
+      const validation = validateReviewInput(text, currentRating);
       if (!validation.valid) {
-        alert(validation.message);
+        showNotification(validation.message, "error");
         return;
       }
 
-      const currentUser = AuthService.getCurrentUser();
+      const currentUser = await APIGateway.getCurrentUser();
       const authorName = resolveAuthorName(currentUser);
-      addComment({
+      const result = await APIGateway.submitReview(currentUser?.userId, {
         text,
         rating: currentRating,
-        userId: currentUser?.id ?? null,
+        appointmentId: null,
         authorName,
       });
 
-      renderComments();
+      if (!result.success) {
+        showNotification(result.error || "Сэтгэгдэл хадгалах боломжгүй", "error");
+        return;
+      }
+
+      await renderComments();
 
       commentTextarea.value = "";
       currentRating = 0;
@@ -80,8 +98,10 @@ function initCommentsSection() {
       makeComment.style.display = "none";
     });
   }
-  renderComments();
+
+  await renderComments();
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   initCommentsSection();
 });

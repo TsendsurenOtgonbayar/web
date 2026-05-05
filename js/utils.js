@@ -9,7 +9,7 @@ export function CountElements(parentID, childType) {
   return childElements.length;
 }
 
-// Хүүхдийн элементүүд 10-оос их бол хам��ийн эхнийхийг устгах функц
+
 export function delElm(parentID, childSelector) {
   const parentElement = document.querySelector(parentID);
   if (!parentElement) {
@@ -24,20 +24,13 @@ export function delElm(parentID, childSelector) {
   return 0;
 }
 
-/**
- * Одны rating UI – од дархад filled class тавьж/арилгаж, гаднаас rating авч өгөх
- * @param {string} starsSelector - жишээ нь "#UnelgeeFiveStar svg"
- * @param {(rating:number)=>void} onChange - rating өөрчлөгдөх бүрт дуудна
- */
 export function addStarColor(starsSelector, onChange) {
   const stars = document.querySelectorAll(starsSelector);
   let currentRating = 0;
 
   stars.forEach((star, index) => {
     star.addEventListener("click", () => {
-      currentRating = index + 1; // 1–5
-
-      // Бүх одыг будна / будгийг арилгана
+      currentRating = index + 1; 
       stars.forEach((s, i) => {
         if (i < currentRating) {
           s.classList.add("filled");
