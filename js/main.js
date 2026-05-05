@@ -1,7 +1,6 @@
-import AuthService from "./domain/services/AuthenticationService.js";
-import { showNotification } from "./utils.js";
+import APIGateway from "./gateway/apiGateway.js";
 function updateHeaderAuthStatus() {
-  const loggedUser = AuthService.getCurrentUser();
+  const loggedUser = APIGateway.getCurrentUser();
   const logInContainer = document.getElementById("log-in");
 
   if (!logInContainer) {
@@ -12,19 +11,19 @@ function updateHeaderAuthStatus() {
 
   if (loggedUser) {
     const profileBtn = document.createElement("a");
-    profileBtn.href = AuthService.getRedirectRoute(loggedUser);
-    const buttonLabel = AuthService.isAdmin(loggedUser) ? "Хянах самбар" : (loggedUser.Name || loggedUser.Email);
+    profileBtn.href = APIGateway.getRedirectRoute(loggedUser);
+    const buttonLabel = APIGateway.isAdmin(loggedUser) ? "Хянах самбар" : (loggedUser.Name || loggedUser.Email || loggedUser.email);
     profileBtn.innerHTML = `<button id="profile-button">${buttonLabel}</button>`;
     logInContainer.appendChild(profileBtn);
     return;
   }
 
   const loginLink = document.createElement("a");
-  loginLink.href = "logIn.html";
+  loginLink.href = "/UI/logIn.html#login";
   loginLink.innerHTML = `<button id="ehni-button">Нэвтрэх</button>`;
 
   const registerLink = document.createElement("a");
-  registerLink.href = "logIn.html";
+  registerLink.href = "/UI/logIn.html#register";
   registerLink.innerHTML = `<button id="udaah-button">Бүртгүүлэх</button>`;
 
   logInContainer.appendChild(loginLink);
@@ -36,7 +35,9 @@ function setActiveNavigation() {
   const navLinks = document.querySelectorAll("header nav a, .mobile-bottom-nav a");
 
   navLinks.forEach((link) => {
-    const isActive = link.getAttribute("href") === currentUrl;
+    const href = link.getAttribute("href") || "";
+    const linkFile = href.split("/").pop();
+    const isActive = linkFile === currentUrl;
     link.classList.toggle("active", isActive);
   });
 }

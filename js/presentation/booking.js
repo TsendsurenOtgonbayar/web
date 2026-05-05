@@ -1,4 +1,5 @@
-import AppointmentService from "../domain/services/appointService.js";
+import APIGateway from "../gateway/apiGateway.js";
+import { showNotification } from "../utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const serviceList = document.getElementById("serviceList");
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (summaryFields.service) summaryFields.service.innerText = state.selectedService?.name || "Сонгоогүй";
     if (summaryFields.doctor) summaryFields.doctor.innerText = state.selectedDoctor || "Сонгоогүй";
     if (summaryFields.schedule) {
-      const schedule = state.selectedDoctor ? AppointmentService.getDoctorSchedule(state.selectedDoctor) : null;
+      const schedule = state.selectedDoctor ? APIGateway.getDoctorSchedule(state.selectedDoctor) : null;
       summaryFields.schedule.innerText = schedule ? `${schedule.workingDays}, ${schedule.workingHours}` : "Сонгоогүй";
     }
     if (summaryFields.date) summaryFields.date.innerText = formatDate(state.selectedDate);
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const schedule = AppointmentService.getDoctorSchedule(state.selectedDoctor);
+    const schedule = APIGateway.getDoctorSchedule(state.selectedDoctor);
     if (!schedule) {
       doctorSchedule.innerHTML = "";
       return;
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderServiceOptions() {
-    const services = AppointmentService.getServiceOptions();
+    const services = APIGateway.getServiceOptions();
     serviceList.innerHTML = services
       .map(
         (service) => `
@@ -102,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.addEventListener("click", () => {
         const serviceItem = button.closest(".service-item");
         const serviceId = Number(serviceItem?.dataset.serviceId);
-        const selected = AppointmentService.getServiceById(serviceId);
+        const selected = APIGateway.getServiceById(serviceId);
         if (!serviceItem || !selected) {
           return;
         }
@@ -123,7 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    doctorList.innerHTML = state.selectedService.doctors
+    const doctors = APIGateway.getDoctorOptions(state.selectedService.id);
+    doctorList.innerHTML = doctors
       .map((doctor) => `<button type="button" data-doctor="${doctor}">${doctor}</button>`)
       .join("");
 
@@ -138,8 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function renderTimeOptions() {
-    const times = AppointmentService.getTimes();
+  function renderTimeOptions(times = []) {
     timeList.innerHTML = times
       .map((time) => `<button type="button" data-time="${time}">${time}</button>`)
       .join("");
@@ -159,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!savedName) {
       return;
     }
-    const foundService = AppointmentService.getServiceByName(savedName);
+    const foundService = APIGateway.getServiceByName(savedName);
     if (!foundService) {
       return;
     }
@@ -171,9 +172,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function showConfirmation() {
+  async function showConfirmation() {
     if (!state.selectedService || !state.selectedDoctor || !state.selectedDate || !state.selectedTime) {
-      alert("Бүгдийг сонгоно уу!");
+      showNotification("Бүгдийг сонгоно уу!", "pending");
+      return;
+    }
+
+    const currentUser = await APIGateway.getCurrentUser();
+    if (!currentUser) {
+      showNotification("Та эхлээд нэвтэрнэ үү", "error");
+      window.location.href = "logIn.html";
+      return;
+    }
+
+    const bookingResult = await APIGateway.bookAppointment({
+      date: state.selectedDate,
+      time: state.selectedTime,
+      serviceType: state.selectedService.name,
+      doctorId: state.selectedDoctor,
+      notes: `${state.selectedService.name} үйлчилгээ`
+    });
+
+    if (!bookingResult.success) {
+      showNotification(bookingResult.error || bookingResult.errors?.[0] || "Захиалга үүсгэхэд алдаа гарлаа", "error");
       return;
     }
 
@@ -189,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("c-service").innerText = state.selectedService.name;
     document.getElementById("c-doctor").innerText = state.selectedDoctor;
-    const schedule = AppointmentService.getDoctorSchedule(state.selectedDoctor);
+    const schedule = APIGateway.getDoctorSchedule(state.selectedDoctor);
     document.getElementById("c-schedule").innerText = schedule ? `${schedule.workingDays}, ${schedule.workingHours}` : "Сонгоогүй";
     document.getElementById("c-date").innerText = state.selectedDate;
     document.getElementById("c-time").innerText = state.selectedTime;
@@ -204,7 +225,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   dateInput.addEventListener("change", (event) => {
     state.selectedDate = event.target.value;
-    renderTimeOptions();
+    const availableSlots = state.selectedDate ? APIGateway.getAvailableSlots(null, state.selectedDate) : [];
+    renderTimeOptions(availableSlots);
     syncSummary();
   });
 
@@ -212,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderServiceOptions();
   autoSelectServiceFromStorage();
-  renderTimeOptions();
+  renderTimeOptions([]);
   renderDoctorSchedule();
   syncSummary();
 });

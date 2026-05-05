@@ -1,22 +1,22 @@
-import AuthService from "../domain/services/AuthenticationService.js";
+import APIGateway from "../gateway/apiGateway.js";
 
-function guardDashboardAccess() {
-    const currentUser = AuthService.getCurrentUser();
+async function guardDashboardAccess() {
+    const currentUser = await APIGateway.getCurrentUser();
     if (!currentUser) {
-        window.location.href = "logIn.html";
+        window.location.href = "/UI/logIn.html";
         return false;
     }
 
-    if (!AuthService.isAdmin(currentUser)) {
-        window.location.href = "profile.html";
+    if (!APIGateway.isAdmin(currentUser)) {
+        window.location.href = "/UI/profile.html";
         return false;
     }
 
     return true;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (!guardDashboardAccess()) {
+document.addEventListener("DOMContentLoaded", async () => {
+    if (!(await guardDashboardAccess())) {
         return;
     }
 
@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (logoutButton) {
         logoutButton.addEventListener("click", (event) => {
             event.preventDefault();
-            AuthService.logout();
-            window.location.href = "index.html";
+            APIGateway.logout();
+            window.location.href = "/index.html";
         });
     }
 });

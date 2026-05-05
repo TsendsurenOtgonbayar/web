@@ -1,27 +1,46 @@
 import { petCard } from "../components/PetCard.js";
 import { showNotification } from "../utils.js";
-import AuthService from "../domain/services/AuthenticationService.js";
+import APIGateway from "../gateway/apiGateway.js";
 
-const LOGGED_USER_KEY = "LoggedIn";
+let currentUser = null;
 
-function getCurrentUserOrRedirect() {
-    const user = AuthService.getCurrentUser();
+function calculateAgeParts(pet) {
+    if (typeof pet.getAgeInYears === "function") {
+        return { age: pet.getAgeInYears(), month: 0 };
+    }
+
+    const birthYear = Number(pet.birthYear);
+    const birthMonth = Number(pet.birthMonth);
+    if (!birthYear || !birthMonth) {
+        return { age: 0, month: 0 };
+    }
+
+    const now = new Date();
+    let years = now.getFullYear() - birthYear;
+    let months = now.getMonth() + 1 - birthMonth;
+    if (months < 0) {
+        years -= 1;
+        months += 12;
+    }
+
+    return { age: Math.max(0, years), month: Math.max(0, months) };
+}
+
+async function getCurrentUserOrRedirect() {
+    const user = await APIGateway.getCurrentUser();
     if (user) {
-        if (AuthService.isAdmin(user)) {
-            window.location.href = "dashboard.html";
+        if (APIGateway.isAdmin(user)) {
+            window.location.href = "/UI/dashboard.html";
             return null;
         }
         return user;
     }
+
     showNotification("Та эхлээд нэвтэрч орно уу!", "error");
     setTimeout(() => {
-        window.location.href = "logIn.html";
+        window.location.href = "/UI/logIn.html";
     }, 1200);
     return null;
-}
-
-function saveCurrentUser(user) {
-    localStorage.setItem(LOGGED_USER_KEY, JSON.stringify(user));
 }
 
 function renderUserSummary(user) {
@@ -29,8 +48,8 @@ function renderUserSummary(user) {
     const userEmailEl = document.querySelector(".user-info-mini p");
     const avatarEl = document.querySelector(".avatar");
 
-    const displayName = user.Name || user.name || "Ухагдах нэргүй";
-    const displayEmail = user.Email || user.email || "";
+    const displayName = user?.Name || user?.name || "нэргүй";
+    const displayEmail = user?.Email || user?.email || "";
 
     if (userNameEl) {
         userNameEl.textContent = displayName;
@@ -39,7 +58,7 @@ function renderUserSummary(user) {
         userEmailEl.textContent = displayEmail;
     }
     if (avatarEl) {
-        avatarEl.textContent = displayName[0].toUpperCase();
+        avatarEl.textContent = (displayName[0] || "U").toUpperCase();
         avatarEl.style.backgroundColor = "#2b5ba8";
     }
 }
@@ -48,20 +67,24 @@ function getPetGrid() {
     return document.querySelector(".card-grid");
 }
 
-function renderUserPets() {
+async function renderUserPets() {
     const petGrid = getPetGrid();
-    const addPetButton = document.querySelector(".btn-outline");
-    if (!petGrid || !addPetButton) {
+    if (!petGrid || !currentUser) {
         return;
     }
 
-    const user = AuthService.getCurrentUser();
-    const pets = Array.isArray(user?.pets) ? user.pets : [];
+    const dashboard = await APIGateway.getPatientDashboard(currentUser.userId);
+    const pets = Array.isArray(dashboard?.pets) ? dashboard.pets : [];
 
-    petGrid.querySelectorAll(".item-card").forEach((item) => item.remove());
-
+    petGrid.innerHTML = "";
     pets.forEach((pet) => {
-        petGrid.appendChild(petCard(pet));
+        const ageParts = calculateAgeParts(pet);
+        petGrid.appendChild(petCard({
+            Name: pet.name,
+            Type: pet.type,
+            Age: ageParts,
+            Gender: pet.gender
+        }));
     });
 }
 
@@ -78,11 +101,9 @@ function setupLogoutAction() {
             return;
         }
 
-        if (AuthService.logout()) {
-            window.location.href = "index.html";
-            return;
-        }
-        showNotification("Гарахад алдаа гарлаа", "error");
+        APIGateway.logout().then(() => {
+            window.location.href = "/index.html";
+        });
     });
 }
 
@@ -125,15 +146,11 @@ function buildPetFromForm() {
     }
 
     return {
-        id: Math.random(),
-        Name: petNameInput.value.trim(),
-        Type: petTypeInput.value,
-        Age: {
-            age: petAgeInput.value.trim(),
-            month: petMonthInput.value.trim(),
-        },
-        Gender: petGenderInput.value,
-        createdAt: new Date().toISOString(),
+        name: petNameInput.value.trim(),
+        type: petTypeInput.value,
+        birthYear: Number(petAgeInput.value.trim()),
+        birthMonth: Number(petMonthInput.value.trim()),
+        gender: petGenderInput.value,
     };
 }
 
@@ -154,24 +171,21 @@ function setupPetForm() {
         addPetButton.style.display = "none";
     });
 
-    addPetForm.addEventListener("submit", (event) => {
+    addPetForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const newPet = buildPetFromForm();
-        if (!newPet) {
+        if (!newPet || !currentUser) {
             return;
         }
 
-        const user = AuthService.getCurrentUser();
-        if (!user) {
-            showNotification("Хэрэглэгчийн мэдээлэл олдсонгүй", "error");
+        const result = await APIGateway.addPet(currentUser.userId, newPet);
+        if (!result.success) {
+            showNotification(result.errors?.[0] || result.error || "Амьтан бүртгэхэд алдаа гарлаа", "error");
             return;
         }
 
-        user.pets = Array.isArray(user.pets) ? user.pets : [];
-        user.pets.push(newPet);
-        saveCurrentUser(user);
-        renderUserPets();
+        await renderUserPets();
 
         showNotification("✅ Амжилттай бүртгэгдлээ!", "success");
         addPetForm.reset();
@@ -190,43 +204,39 @@ function setupPetForm() {
 }
 
 function exposePageActions() {
-    window.deletePet = function(petId) {
+    window.deletePet = async function(petId) {
         const confirmed = confirm("Та энэ амьтанг устгахдаа итгэлтэй байна уу?");
-        if (!confirmed) {
+        if (!confirmed || !currentUser) {
             return;
         }
 
-        const user = AuthService.getCurrentUser();
-        if (!user || !Array.isArray(user.pets)) {
-            showNotification("Амьтан олдсонгүй", "error");
+        const result = await APIGateway.deletePet(currentUser.userId, petId);
+        if (!result.success) {
+            showNotification(result.error || "Амьтан устгах боломжгүй", "error");
             return;
         }
 
-        const before = user.pets.length;
-        user.pets = user.pets.filter((pet) => pet.id !== petId);
-        if (user.pets.length === before) {
-            showNotification("Амьтан олдсонгүй", "error");
-            return;
-        }
-
-        saveCurrentUser(user);
-        renderUserPets();
+        await renderUserPets();
         showNotification("✅ Амьтан устгагдлаа", "success");
     };
 
-    window.updateProfile = function() {
-        const currentUser = AuthService.getCurrentUser();
+    window.updateProfile = async function() {
         if (!currentUser) {
             return;
         }
 
-        const newName = prompt("Шинэ нэрээ оруулна уу:", currentUser.Name || "");
+        const newName = prompt("Шинэ нэрээ оруулна уу:", currentUser.Name || currentUser.name || "");
         if (!newName || !newName.trim()) {
             return;
         }
 
-        currentUser.Name = newName.trim();
-        saveCurrentUser(currentUser);
+        const result = await APIGateway.updateCurrentUser({ displayName: newName.trim(), Name: newName.trim() });
+        if (!result.success) {
+            showNotification(result.error || "Профайл шинэчлэхэд алдаа гарлаа", "error");
+            return;
+        }
+
+        currentUser = await APIGateway.getCurrentUser();
         renderUserSummary(currentUser);
         showNotification("✅ Профайл шинэчлэгдлээ", "success");
     };
@@ -234,23 +244,23 @@ function exposePageActions() {
 
 function setupStorageSync() {
     window.addEventListener("storage", (event) => {
-        if (event.key === LOGGED_USER_KEY) {
+        if (event.key === "identity_service_current_user") {
             window.location.reload();
         }
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const user = getCurrentUserOrRedirect();
-    if (!user) {
+document.addEventListener("DOMContentLoaded", async () => {
+    currentUser = await getCurrentUserOrRedirect();
+    if (!currentUser) {
         return;
     }
 
-    renderUserSummary(user);
+    renderUserSummary(currentUser);
     setupLogoutAction();
     setupMenuActiveState();
     setupPetForm();
-    renderUserPets();
+    await renderUserPets();
     exposePageActions();
     setupStorageSync();
 });

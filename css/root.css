@@ -115,6 +115,7 @@ header {
   background-color: var(--white);
   flex-wrap: nowrap;
   align-items: center;
+  /* align-content: center; */
   justify-content: space-around;
   border-bottom: var(--border-thin) solid var(--muted-foreground);
   height: var(--header-height);
@@ -123,9 +124,9 @@ header {
   width: 100%;
   z-index: 999;
 }
-header * {
-  align-content: center;
-}
+/* header * {
+  
+} */
 #logo-box {
   width: var(--logo-size);
   height: var(--logo-size);
