@@ -1,3 +1,5 @@
+import { setServiceName } from "../domain/services/storageService.js";
+
 const searchInput = document.getElementById("search-logo");
 const buttons = document.querySelectorAll(".cat-btn");
 const cards = document.querySelectorAll(".card");
@@ -48,5 +50,15 @@ let searchText = "";
 
     // Initial render
     render();
+
+    // Save service name before redirecting to booking
+    cards.forEach((card) => {
+        const bookingButton = card.querySelector("a button");
+        if (!bookingButton) return;
+        bookingButton.addEventListener("click", () => {
+            const title = card.querySelector(".card-title")?.textContent || card.querySelector("h3")?.textContent;
+            if (title) setServiceName(title.trim());
+        });
+    });
      
   
