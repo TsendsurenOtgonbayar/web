@@ -1,0 +1,251 @@
+import APIGateway from "../gateway/apiGateway.js";
+import { showNotification } from "../utils.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const serviceList = document.getElementById("serviceList");
+  const doctorList = document.getElementById("doctorList");
+  const timeList = document.getElementById("timeList");
+  const doctorSchedule = document.getElementById("doctorSchedule");
+  const dateInput = document.getElementById("date");
+  const confirmButton = document.getElementById("confirmBtn");
+  const summaryFields = {
+    service: document.getElementById("c-service"),
+    doctor: document.getElementById("c-doctor"),
+    schedule: document.getElementById("c-schedule"),
+    date: document.getElementById("c-date"),
+    time: document.getElementById("c-time"),
+    price: document.getElementById("c-price"),
+  };
+  const successFields = {
+    service: document.getElementById("s-service"),
+    doctor: document.getElementById("s-doctor"),
+    schedule: document.getElementById("s-schedule"),
+    date: document.getElementById("s-date"),
+    time: document.getElementById("s-time"),
+  };
+
+  if (!serviceList || !doctorList || !timeList || !dateInput || !confirmButton) {
+    return;
+  }
+
+  const state = {
+    selectedService: null,
+    selectedDoctor: null,
+    selectedDate: null,
+    selectedTime: null,
+  };
+
+  function resetDependentSelections() {
+    state.selectedDoctor = null;
+    state.selectedTime = null;
+    doctorList.innerHTML = "";
+    timeList.innerHTML = "";
+    syncSummary();
+  }
+
+  function formatDate(dateValue) {
+    return dateValue || "Сонгоогүй";
+  }
+
+  function syncSummary() {
+    if (summaryFields.service) summaryFields.service.innerText = state.selectedService?.name || "Сонгоогүй";
+    if (summaryFields.doctor) summaryFields.doctor.innerText = state.selectedDoctor || "Сонгоогүй";
+    if (summaryFields.schedule) {
+      const schedule = state.selectedDoctor ? APIGateway.getDoctorSchedule(state.selectedDoctor) : null;
+      summaryFields.schedule.innerText = schedule ? `${schedule.workingDays}, ${schedule.workingHours}` : "Сонгоогүй";
+    }
+    if (summaryFields.date) summaryFields.date.innerText = formatDate(state.selectedDate);
+    if (summaryFields.time) summaryFields.time.innerText = state.selectedTime || "Сонгоогүй";
+    if (summaryFields.price) summaryFields.price.innerText = state.selectedService ? `${state.selectedService.price}₮` : "0₮";
+  }
+
+  function renderDoctorSchedule() {
+    if (!doctorSchedule) {
+      return;
+    }
+
+    if (!state.selectedDoctor) {
+      doctorSchedule.innerHTML = "";
+      return;
+    }
+
+    const schedule = APIGateway.getDoctorSchedule(state.selectedDoctor);
+    if (!schedule) {
+      doctorSchedule.innerHTML = "";
+      return;
+    }
+
+    doctorSchedule.innerHTML = `
+      <div class="doctor-schedule-card">
+        <span>Сонгосон эмчийн ажлын цаг</span>
+        <strong>${state.selectedDoctor}</strong>
+        <p>${schedule.workingDays}</p>
+        <p>${schedule.workingHours}</p>
+      </div>
+    `;
+  }
+
+  function renderServiceOptions() {
+    const services = APIGateway.getServiceOptions();
+    serviceList.innerHTML = services
+      .map(
+        (service) => `
+          <div class="service-item" data-service-id="${service.id}">
+            <h3>${service.name}</h3>
+            <p>${service.price}₮</p>
+            <button type="button">Сонгох</button>
+          </div>
+        `
+      )
+      .join("");
+
+    serviceList.querySelectorAll(".service-item button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const serviceItem = button.closest(".service-item");
+        const serviceId = Number(serviceItem?.dataset.serviceId);
+        const selected = APIGateway.getServiceById(serviceId);
+        if (!serviceItem || !selected) {
+          return;
+        }
+
+        state.selectedService = selected;
+        serviceList.querySelectorAll(".service-item").forEach((item) => item.classList.remove("active"));
+        serviceItem.classList.add("active");
+        resetDependentSelections();
+        renderDoctorOptions();
+        syncSummary();
+      });
+    });
+  }
+
+  function renderDoctorOptions() {
+    if (!state.selectedService) {
+      doctorList.innerHTML = "";
+      return;
+    }
+
+    const doctors = APIGateway.getDoctorOptions(state.selectedService.id);
+    doctorList.innerHTML = doctors
+      .map((doctor) => `<button type="button" data-doctor="${doctor}">${doctor}</button>`)
+      .join("");
+
+    doctorList.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.selectedDoctor = button.dataset.doctor;
+        doctorList.querySelectorAll("button").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        renderDoctorSchedule();
+        syncSummary();
+      });
+    });
+  }
+
+  function renderTimeOptions(times = []) {
+    timeList.innerHTML = times
+      .map((time) => `<button type="button" data-time="${time}">${time}</button>`)
+      .join("");
+
+    timeList.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.selectedTime = button.dataset.time;
+        timeList.querySelectorAll("button").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        syncSummary();
+      });
+    });
+  }
+
+  function autoSelectServiceFromStorage() {
+    const savedName = localStorage.getItem("serviceName");
+    if (!savedName) {
+      return;
+    }
+    const foundService = APIGateway.getServiceByName(savedName);
+    if (!foundService) {
+      return;
+    }
+
+    const targetItem = serviceList.querySelector(`[data-service-id="${foundService.id}"]`);
+    const targetButton = targetItem?.querySelector("button");
+    if (targetButton) {
+      targetButton.click();
+    }
+  }
+
+  async function showConfirmation() {
+    if (!state.selectedService || !state.selectedDoctor || !state.selectedDate || !state.selectedTime) {
+      showNotification("Бүгдийг сонгоно уу!", "pending");
+      return;
+    }
+
+    const currentUser = await APIGateway.getCurrentUser();
+    if (!currentUser) {
+      showNotification("Та эхлээд нэвтэрнэ үү", "error");
+      window.location.href = "logIn.html";
+      return;
+    }
+
+    const bookingResult = await APIGateway.bookAppointment({
+      date: state.selectedDate,
+      time: state.selectedTime,
+      serviceType: state.selectedService.name,
+      doctorId: state.selectedDoctor,
+      notes: `${state.selectedService.name} үйлчилгээ`
+    });
+
+    if (!bookingResult.success) {
+      showNotification(bookingResult.error || bookingResult.errors?.[0] || "Захиалга үүсгэхэд алдаа гарлаа", "error");
+      return;
+    }
+
+    const bookingSection = document.querySelector("main > *:not(#successBox)");
+    const successBox = document.getElementById("successBox");
+    if (bookingSection) {
+      bookingSection.style.display = "none";
+    }
+    if (successBox) {
+      successBox.hidden = false;
+      successBox.style.display = "block";
+    }
+
+    document.getElementById("c-service").innerText = state.selectedService.name;
+    document.getElementById("c-doctor").innerText = state.selectedDoctor;
+    const schedule = APIGateway.getDoctorSchedule(state.selectedDoctor);
+    document.getElementById("c-schedule").innerText = schedule ? `${schedule.workingDays}, ${schedule.workingHours}` : "Сонгоогүй";
+    document.getElementById("c-date").innerText = state.selectedDate;
+    document.getElementById("c-time").innerText = state.selectedTime;
+    document.getElementById("c-price").innerText = `${state.selectedService.price}₮`;
+
+    if (successFields.service) successFields.service.innerText = state.selectedService.name;
+    if (successFields.doctor) successFields.doctor.innerText = state.selectedDoctor;
+    if (successFields.schedule) successFields.schedule.innerText = schedule ? `${schedule.workingDays}, ${schedule.workingHours}` : "Сонгоогүй";
+    if (successFields.date) successFields.date.innerText = state.selectedDate;
+    if (successFields.time) successFields.time.innerText = state.selectedTime;
+  }
+
+  dateInput.addEventListener("change", async (event) => {
+    state.selectedDate = event.target.value;
+    let availableSlots = [];
+
+    if (state.selectedDate) {
+      const res = await APIGateway.getAvailableSlots(null, state.selectedDate);
+      // APIGateway.getAvailableSlots returns an object { success, slots }
+      if (res && Array.isArray(res.slots)) {
+        availableSlots = res.slots;
+      } else if (Array.isArray(res)) {
+        availableSlots = res;
+      }
+    }
+
+    renderTimeOptions(availableSlots);
+    syncSummary();
+  });
+
+  confirmButton.addEventListener("click", showConfirmation);
+
+  renderServiceOptions();
+  autoSelectServiceFromStorage();
+  renderTimeOptions([]);
+  renderDoctorSchedule();
+  syncSummary();
+});

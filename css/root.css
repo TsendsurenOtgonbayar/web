@@ -115,6 +115,7 @@ header {
   background-color: var(--white);
   flex-wrap: nowrap;
   align-items: center;
+  /* align-content: center; */
   justify-content: space-around;
   border-bottom: var(--border-thin) solid var(--muted-foreground);
   height: var(--header-height);
@@ -123,9 +124,9 @@ header {
   width: 100%;
   z-index: 999;
 }
-header * {
-  align-content: center;
-}
+/* header * {
+  
+} */
 #logo-box {
   width: var(--logo-size);
   height: var(--logo-size);
@@ -376,7 +377,7 @@ footer{
 
     /* Өндөр */
     --header-height: 6vh;
-    --service-article-height: calc(3*6vh);
+    --service-article-height: 30vh;
     --service-article-width: 300px;
     --button-height-sm: 32px;
     --button-height-md: 40px;
@@ -502,8 +503,8 @@ footer{
     --radius-xl: 1.2dvh;                       /* 8px → 1.2dvh */
 
     /* Зураг хэмжээ */
-    --hero-image-width: 100%;
-    --hero-image-height: 90vw;
+    --hero-image-width: 70vw;
+    --hero-image-height: 50vh;
 
     /* Font хэмжээ - dvh нэгж ашигласан */
     --font-size-base: 1.95dvh;                 /* 13px → 1.95dvh */

@@ -1,8 +1,4 @@
-header nav a:nth-child(3){
-    color: var(--primary);
-    background-color: var(--sidebar-primary);
-    border-radius: var(--radius-md);
-}
+
 
 .filters-section {
     padding: clamp(1rem, 3vw, 3rem) clamp(3rem, 6vw, 6rem);

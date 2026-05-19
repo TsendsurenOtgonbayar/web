@@ -134,6 +134,7 @@ body{
 .statistic{
     display: flex;
     flex-wrap: nowrap;
+    width: max-content;
     justify-content: space-evenly;
     background-color: var(--primary);
     color: var(--popover-bg);
@@ -165,8 +166,6 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* padding-left: var(--section-padding);
-    padding-right: var(--section-padding); */
     padding: clamp(1rem, 3vw, 3rem) clamp(3rem, 6vw, 6rem);
 }
 #serviceContent p{
@@ -187,6 +186,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     padding-right: var(--spacing-sm);
     padding-left: var(--spacing-sm);
     border-width: var(--border-thin);
@@ -236,9 +236,11 @@ body{
 #serviceContent section:nth-of-type(2) article:hover{
     box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--muted-foreground);
     transform: scale(1.05);
+    transition-duration: 3s;
     border-color: var(--primary);
     div {
         transform: scale(1.05);
+        transition-duration: 1.3s;
     }
     .nunDispley{
         display: none;
@@ -268,6 +270,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 #commentSection div::-webkit-scrollbar{
     display: none;
@@ -348,7 +351,7 @@ svg.filled{
     align-items: start;
     border: var(--border-thin) solid var(--button-light-border);
     border-radius: var(--radius-lg);
-    width: 50%;
+    width: 50vw;
     height: max-content;
     padding-left: var(--spacing-3xl);
     padding-bottom: var(--spacing-md);
@@ -384,8 +387,12 @@ svg.filled{
     display: none;
 }
 @keyframes spinInfinite{
-    from {translate: 100%;}
-    to{translate: -100%;}
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 @media screen and (max-width: 768px) {
 /* Дээд талын header доторх хуучин nav-ыг гар утсан дээр нуух */
