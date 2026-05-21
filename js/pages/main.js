@@ -8,6 +8,7 @@ import aboutUsPage from "./aboutUsPage/aboutUsPage.js";
 import serviceRender from "./servicePage/serviceRender.js";
 import bookingPage from "./bookingPage/bookingPag.js";
 import contactPage from "./contactPage/contactPage.js";
+import renderLoginPage  from "./login/renderLoginPage.js";
 const app = document.querySelector('#app');
 function delMemoryIframe() {
     const iframe = document.querySelector('iframe');
@@ -40,7 +41,7 @@ function router() {
             app.innerHTML = contactPage();
             break;
         case '#login':
-            app.innerHTML = "<h1>Login Page - Coming Soon</h1>";
+            app.innerHTML = renderLoginPage();
             break;
         default:
             app.innerHTML = "<h1>404 Олдсонгүй</h1>";
