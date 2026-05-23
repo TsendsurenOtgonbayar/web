@@ -9,6 +9,10 @@ html{
     padding: 0;
 }
 
+svg {
+   width: 0.875rem;
+}
+
 /* hero css */
 
 .hero {
@@ -62,6 +66,7 @@ html{
 }
 
 .hero-right img {
+    object-fit: cover;
     width: 100%;
     max-width: 700px;
     border-radius: 1rem;
@@ -99,6 +104,7 @@ html{
     gap: 1rem;
 }
 .card {
+    transition: 0.3s ease;
     background: white;
     padding: 1rem;
     border-radius: 12px;
@@ -118,7 +124,6 @@ html{
         color: var(--primary);
     }
 }
-
 .card img {
     width: 64px;
     height: 64px;
@@ -129,8 +134,24 @@ html{
     margin-top: 0.5rem;
     display: flex;
     flex-wrap: nowrap;
-    gap: 5px;
-    font-size: 14px;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    gap: 1rem;
+    font-size: 0.875rem;
+
+    span{
+        display: block; /* Default for divs */
+        align-content: center;
+        text-align: center;
+    }
+    .award-icon {
+        position: relative;
+        top: 0.1rem; /* Icon-ыг тексттэй төвлөрүүлэх */
+    }
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 /* .active {
     border-color: var(--primary);
@@ -139,7 +160,7 @@ html{
 
 
 .doctor-detail-container {
-    max-width: 800px;
+    max-width: 950px;
     margin: 40px auto;
     background: #fff;
     border-radius: 20px;
@@ -198,7 +219,7 @@ html{
 }
 
 .rating-score { font-weight: bold; }
-.rating-count { color: #888; font-size: 14px; }
+.rating-count { color: #888; font-size: var(--font-size-md); }
 
 .doctor-tags {
     display: flex;
@@ -243,6 +264,7 @@ hr.divider {
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 15px;
+    border: 1px solid #f0f0f0;
 }
 
 .review-header {
@@ -266,7 +288,7 @@ hr.divider {
 
 .review-text {
     color: #555;
-    font-size: 14px;
+    font-size: var(--font-size-md);
     line-height: 1.5;
 }
 
@@ -311,7 +333,7 @@ hr.divider {
     border-radius: 8px;
     padding: 15px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: var(--font-size-md);
     resize: none;
     margin-bottom: 15px;
     outline: none;
